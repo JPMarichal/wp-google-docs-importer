@@ -119,9 +119,11 @@ function g2wpi_render_docs_table() {
                     $post_links = '<a href="' . esc_url($view_url) . '" class="g2wpi-action-icon dashicons dashicons-visibility" title="Ver" target="_blank" style="color:#0073aa;"></a>';
                     $post_links .= '<a href="' . esc_url($edit_url) . '" class="g2wpi-action-icon dashicons dashicons-edit" title="Editar" target="_blank" style="color:#dba617;"></a>';
                     $post_links .= '<a href="' . esc_url($delete_url) . '" class="g2wpi-action-icon dashicons dashicons-trash" title="Eliminar" onclick="return confirm(\'¿Seguro que deseas eliminar este post importado?\');" style="color:#dc3232;"></a>';
-                    $accion = 'Importado';
+                    $accion = '<span class="dashicons dashicons-yes-alt" style="color:#46b450;vertical-align:middle;"></span> Importado';
                     $fecha = $imported->imported_at;
                 }
+            } else {
+                $accion = '<span class="dashicons dashicons-clock" style="color:#0073aa;vertical-align:middle;"></span> <a href="' . admin_url('admin.php?page=g2wpi-importador&import=' . $doc['id']) . '" class="button">Importar</a>';
             }
             $doc_url = 'https://docs.google.com/document/d/' . $doc['id'] . '/edit';
             $nombre = '<a href="' . esc_url($doc_url) . '" target="_blank" rel="noopener noreferrer">' . esc_html($doc['name']) . '</a>';
