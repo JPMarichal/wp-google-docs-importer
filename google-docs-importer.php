@@ -98,3 +98,15 @@ add_action('admin_init', function() {
         }
     }
 });
+
+// Hook para refrescar el listado automáticamente si no hay datos en el transient
+add_action('admin_init', function() {
+    if (isset($_GET['page']) && $_GET['page'] === 'g2wpi-importador') {
+        $docs = get_transient('g2wpi_drive_docs');
+        if (!$docs || !is_array($docs)) {
+            if (class_exists('G2WPI_Drive') && method_exists('G2WPI_Drive', 'fetch_drive_documents')) {
+                G2WPI_Drive::fetch_drive_documents();
+            }
+        }
+    }
+});
