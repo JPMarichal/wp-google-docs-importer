@@ -37,6 +37,22 @@ class G2WPI_Docs_Table {
                     } else {
                         return $importedB - $importedA;
                     }
+                } else if ($orderby === 'status') {
+                    // Obtener status de cada post (si existe)
+                    $statusA = '';
+                    $statusB = '';
+                    $importedA = $wpdb->get_row($wpdb->prepare("SELECT * FROM " . G2WPI_TABLE_NAME . " WHERE google_doc_id = %s", $a['id']));
+                    $importedB = $wpdb->get_row($wpdb->prepare("SELECT * FROM " . G2WPI_TABLE_NAME . " WHERE google_doc_id = %s", $b['id']));
+                    if ($importedA && $importedA->post_id) {
+                        $postA = get_post($importedA->post_id);
+                        $statusA = $postA ? $postA->post_status : '';
+                    }
+                    if ($importedB && $importedB->post_id) {
+                        $postB = get_post($importedB->post_id);
+                        $statusB = $postB ? $postB->post_status : '';
+                    }
+                    $cmp = strcasecmp($statusA, $statusB);
+                    return $order === 'asc' ? $cmp : -$cmp;
                 } else {
                     $valA = isset($a[$orderby]) ? $a[$orderby] : '';
                     $valB = isset($b[$orderby]) ? $b[$orderby] : '';
@@ -56,11 +72,13 @@ class G2WPI_Docs_Table {
         $name_arrow = ($orderby === 'name') ? ($order === 'asc' ? ' <span style="font-size:12px">&#9650;</span>' : ' <span style="font-size:12px">&#9660;</span>') : '';
         $import_order = ($orderby === 'imported' && $order === 'asc') ? 'desc' : 'asc';
         $import_arrow = ($orderby === 'imported') ? ($order === 'asc' ? ' <span style="font-size:12px">&#9650;</span>' : ' <span style="font-size:12px">&#9660;</span>') : '';
+        $status_order = ($orderby === 'status' && $order === 'asc') ? 'desc' : 'asc';
+        $status_arrow = ($orderby === 'status') ? ($order === 'asc' ? ' <span style="font-size:12px">&#9650;</span>' : ' <span style="font-size:12px">&#9660;</span>') : '';
         echo '<thead><tr>';
         echo '<th><a href="' . add_query_arg(['orderby' => 'name', 'order' => $name_order], $current_url) . '">Nombre' . $name_arrow . '</a></th>';
         echo '<th class="g2wpi-center"><a href="' . add_query_arg(['orderby' => 'imported', 'order' => $import_order], $current_url) . '">Importación' . $import_arrow . '</a></th>';
         echo '<th class="g2wpi-center">Acciones</th>';
-        echo '<th class="g2wpi-center">Status</th>';
+        echo '<th class="g2wpi-center"><a href="' . add_query_arg(['orderby' => 'status', 'order' => $status_order], $current_url) . '">Status' . $status_arrow . '</a></th>';
         echo '<th>Tipo</th>';
         echo '<th>Categoría</th>';
         echo '<th>Fecha</th>';
