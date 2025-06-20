@@ -25,11 +25,24 @@ class G2WPI_Docs_Table {
         $order = isset($_GET['order']) && strtolower($_GET['order']) === 'desc' ? 'desc' : 'asc';
         // Ordenar los documentos por nombre
         if ($docs && is_array($docs)) {
-            usort($docs, function($a, $b) use ($orderby, $order) {
-                $valA = isset($a[$orderby]) ? $a[$orderby] : '';
-                $valB = isset($b[$orderby]) ? $b[$orderby] : '';
-                $cmp = strcasecmp($valA, $valB);
-                return $order === 'asc' ? $cmp : -$cmp;
+            usort($docs, function($a, $b) use ($orderby, $order, $wpdb) {
+                if ($orderby === 'imported') {
+                    // Buscar si cada doc está importado
+                    $importedA = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM " . G2WPI_TABLE_NAME . " WHERE google_doc_id = %s", $a['id']));
+                    $importedB = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM " . G2WPI_TABLE_NAME . " WHERE google_doc_id = %s", $b['id']));
+                    // Importados primero si desc, no importados primero si asc
+                    if ($importedA == $importedB) return 0;
+                    if ($order === 'asc') {
+                        return $importedA - $importedB;
+                    } else {
+                        return $importedB - $importedA;
+                    }
+                } else {
+                    $valA = isset($a[$orderby]) ? $a[$orderby] : '';
+                    $valB = isset($b[$orderby]) ? $b[$orderby] : '';
+                    $cmp = strcasecmp($valA, $valB);
+                    return $order === 'asc' ? $cmp : -$cmp;
+                }
             });
         }
         $total_docs = is_array($docs) ? count($docs) : 0;
