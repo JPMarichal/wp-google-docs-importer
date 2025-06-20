@@ -40,24 +40,19 @@ function g2wpi_render_admin_page() {
     echo '<div class="wrap">';
     echo '<h1>Google Docs Importer</h1>';
 
-    if (isset($_POST['g2wpi_refresh_list'])) {
-        g2wpi_fetch_drive_documents();
-    }
+    echo '<button id="g2wpi-refresh-list-btn" class="button button-secondary">Actualizar listado</button>';
+    echo '<div id="g2wpi-docs-table">';
+    g2wpi_render_docs_table();
+    echo '</div>';
+    echo '</div>';
+}
 
-    if (isset($_GET['import'])) {
-        $doc_id = sanitize_text_field($_GET['import']);
-        g2wpi_import_google_doc($doc_id);
-    }
-
-    echo '<form method="post"><input type="submit" name="g2wpi_refresh_list" class="button button-secondary" value="Actualizar listado"></form>';
-
+function g2wpi_render_docs_table() {
+    global $wpdb;
+    $docs = get_transient('g2wpi_drive_docs');
     echo '<table class="wp-list-table widefat fixed striped">';
     echo '<thead><tr><th>ID</th><th>Google Doc ID</th><th>Nombre</th><th>Post asociado</th><th>Fecha</th><th>Acciones</th></tr></thead>';
     echo '<tbody>';
-
-    $docs = get_transient('g2wpi_drive_docs');
-    global $wpdb;
-
     if (!$docs || !is_array($docs)) {
         echo '<tr><td colspan="6">Haz clic en "Actualizar listado" para obtener los documentos.</td></tr>';
     } else {
@@ -66,7 +61,6 @@ function g2wpi_render_admin_page() {
             $post_link = $imported ? '<a href="' . get_edit_post_link($imported->post_id) . '" target="_blank">Ver post</a>' : '—';
             $fecha = $imported ? $imported->imported_at : '—';
             $accion = $imported ? 'Importado' : '<a href="' . admin_url('admin.php?page=g2wpi-importador&import=' . $doc['id']) . '" class="button">Importar</a>';
-
             echo '<tr>';
             echo '<td>' . esc_html($doc['id']) . '</td>';
             echo '<td>' . esc_html($doc['id']) . '</td>';
@@ -78,8 +72,20 @@ function g2wpi_render_admin_page() {
         }
     }
     echo '</tbody></table>';
-    echo '</div>';
 }
+
+add_action('wp_ajax_g2wpi_refresh_list_ajax', 'g2wpi_refresh_list_ajax');
+function g2wpi_refresh_list_ajax() {
+    g2wpi_fetch_drive_documents();
+    g2wpi_render_docs_table();
+    wp_die();
+}
+
+add_action('admin_enqueue_scripts', function($hook) {
+    if ($hook === 'toplevel_page_g2wpi-importador') {
+        wp_enqueue_script('g2wpi-admin-js', G2WPI_PLUGIN_URL . 'assets/admin.js', ['jquery'], null, true);
+    }
+});
 
 function g2wpi_import_google_doc($doc_id) {
     $settings = get_option(G2WPI_OPTION_NAME);
