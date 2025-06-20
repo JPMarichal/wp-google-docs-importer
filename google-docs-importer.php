@@ -8,6 +8,8 @@
 
 if (!defined('ABSPATH')) exit;
 
+error_log('G2WPI DEBUG: Plugin google-docs-importer.php cargado');
+
 define('G2WPI_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('G2WPI_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('G2WPI_TABLE_NAME', $GLOBALS['wpdb']->prefix . 'google_docs_importados');
@@ -83,7 +85,8 @@ function g2wpi_render_settings_page() {
     echo '</div>';
 }
 
-// Redirigir importación a la clase
-if (isset($_GET['import']) && current_user_can('manage_options')) {
-    G2WPI_Drive::import_google_doc(sanitize_text_field($_GET['import']));
-}
+add_action('admin_init', function() {
+    if (isset($_GET['import']) && current_user_can('manage_options')) {
+        G2WPI_Drive::import_google_doc(sanitize_text_field($_GET['import']));
+    }
+});
