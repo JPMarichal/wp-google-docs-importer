@@ -20,12 +20,36 @@ class G2WPI_Docs_Table {
         </style>';
         echo '<span class="g2wpi-table-sep"></span>';
         $docs = get_transient('g2wpi_drive_docs');
+        // Obtener parámetros de ordenamiento
+        $orderby = isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'name';
+        $order = isset($_GET['order']) && strtolower($_GET['order']) === 'desc' ? 'desc' : 'asc';
+        // Ordenar los documentos por nombre
+        if ($docs && is_array($docs)) {
+            usort($docs, function($a, $b) use ($orderby, $order) {
+                $valA = isset($a[$orderby]) ? $a[$orderby] : '';
+                $valB = isset($b[$orderby]) ? $b[$orderby] : '';
+                $cmp = strcasecmp($valA, $valB);
+                return $order === 'asc' ? $cmp : -$cmp;
+            });
+        }
         $total_docs = is_array($docs) ? count($docs) : 0;
         $paged = isset($_GET['paged']) ? max(1, intval($_GET['paged'])) : 1;
         $offset = ($paged - 1) * $per_page;
         $docs_page = ($docs && is_array($docs)) ? array_slice($docs, $offset, $per_page) : [];
         echo '<table class="wp-list-table widefat fixed striped">';
-        echo '<thead><tr><th>Nombre</th><th class="g2wpi-center">Importación</th><th class="g2wpi-center">Acciones</th><th class="g2wpi-center">Status</th><th>Tipo</th><th>Categoría</th><th>Fecha</th></tr></thead>';
+        // Encabezado con ordenamiento para Nombre
+        $current_url = esc_url_raw(remove_query_arg(['orderby', 'order', 'paged']));
+        $name_order = ($orderby === 'name' && $order === 'asc') ? 'desc' : 'asc';
+        $name_arrow = ($orderby === 'name') ? ($order === 'asc' ? ' <span style="font-size:12px">&#9650;</span>' : ' <span style="font-size:12px">&#9660;</span>') : '';
+        echo '<thead><tr>';
+        echo '<th><a href="' . add_query_arg(['orderby' => 'name', 'order' => $name_order], $current_url) . '">Nombre' . $name_arrow . '</a></th>';
+        echo '<th class="g2wpi-center">Importación</th>';
+        echo '<th class="g2wpi-center">Acciones</th>';
+        echo '<th class="g2wpi-center">Status</th>';
+        echo '<th>Tipo</th>';
+        echo '<th>Categoría</th>';
+        echo '<th>Fecha</th>';
+        echo '</tr></thead>';
         echo '<tbody>';
         if (!$docs || !is_array($docs)) {
             echo '<tr><td colspan="7">Haz clic en "Actualizar listado" para obtener los documentos.</td></tr>';
