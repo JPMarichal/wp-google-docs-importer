@@ -7,18 +7,24 @@ if (!defined('ABSPATH')) exit;
 class G2WPI_Docs_Table {
     public static function render() {
         global $wpdb;
+        $config = require G2WPI_PLUGIN_DIR . 'includes/g2wpi-config.php';
+        $per_page = isset($config['docs_per_page']) ? (int)$config['docs_per_page'] : 20;
         wp_enqueue_style('dashicons');
         wp_enqueue_style('g2wpi-admin-icons', G2WPI_PLUGIN_URL . 'assets/css/g2wpi-admin-icons.css');
         echo '<style>.g2wpi-table-actions { text-align: center; } .g2wpi-action-icon { margin-right: 8px; } .g2wpi-action-icon:last-child { margin-right: 0; } .g2wpi-table-sep { margin-bottom: 18px; display: block; } th.g2wpi-center { text-align: center !important; } .g2wpi-status { text-align: center; font-weight: normal; } .g2wpi-status-publish { color: #46b450; } .g2wpi-status-draft { color: #dba617; } .g2wpi-status-trash { color: #dc3232; } .g2wpi-status-pending { color: #0073aa; } </style>';
         echo '<span class="g2wpi-table-sep"></span>';
         $docs = get_transient('g2wpi_drive_docs');
+        $total_docs = is_array($docs) ? count($docs) : 0;
+        $paged = isset($_GET['paged']) ? max(1, intval($_GET['paged'])) : 1;
+        $offset = ($paged - 1) * $per_page;
+        $docs_page = ($docs && is_array($docs)) ? array_slice($docs, $offset, $per_page) : [];
         echo '<table class="wp-list-table widefat fixed striped">';
         echo '<thead><tr><th>Nombre</th><th class="g2wpi-center">Importación</th><th class="g2wpi-center">Acciones</th><th class="g2wpi-center">Status</th><th>Fecha</th></tr></thead>';
         echo '<tbody>';
         if (!$docs || !is_array($docs)) {
             echo '<tr><td colspan="4">Haz clic en "Actualizar listado" para obtener los documentos.</td></tr>';
         } else {
-            foreach ($docs as $doc) {
+            foreach ($docs_page as $doc) {
                 list($accion, $post_links, $status_label, $status_class, $status_icon, $fecha) = self::get_doc_row($doc);
                 $doc_url = 'https://docs.google.com/document/d/' . $doc['id'] . '/edit';
                 $nombre = '<a href="' . esc_url($doc_url) . '" target="_blank" rel="noopener noreferrer">' . esc_html($doc['name']) . '</a>';
@@ -32,6 +38,18 @@ class G2WPI_Docs_Table {
             }
         }
         echo '</tbody></table>';
+        // Paginación
+        if ($docs && is_array($docs) && $total_docs > $per_page) {
+            $total_pages = ceil($total_docs / $per_page);
+            $base_url = remove_query_arg('paged');
+            echo '<div class="tablenav"><div class="tablenav-pages">';
+            for ($i = 1; $i <= $total_pages; $i++) {
+                $url = esc_url(add_query_arg('paged', $i, $base_url));
+                $class = ($i == $paged) ? ' class="current-page"' : '';
+                echo '<a href="' . $url . '"' . $class . ' style="margin:0 4px;">' . $i . '</a>';
+            }
+            echo '</div></div>';
+        }
     }
 
     private static function get_doc_row($doc) {

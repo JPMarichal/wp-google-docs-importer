@@ -24,6 +24,8 @@ require_once G2WPI_PLUGIN_DIR . 'includes/class-g2wpi-drive.php';
 require_once G2WPI_PLUGIN_DIR . 'includes/class-g2wpi-ajax.php';
 require_once G2WPI_PLUGIN_DIR . 'includes/class-g2wpi-db.php';
 require_once G2WPI_PLUGIN_DIR . 'includes/Admin/class-g2wpi-docs-table.php';
+require_once G2WPI_PLUGIN_DIR . 'includes/g2wpi-config.php';
+$config = require G2WPI_PLUGIN_DIR . 'includes/g2wpi-config.php';
 
 register_activation_hook(__FILE__, ['G2WPI_DB', 'create_table']);
 
