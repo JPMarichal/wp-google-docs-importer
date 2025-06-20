@@ -69,6 +69,52 @@ class G2WPI_Docs_Table {
                     }
                     $cmp = strcasecmp($typeA, $typeB);
                     return $order === 'asc' ? $cmp : -$cmp;
+                } else if ($orderby === 'category') {
+                    // Obtener categoría principal o término principal
+                    $catA = '';
+                    $catB = '';
+                    $importedA = $wpdb->get_row($wpdb->prepare("SELECT * FROM " . G2WPI_TABLE_NAME . " WHERE google_doc_id = %s", $a['id']));
+                    $importedB = $wpdb->get_row($wpdb->prepare("SELECT * FROM " . G2WPI_TABLE_NAME . " WHERE google_doc_id = %s", $b['id']));
+                    if ($importedA && $importedA->post_id) {
+                        $postA = get_post($importedA->post_id);
+                        if ($postA) {
+                            if ($postA->post_type === 'post') {
+                                $cats = get_the_category($postA->ID);
+                                $catA = (!empty($cats)) ? $cats[0]->name : '';
+                            } else {
+                                $taxonomies = get_object_taxonomies($postA->post_type, 'objects');
+                                $main_tax = null;
+                                foreach ($taxonomies as $tax) {
+                                    if ($tax->hierarchical) { $main_tax = $tax->name; break; }
+                                }
+                                if ($main_tax) {
+                                    $terms = get_the_terms($postA->ID, $main_tax);
+                                    $catA = (!empty($terms) && !is_wp_error($terms)) ? $terms[0]->name : '';
+                                }
+                            }
+                        }
+                    }
+                    if ($importedB && $importedB->post_id) {
+                        $postB = get_post($importedB->post_id);
+                        if ($postB) {
+                            if ($postB->post_type === 'post') {
+                                $cats = get_the_category($postB->ID);
+                                $catB = (!empty($cats)) ? $cats[0]->name : '';
+                            } else {
+                                $taxonomies = get_object_taxonomies($postB->post_type, 'objects');
+                                $main_tax = null;
+                                foreach ($taxonomies as $tax) {
+                                    if ($tax->hierarchical) { $main_tax = $tax->name; break; }
+                                }
+                                if ($main_tax) {
+                                    $terms = get_the_terms($postB->ID, $main_tax);
+                                    $catB = (!empty($terms) && !is_wp_error($terms)) ? $terms[0]->name : '';
+                                }
+                            }
+                        }
+                    }
+                    $cmp = strcasecmp($catA, $catB);
+                    return $order === 'asc' ? $cmp : -$cmp;
                 } else {
                     $valA = isset($a[$orderby]) ? $a[$orderby] : '';
                     $valB = isset($b[$orderby]) ? $b[$orderby] : '';
@@ -92,13 +138,15 @@ class G2WPI_Docs_Table {
         $status_arrow = ($orderby === 'status') ? ($order === 'asc' ? ' <span style="font-size:12px">&#9650;</span>' : ' <span style="font-size:12px">&#9660;</span>') : '';
         $type_order = ($orderby === 'type' && $order === 'asc') ? 'desc' : 'asc';
         $type_arrow = ($orderby === 'type') ? ($order === 'asc' ? ' <span style="font-size:12px">&#9650;</span>' : ' <span style="font-size:12px">&#9660;</span>') : '';
+        $category_order = ($orderby === 'category' && $order === 'asc') ? 'desc' : 'asc';
+        $category_arrow = ($orderby === 'category') ? ($order === 'asc' ? ' <span style="font-size:12px">&#9650;</span>' : ' <span style="font-size:12px">&#9660;</span>') : '';
         echo '<thead><tr>';
         echo '<th><a href="' . add_query_arg(['orderby' => 'name', 'order' => $name_order], $current_url) . '">Nombre' . $name_arrow . '</a></th>';
         echo '<th class="g2wpi-center"><a href="' . add_query_arg(['orderby' => 'imported', 'order' => $import_order], $current_url) . '">Importación' . $import_arrow . '</a></th>';
         echo '<th class="g2wpi-center">Acciones</th>';
         echo '<th class="g2wpi-center"><a href="' . add_query_arg(['orderby' => 'status', 'order' => $status_order], $current_url) . '">Status' . $status_arrow . '</a></th>';
         echo '<th><a href="' . add_query_arg(['orderby' => 'type', 'order' => $type_order], $current_url) . '">Tipo' . $type_arrow . '</a></th>';
-        echo '<th>Categoría</th>';
+        echo '<th><a href="' . add_query_arg(['orderby' => 'category', 'order' => $category_order], $current_url) . '">Categoría' . $category_arrow . '</a></th>';
         echo '<th>Fecha</th>';
         echo '</tr></thead>';
         echo '<tbody>';
