@@ -46,9 +46,9 @@ function g2wpi_render_docs_table() {
     echo '<a href="' . esc_url(admin_url('admin.php?page=g2wpi-importador&refresh=1')) . '" class="button button-secondary" style="margin-left:18px;">'
         . '<span class="dashicons dashicons-update" style="vertical-align:middle;margin-right:4px;"></span>Actualizar listado</a>';
     echo '</div>';
-    // Barra de búsqueda justo debajo del título y botón
-    echo '<div style="margin-bottom:18px;max-width:400px;">'
-        .'<input type="text" id="g2wpi-search-docs" class="regular-text" placeholder="Buscar por nombre de documento..." autocomplete="off" style="width:100%;padding:8px;">'
+    // Barra de búsqueda justo debajo del título y botón, estilizada
+    echo '<div style="margin-bottom:18px;max-width:520px;">'
+        .'<input type="text" id="g2wpi-search-docs" class="regular-text" placeholder="Buscar por nombre de documento..." autocomplete="off" style="width:100%;height:32px;min-height:unset;max-height:32px;font-size:15px;padding:3px 12px;border-radius:4px;border:1px solid #ccd0d4;box-sizing:border-box;">'
         .'</div>';
     G2WPI_Docs_Table::render();
 }

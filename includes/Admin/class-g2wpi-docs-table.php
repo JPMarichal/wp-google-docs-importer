@@ -25,13 +25,13 @@ class G2WPI_Docs_Table {
         $offset = ($paged - 1) * $per_page;
         $docs_page = ($docs && is_array($docs)) ? array_slice($docs, $offset, $per_page) : [];
         echo '<table class="wp-list-table widefat fixed striped">';
-        echo '<thead><tr><th>Nombre</th><th class="g2wpi-center">Importación</th><th class="g2wpi-center">Acciones</th><th class="g2wpi-center">Status</th><th>Fecha</th></tr></thead>';
+        echo '<thead><tr><th>Nombre</th><th class="g2wpi-center">Importación</th><th class="g2wpi-center">Acciones</th><th class="g2wpi-center">Status</th><th>Tipo</th><th>Fecha</th></tr></thead>';
         echo '<tbody>';
         if (!$docs || !is_array($docs)) {
-            echo '<tr><td colspan="4">Haz clic en "Actualizar listado" para obtener los documentos.</td></tr>';
+            echo '<tr><td colspan="6">Haz clic en "Actualizar listado" para obtener los documentos.</td></tr>';
         } else {
             foreach ($docs_page as $doc) {
-                list($accion, $post_links, $status_label, $status_class, $status_icon, $fecha) = self::get_doc_row($doc);
+                list($accion, $post_links, $status_label, $status_class, $status_icon, $post_type_label, $fecha) = self::get_doc_row($doc);
                 $doc_url = 'https://docs.google.com/document/d/' . $doc['id'] . '/edit';
                 $nombre = '<a href="' . esc_url($doc_url) . '" target="_blank" rel="noopener noreferrer">' . esc_html($doc['name']) . '</a>';
                 echo '<tr>';
@@ -39,6 +39,7 @@ class G2WPI_Docs_Table {
                 echo '<td class="g2wpi-table-actions">' . $accion . '</td>';
                 echo '<td class="g2wpi-table-actions">' . $post_links . '</td>';
                 echo '<td class="g2wpi-status ' . esc_attr($status_class) . '">' . $status_icon . esc_html($status_label) . '</td>';
+                echo '<td>' . esc_html($post_type_label) . '</td>';
                 echo '<td>' . esc_html($fecha) . '</td>';
                 echo '</tr>';
             }
@@ -89,6 +90,7 @@ class G2WPI_Docs_Table {
         $post_links = '—';
         $accion = '<span class="dashicons dashicons-clock" style="color:#0073aa;vertical-align:middle;"></span> <a href="' . admin_url('admin.php?page=g2wpi-importador&import=' . $doc['id']) . '" class="button">Importar</a>';
         $fecha = '—';
+        $post_type_label = '—';
         if ($imported) {
             $post_id = $imported->post_id;
             $post = get_post($post_id);
@@ -154,8 +156,9 @@ class G2WPI_Docs_Table {
                 $post_links .= '<a href="' . esc_url($delete_url) . '" class="g2wpi-action-icon dashicons dashicons-trash" title="Eliminar" onclick="return confirm(\'¿Seguro que deseas eliminar este post importado?\');" style="color:#dc3232;"></a>';
                 $accion = '<span class="dashicons dashicons-yes-alt" style="color:#46b450;vertical-align:middle;"></span> Importado';
                 $fecha = $imported->imported_at;
+                $post_type_label = ($post->post_type === 'post') ? 'post' : $post->post_type;
             }
         }
-        return [$accion, $post_links, $status_label, $status_class, $status_icon, $fecha];
+        return [$accion, $post_links, $status_label, $status_class, $status_icon, $post_type_label, $fecha];
     }
 }
