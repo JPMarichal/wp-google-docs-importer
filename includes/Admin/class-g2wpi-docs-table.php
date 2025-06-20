@@ -25,13 +25,13 @@ class G2WPI_Docs_Table {
         $offset = ($paged - 1) * $per_page;
         $docs_page = ($docs && is_array($docs)) ? array_slice($docs, $offset, $per_page) : [];
         echo '<table class="wp-list-table widefat fixed striped">';
-        echo '<thead><tr><th>Nombre</th><th class="g2wpi-center">Importación</th><th class="g2wpi-center">Acciones</th><th class="g2wpi-center">Status</th><th>Tipo</th><th>Fecha</th></tr></thead>';
+        echo '<thead><tr><th>Nombre</th><th class="g2wpi-center">Importación</th><th class="g2wpi-center">Acciones</th><th class="g2wpi-center">Status</th><th>Tipo</th><th>Categoría</th><th>Fecha</th></tr></thead>';
         echo '<tbody>';
         if (!$docs || !is_array($docs)) {
-            echo '<tr><td colspan="6">Haz clic en "Actualizar listado" para obtener los documentos.</td></tr>';
+            echo '<tr><td colspan="7">Haz clic en "Actualizar listado" para obtener los documentos.</td></tr>';
         } else {
             foreach ($docs_page as $doc) {
-                list($accion, $post_links, $status_label, $status_class, $status_icon, $post_type_label, $fecha) = self::get_doc_row($doc);
+                list($accion, $post_links, $status_label, $status_class, $status_icon, $post_type_label, $category_label, $fecha) = self::get_doc_row($doc);
                 $doc_url = 'https://docs.google.com/document/d/' . $doc['id'] . '/edit';
                 $nombre = '<a href="' . esc_url($doc_url) . '" target="_blank" rel="noopener noreferrer">' . esc_html($doc['name']) . '</a>';
                 echo '<tr>';
@@ -40,6 +40,7 @@ class G2WPI_Docs_Table {
                 echo '<td class="g2wpi-table-actions">' . $post_links . '</td>';
                 echo '<td class="g2wpi-status ' . esc_attr($status_class) . '">' . $status_icon . esc_html($status_label) . '</td>';
                 echo '<td>' . esc_html($post_type_label) . '</td>';
+                echo '<td>' . esc_html($category_label) . '</td>';
                 echo '<td>' . esc_html($fecha) . '</td>';
                 echo '</tr>';
             }
@@ -91,6 +92,7 @@ class G2WPI_Docs_Table {
         $accion = '<span class="dashicons dashicons-clock" style="color:#0073aa;vertical-align:middle;"></span> <a href="' . admin_url('admin.php?page=g2wpi-importador&import=' . $doc['id']) . '" class="button">Importar</a>';
         $fecha = '—';
         $post_type_label = '—';
+        $category_label = '—';
         if ($imported) {
             $post_id = $imported->post_id;
             $post = get_post($post_id);
@@ -157,8 +159,34 @@ class G2WPI_Docs_Table {
                 $accion = '<span class="dashicons dashicons-yes-alt" style="color:#46b450;vertical-align:middle;"></span> Importado';
                 $fecha = $imported->imported_at;
                 $post_type_label = ($post->post_type === 'post') ? 'post' : $post->post_type;
+                // Obtener categoría principal (solo para posts estándar)
+                if ($post->post_type === 'post') {
+                    $cats = get_the_category($post_id);
+                    if (!empty($cats)) {
+                        $category_label = $cats[0]->name;
+                    } else {
+                        $category_label = 'Sin categoría';
+                    }
+                } else {
+                    // Para CPT, intentar obtener la taxonomía principal si existe
+                    $taxonomies = get_object_taxonomies($post->post_type, 'objects');
+                    $main_tax = null;
+                    foreach ($taxonomies as $tax) {
+                        if ($tax->hierarchical) { $main_tax = $tax->name; break; }
+                    }
+                    if ($main_tax) {
+                        $terms = get_the_terms($post_id, $main_tax);
+                        if (!empty($terms) && !is_wp_error($terms)) {
+                            $category_label = $terms[0]->name;
+                        } else {
+                            $category_label = 'Sin término';
+                        }
+                    } else {
+                        $category_label = '—';
+                    }
+                }
             }
         }
-        return [$accion, $post_links, $status_label, $status_class, $status_icon, $post_type_label, $fecha];
+        return [$accion, $post_links, $status_label, $status_class, $status_icon, $post_type_label, $category_label, $fecha];
     }
 }
