@@ -11,7 +11,13 @@ class G2WPI_Docs_Table {
         $per_page = isset($config['docs_per_page']) ? (int)$config['docs_per_page'] : 20;
         wp_enqueue_style('dashicons');
         wp_enqueue_style('g2wpi-admin-icons', G2WPI_PLUGIN_URL . 'assets/css/g2wpi-admin-icons.css');
-        echo '<style>.g2wpi-table-actions { text-align: center; } .g2wpi-action-icon { margin-right: 8px; } .g2wpi-action-icon:last-child { margin-right: 0; } .g2wpi-table-sep { margin-bottom: 18px; display: block; } th.g2wpi-center { text-align: center !important; } .g2wpi-status { text-align: center; font-weight: normal; } .g2wpi-status-publish { color: #46b450; } .g2wpi-status-draft { color: #dba617; } .g2wpi-status-trash { color: #dc3232; } .g2wpi-status-pending { color: #0073aa; } </style>';
+        echo '<style>
+            .g2wpi-pagination { display: flex; justify-content: center; align-items: center; margin: 18px 0; gap: 4px; flex-wrap: wrap; }
+            .g2wpi-pagination a, .g2wpi-pagination span { padding: 4px 10px; border-radius: 4px; border: 1px solid #ddd; background: #fff; color: #0073aa; text-decoration: none; margin: 0 2px; font-weight: 500; transition: background 0.2s, color 0.2s; }
+            .g2wpi-pagination a:hover { background: #0073aa; color: #fff; }
+            .g2wpi-pagination .current-page { background: #0073aa; color: #fff; border-color: #0073aa; cursor: default; }
+            .g2wpi-pagination .g2wpi-ellipsis { border: none; background: none; color: #888; cursor: default; }
+        </style>';
         echo '<span class="g2wpi-table-sep"></span>';
         $docs = get_transient('g2wpi_drive_docs');
         $total_docs = is_array($docs) ? count($docs) : 0;
@@ -38,17 +44,39 @@ class G2WPI_Docs_Table {
             }
         }
         echo '</tbody></table>';
-        // Paginación
+        // Paginación amigable
         if ($docs && is_array($docs) && $total_docs > $per_page) {
             $total_pages = ceil($total_docs / $per_page);
             $base_url = remove_query_arg('paged');
-            echo '<div class="tablenav"><div class="tablenav-pages">';
-            for ($i = 1; $i <= $total_pages; $i++) {
-                $url = esc_url(add_query_arg('paged', $i, $base_url));
-                $class = ($i == $paged) ? ' class="current-page"' : '';
-                echo '<a href="' . $url . '"' . $class . ' style="margin:0 4px;">' . $i . '</a>';
+            echo '<div class="g2wpi-pagination">';
+            $show = 2; // páginas visibles a la izquierda y derecha
+            $ellipsis = false;
+            // Botón anterior
+            if ($paged > 1) {
+                $prev_url = esc_url(add_query_arg('paged', $paged - 1, $base_url));
+                echo '<a href="' . $prev_url . '" title="Anterior">&laquo;</a>';
             }
-            echo '</div></div>';
+            for ($i = 1; $i <= $total_pages; $i++) {
+                if ($i == 1 || $i == $total_pages || ($i >= $paged - $show && $i <= $paged + $show)) {
+                    $url = esc_url(add_query_arg('paged', $i, $base_url));
+                    $class = ($i == $paged) ? 'current-page' : '';
+                    if ($i == $paged) {
+                        echo '<span class="current-page">' . $i . '</span>';
+                    } else {
+                        echo '<a href="' . $url . '" class="' . $class . '">' . $i . '</a>';
+                    }
+                    $ellipsis = false;
+                } elseif (!$ellipsis) {
+                    echo '<span class="g2wpi-ellipsis">…</span>';
+                    $ellipsis = true;
+                }
+            }
+            // Botón siguiente
+            if ($paged < $total_pages) {
+                $next_url = esc_url(add_query_arg('paged', $paged + 1, $base_url));
+                echo '<a href="' . $next_url . '" title="Siguiente">&raquo;</a>';
+            }
+            echo '</div>';
         }
     }
 
