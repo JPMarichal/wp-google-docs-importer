@@ -76,6 +76,8 @@ class G2WPI_Drive {
         if (preg_match('/<body[^>]*>(.*?)<\/body>/is', $content, $matches)) {
             $content = $matches[1];
         }
+        // Limpiar y convertir a HTML semántico
+        $content = self::g2wpi_cleanup_html($content);
 
         // Crear el post en WordPress con autor 1
         $post_id = wp_insert_post([
@@ -106,5 +108,37 @@ class G2WPI_Drive {
         error_log('G2WPI DEBUG: Redirigiendo a listado');
         wp_redirect(admin_url('admin.php?page=g2wpi-importador'));
         exit;
+    }
+
+    /**
+     * Limpia el HTML importado, convirtiendo estilos visuales en etiquetas semánticas.
+     * Convierte títulos y párrafos, y elimina estilos inline innecesarios.
+     */
+    private static function g2wpi_cleanup_html($html) {
+        // 1. Convertir títulos (h1, h2, h3) según estilos comunes de Google Docs
+        // h1: font-size >= 24pt, bold
+        $html = preg_replace(
+            '/<p[^>]*><span[^>]*style="[^"]*font-size:\s*2[4-9]pt;[^"]*font-weight:\s*700;[^"]*"[^>]*>(.*?)<\/span><\/p>/is',
+            '<h1>$1</h1>', $html);
+        // h2: font-size 18-23pt, bold
+        $html = preg_replace(
+            '/<p[^>]*><span[^>]*style="[^"]*font-size:\s*1[8-9]pt;[^"]*font-weight:\s*700;[^"]*"[^>]*>(.*?)<\/span><\/p>/is',
+            '<h2>$1</h2>', $html);
+        $html = preg_replace(
+            '/<p[^>]*><span[^>]*style="[^"]*font-size:\s*2[0-3]pt;[^"]*font-weight:\s*700;[^"]*"[^>]*>(.*?)<\/span><\/p>/is',
+            '<h2>$1</h2>', $html);
+        // h3: font-size 14-17pt, bold
+        $html = preg_replace(
+            '/<p[^>]*><span[^>]*style="[^"]*font-size:\s*1[4-7]pt;[^"]*font-weight:\s*700;[^"]*"[^>]*>(.*?)<\/span><\/p>/is',
+            '<h3>$1</h3>', $html);
+        // 2. Convertir párrafos (p) simples (sin span o con span sin estilos relevantes)
+        $html = preg_replace('/<p[^>]*>(.*?)<\/p>/is', '<p>$1</p>', $html);
+        // 3. Eliminar estilos inline innecesarios en span y p
+        $html = preg_replace('/<(span|p)[^>]*style="[^"]*"[^>]*>/i', '<$1>', $html);
+        // 4. Eliminar spans vacíos o sin contenido relevante
+        $html = preg_replace('/<span>\s*<\/span>/i', '', $html);
+        // 5. Opcional: eliminar clases innecesarias
+        $html = preg_replace('/<(span|p)[^>]*class="[^"]*"[^>]*>/i', '<$1>', $html);
+        return $html;
     }
 }
