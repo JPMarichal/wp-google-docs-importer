@@ -35,25 +35,43 @@ new G2WPI_Ajax();
 // Función para renderizar la tabla de documentos (usada por admin y AJAX)
 function g2wpi_render_docs_table() {
     global $wpdb;
+    // Enqueue dashicons y CSS personalizado
+    wp_enqueue_style('dashicons');
+    wp_enqueue_style('g2wpi-admin-icons', G2WPI_PLUGIN_URL . 'assets/css/g2wpi-admin-icons.css');
+    echo '<style>.g2wpi-table-actions { text-align: center; } .g2wpi-action-icon { margin-right: 8px; } .g2wpi-action-icon:last-child { margin-right: 0; } .g2wpi-table-sep { margin-bottom: 18px; display: block; } th.g2wpi-center { text-align: center !important; } </style>';
+    // Separador visual para el botón
+    echo '<span class="g2wpi-table-sep"></span>';
     $docs = get_transient('g2wpi_drive_docs');
     echo '<table class="wp-list-table widefat fixed striped">';
-    echo '<thead><tr><th>Nombre</th><th>Post asociado</th><th>Fecha</th><th>Acciones</th></tr></thead>';
+    echo '<thead><tr><th>Nombre</th><th class="g2wpi-center">Acciones</th><th class="g2wpi-center">Post asociado</th><th>Fecha</th></tr></thead>';
     echo '<tbody>';
     if (!$docs || !is_array($docs)) {
         echo '<tr><td colspan="4">Haz clic en "Actualizar listado" para obtener los documentos.</td></tr>';
     } else {
         foreach ($docs as $doc) {
             $imported = $wpdb->get_row($wpdb->prepare("SELECT * FROM " . G2WPI_TABLE_NAME . " WHERE google_doc_id = %s", $doc['id']));
-            $post_link = $imported ? '<a href="' . get_edit_post_link($imported->post_id) . '" target="_blank">Ver post</a>' : '—';
+            if ($imported) {
+                $post_id = $imported->post_id;
+                $post = get_post($post_id);
+                $is_draft = ($post && $post->post_status === 'draft');
+                $view_url = $is_draft ? get_preview_post_link($post_id) : get_permalink($post_id);
+                $edit_url = get_edit_post_link($post_id);
+                $delete_url = wp_nonce_url(admin_url('admin.php?page=g2wpi-importador&delete=' . $doc['id']), 'g2wpi_delete_' . $doc['id']);
+                $post_links = '<a href="' . esc_url($view_url) . '" class="g2wpi-action-icon dashicons dashicons-visibility" title="Ver" target="_blank"></a>';
+                $post_links .= '<a href="' . esc_url($edit_url) . '" class="g2wpi-action-icon dashicons dashicons-edit" title="Editar" target="_blank"></a>';
+                $post_links .= '<a href="' . esc_url($delete_url) . '" class="g2wpi-action-icon dashicons dashicons-trash" title="Eliminar" onclick="return confirm(\'¿Seguro que deseas eliminar este post importado?\');"></a>';
+            } else {
+                $post_links = '—';
+            }
             $fecha = $imported ? $imported->imported_at : '—';
             $accion = $imported ? 'Importado' : '<a href="' . admin_url('admin.php?page=g2wpi-importador&import=' . $doc['id']) . '" class="button">Importar</a>';
             $doc_url = 'https://docs.google.com/document/d/' . $doc['id'] . '/edit';
             $nombre = '<a href="' . esc_url($doc_url) . '" target="_blank" rel="noopener noreferrer">' . esc_html($doc['name']) . '</a>';
             echo '<tr>';
             echo '<td>' . $nombre . '</td>';
-            echo '<td>' . $post_link . '</td>';
+            echo '<td class="g2wpi-table-actions">' . $accion . '</td>';
+            echo '<td class="g2wpi-table-actions">' . $post_links . '</td>';
             echo '<td>' . esc_html($fecha) . '</td>';
-            echo '<td>' . $accion . '</td>';
             echo '</tr>';
         }
     }
@@ -88,5 +106,35 @@ function g2wpi_render_settings_page() {
 add_action('admin_init', function() {
     if (isset($_GET['import']) && current_user_can('manage_options')) {
         G2WPI_Drive::import_google_doc(sanitize_text_field($_GET['import']));
+    }
+});
+
+// Manejar eliminación de post importado
+add_action('admin_init', function() {
+    if (isset($_GET['delete']) && current_user_can('manage_options')) {
+        $doc_id = sanitize_text_field($_GET['delete']);
+        if (wp_verify_nonce($_GET['_wpnonce'], 'g2wpi_delete_' . $doc_id)) {
+            global $wpdb;
+            $imported = $wpdb->get_row($wpdb->prepare("SELECT * FROM " . G2WPI_TABLE_NAME . " WHERE google_doc_id = %s", $doc_id));
+            if ($imported) {
+                wp_delete_post($imported->post_id, true);
+                $wpdb->delete(G2WPI_TABLE_NAME, ['google_doc_id' => $doc_id]);
+            }
+            // Limpiar el transient para que la tabla se actualice
+            delete_transient('g2wpi_drive_docs');
+            // Forzar recarga del listado al volver
+            wp_redirect(admin_url('admin.php?page=g2wpi-importador&refresh=1'));
+            exit;
+        }
+    }
+});
+
+// Forzar actualización del listado si se pasa refresh=1
+add_action('admin_init', function() {
+    if (isset($_GET['page']) && $_GET['page'] === 'g2wpi-importador' && isset($_GET['refresh'])) {
+        // Actualiza el listado usando el método real del plugin
+        if (class_exists('G2WPI_Drive') && method_exists('G2WPI_Drive', 'fetch_drive_documents')) {
+            G2WPI_Drive::fetch_drive_documents();
+        }
     }
 });

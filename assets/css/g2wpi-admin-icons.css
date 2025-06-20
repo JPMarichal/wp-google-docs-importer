@@ -1,0 +1,11 @@
+/* Estilos para los íconos de acción en la tabla de Google Docs Importer */
+.g2wpi-action-icon {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 18px;
+    vertical-align: middle;
+    text-decoration: none;
+}
+.g2wpi-action-icon:last-child {
+    margin-right: 0;
+}
