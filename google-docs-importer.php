@@ -51,20 +51,20 @@ function g2wpi_render_docs_table() {
     global $wpdb;
     $docs = get_transient('g2wpi_drive_docs');
     echo '<table class="wp-list-table widefat fixed striped">';
-    echo '<thead><tr><th>ID</th><th>Google Doc ID</th><th>Nombre</th><th>Post asociado</th><th>Fecha</th><th>Acciones</th></tr></thead>';
+    echo '<thead><tr><th>Nombre</th><th>Post asociado</th><th>Fecha</th><th>Acciones</th></tr></thead>';
     echo '<tbody>';
     if (!$docs || !is_array($docs)) {
-        echo '<tr><td colspan="6">Haz clic en "Actualizar listado" para obtener los documentos.</td></tr>';
+        echo '<tr><td colspan="4">Haz clic en "Actualizar listado" para obtener los documentos.</td></tr>';
     } else {
         foreach ($docs as $doc) {
             $imported = $wpdb->get_row($wpdb->prepare("SELECT * FROM " . G2WPI_TABLE_NAME . " WHERE google_doc_id = %s", $doc['id']));
             $post_link = $imported ? '<a href="' . get_edit_post_link($imported->post_id) . '" target="_blank">Ver post</a>' : '—';
             $fecha = $imported ? $imported->imported_at : '—';
             $accion = $imported ? 'Importado' : '<a href="' . admin_url('admin.php?page=g2wpi-importador&import=' . $doc['id']) . '" class="button">Importar</a>';
+            $doc_url = 'https://docs.google.com/document/d/' . $doc['id'] . '/edit';
+            $nombre = '<a href="' . esc_url($doc_url) . '" target="_blank" rel="noopener noreferrer">' . esc_html($doc['name']) . '</a>';
             echo '<tr>';
-            echo '<td>' . esc_html($doc['id']) . '</td>';
-            echo '<td>' . esc_html($doc['id']) . '</td>';
-            echo '<td>' . esc_html($doc['name']) . '</td>';
+            echo '<td>' . $nombre . '</td>';
             echo '<td>' . $post_link . '</td>';
             echo '<td>' . esc_html($fecha) . '</td>';
             echo '<td>' . $accion . '</td>';
