@@ -1,66 +1,77 @@
 # Google Docs Importer for WordPress
 
-A WordPress plugin that allows you to import documents from Google Drive as WordPress posts.
+Google Docs Importer es un plugin único para WordPress que conecta tu Google Drive con tu sitio, permitiendo importar documentos de Google Docs como entradas, páginas o cualquier tipo de contenido personalizado, manteniendo el formato y facilitando el workflow editorial.
 
-## Features
+## ¿Para quién es este plugin?
+- **Equipos editoriales y medios digitales** que redactan en Google Docs y publican en WordPress.
+- **Agencias de contenido** que gestionan múltiples clientes y necesitan flujos de trabajo eficientes.
+- **Redactores, bloggers profesionales y creadores de contenido** que colaboran en Google Docs y desean publicar sin fricciones.
+- **Sitios WordPress con flujos de trabajo colaborativos** y necesidad de control editorial.
 
-- Connect to your Google Drive account using OAuth 2.0
-- List all Google Docs from a specific folder
-- Import documents as WordPress posts with proper formatting
-- Support for text formatting (bold, italic, headings, lists, etc.)
-- Track imported documents to prevent duplicates
-- Clean, user-friendly admin interface
+## Ventajas únicas
+- **Importación directa y masiva** desde Google Drive a WordPress, sin copiar/pegar ni perder formato.
+- **Sincronización y control de duplicados:** nunca importas dos veces el mismo documento.
+- **Workflow editorial optimizado:** los documentos importados quedan como borrador, listos para revisión y publicación.
+- **Interfaz moderna y amigable:** búsqueda instantánea, paginación, acciones rápidas (ver, editar, eliminar, importar).
+- **Soporte para cualquier tipo de post y taxonomía personalizada:** importa a posts, páginas o Custom Post Types, y detecta la categoría o término principal.
+- **Seguimiento del estado de cada documento:** visualiza si un documento está importado, en borrador, publicado, etc.
+- **Acciones rápidas:** ver, editar, eliminar, importar, todo desde la misma pantalla.
+- **Pensado para equipos y flujos colaborativos:** facilita la revisión, edición y publicación en equipo.
 
-## Requirements
+## Características
+- Conexión segura a Google Drive mediante OAuth 2.0
+- Listado de todos los Google Docs de una carpeta específica
+- Importación con formato (negritas, listas, encabezados, etc.)
+- Evita duplicados y lleva registro de documentos importados
+- Interfaz de administración limpia y moderna
+- Búsqueda instantánea y paginación amigable
+- Acciones rápidas sobre cada documento
+- Soporte para posts, páginas y Custom Post Types
+- Detección automática de categoría o término principal
+- Seguimiento del estado editorial de cada documento
 
-- WordPress 5.6 or higher
-- PHP 7.4 or higher
-- Google API credentials with Google Drive and Google Docs API enabled
+## Requisitos
+- WordPress 5.6 o superior
+- PHP 7.4 o superior
+- Credenciales de Google API con acceso a Google Drive y Google Docs
 
-## Installation
+## Instalación
+1. Sube la carpeta `google-docs-importer` a `/wp-content/plugins/`
+2. Activa el plugin en el menú de plugins de WordPress
+3. Crea un proyecto en Google Cloud Console y habilita las APIs de Google Drive y Google Docs
+4. Crea credenciales OAuth 2.0 y configura la URI de redirección: `your-site.com/wp-admin/admin-post.php?action=g2wpi_oauth_callback`
+5. Ve a los ajustes del plugin e ingresa tu Client ID, Client Secret y Folder ID de Google Drive
+6. Haz clic en "Conectar con Google" para autorizar el plugin
 
-1. Upload the `google-docs-importer` folder to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to Google Cloud Console (https://console.cloud.google.com/)
-4. Create a new project or select an existing one
-5. Enable the Google Drive API and Google Docs API
-6. Create OAuth 2.0 credentials (OAuth client ID)
-7. Add authorized redirect URI: `your-site.com/wp-admin/admin-post.php?action=gd_importer_oauth_callback`
-8. Go to the plugin settings page and enter your Client ID, Client Secret, and Google Drive Folder ID
-9. Click "Connect with Google" to authorize the plugin
+## Uso
+1. Ve al menú "Google Docs" en el admin de WordPress
+2. Haz clic en "Actualizar listado" para obtener los documentos de tu carpeta de Google Drive
+3. Usa la búsqueda para filtrar documentos
+4. Haz clic en "Importar" junto a cualquier documento para traerlo como post (borrador)
+5. Edita y publica cuando estés listo
 
-## Usage
+## Filtros y acciones para desarrolladores
+### Filtros
+- `gd_importer/post_args` - Modifica los argumentos del post antes de crearlo/actualizarlo
+- `gd_importer/document_content` - Modifica el contenido antes de guardarlo
+- `gd_importer/document_title` - Modifica el título antes de guardarlo
 
-1. Go to "Google Docs" in the WordPress admin menu
-2. Click "Refresh List" to fetch documents from your Google Drive folder
-3. Click "Import" next to any document to import it as a WordPress post
-4. The imported post will be saved as a draft
-5. Edit the post as needed and publish it when ready
+### Acciones
+- `gd_importer/post_imported` - Tras importar un documento
+- `gd_importer/post_updated` - Tras actualizar un post existente
+- `gd_importer/before_import` - Antes de importar un documento
+- `gd_importer/after_import` - Después de importar (éxito o fallo)
 
-## Filters and Actions
+## Contribuciones
+¡Las contribuciones son bienvenidas! Envía un Pull Request o abre un issue.
 
-### Filters
+## Licencia
 
-- `gd_importer/post_args` - Modify the post arguments before creating/updating a post
-- `gd_importer/document_content` - Modify the document content before saving to post
-- `gd_importer/document_title` - Modify the document title before saving to post
+Este plugin es software libre; puedes redistribuirlo y/o modificarlo bajo los términos de la Licencia Pública General de GNU tal como fue publicada por la Free Software Foundation; ya sea la versión 2 de dicha licencia, o (a tu elección) cualquier versión posterior.
 
-### Actions
-
-- `gd_importer/post_imported` - Fires after a document is successfully imported
-- `gd_importer/post_updated` - Fires after an existing post is updated with new content
-- `gd_importer/before_import` - Fires before importing a document
-- `gd_importer/after_import` - Fires after importing a document (regardless of success)
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This plugin is licensed under the GPL v2 or later.
+Este plugin se distribuye con la esperanza de que sea útil, pero SIN NINGUNA GARANTÍA; ni siquiera la garantía implícita de COMERCIABILIDAD o ADECUACIÓN PARA UN PROPÓSITO PARTICULAR. Consulta los detalles en la Licencia Pública General de GNU.
 
 ## Changelog
 
 ### 1.0.0
-* Initial release
+* Versión inicial
