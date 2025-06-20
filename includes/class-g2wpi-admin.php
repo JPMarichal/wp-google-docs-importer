@@ -64,10 +64,7 @@ class G2WPI_Admin {
 
     public function render_admin_page() {
         echo '<div class="wrap">';
-        // Eliminado <h1> y botón duplicado, solo se muestra la tabla visual atractiva
-        echo '<div id="g2wpi-docs-table">';
         if (function_exists('g2wpi_render_docs_table')) g2wpi_render_docs_table();
-        echo '</div>';
         echo '</div>';
     }
 

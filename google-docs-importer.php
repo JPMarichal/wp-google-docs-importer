@@ -37,7 +37,7 @@ new G2WPI_Ajax();
 
 // Función para renderizar la tabla de documentos (usada por admin y AJAX)
 function g2wpi_render_docs_table() {
-    // Solo mostrar el bloque visual atractivo y el botón estilizado, con separación entre el dashicon y la "o"
+    // Título y botón
     echo '<div style="display:flex;align-items:center;gap:18px;margin-bottom:18px;">';
     echo '<span style="font-size:2.2em;line-height:1;display:flex;align-items:center;">'
         . '<span class="dashicons dashicons-google" style="color:#4285f4;font-size:1.2em;margin-right:12px;"></span>'
@@ -46,6 +46,10 @@ function g2wpi_render_docs_table() {
     echo '<a href="' . esc_url(admin_url('admin.php?page=g2wpi-importador&refresh=1')) . '" class="button button-secondary" style="margin-left:18px;">'
         . '<span class="dashicons dashicons-update" style="vertical-align:middle;margin-right:4px;"></span>Actualizar listado</a>';
     echo '</div>';
+    // Barra de búsqueda justo debajo del título y botón
+    echo '<div style="margin-bottom:18px;max-width:400px;">'
+        .'<input type="text" id="g2wpi-search-docs" class="regular-text" placeholder="Buscar por nombre de documento..." autocomplete="off" style="width:100%;padding:8px;">'
+        .'</div>';
     G2WPI_Docs_Table::render();
 }
 
