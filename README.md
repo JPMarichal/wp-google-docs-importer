@@ -1,6 +1,6 @@
 # Google Docs Importer for WordPress
 
-Google Docs Importer es un plugin único para WordPress que conecta tu Google Drive con tu sitio, permitiendo importar documentos de Google Docs como entradas, páginas o cualquier tipo de contenido personalizado, manteniendo el formato y facilitando el workflow editorial.
+Google Docs Importer es un plugin único para WordPress que conecta tu Google Drive con tu sitio, permitiendo importar documentos de Google Docs como entradas (posts) estándar, manteniendo el formato y facilitando el workflow editorial. Si deseas que el contenido sea de otro tipo (página o Custom Post Type), deberás cambiarlo manualmente tras la importación.
 
 ## ¿Para quién es este plugin?
 - **Equipos editoriales y medios digitales** que redactan en Google Docs y publican en WordPress.
@@ -13,7 +13,7 @@ Google Docs Importer es un plugin único para WordPress que conecta tu Google Dr
 - **Sincronización y control de duplicados:** nunca importas dos veces el mismo documento.
 - **Workflow editorial optimizado:** los documentos importados quedan como borrador, listos para revisión y publicación.
 - **Interfaz moderna y amigable:** búsqueda instantánea, paginación, acciones rápidas (ver, editar, eliminar, importar).
-- **Soporte para cualquier tipo de post y taxonomía personalizada:** importa a posts, páginas o Custom Post Types, y detecta la categoría o término principal.
+- **Visualización de la categoría o término principal:** detecta y muestra la categoría principal (o término jerárquico) del post importado.
 - **Seguimiento del estado de cada documento:** visualiza si un documento está importado, en borrador, publicado, etc.
 - **Acciones rápidas:** ver, editar, eliminar, importar, todo desde la misma pantalla.
 - **Pensado para equipos y flujos colaborativos:** facilita la revisión, edición y publicación en equipo.
@@ -26,8 +26,8 @@ Google Docs Importer es un plugin único para WordPress que conecta tu Google Dr
 - Interfaz de administración limpia y moderna
 - Búsqueda instantánea y paginación amigable
 - Acciones rápidas sobre cada documento
-- Soporte para posts, páginas y Custom Post Types
-- Detección automática de categoría o término principal
+- Importa siempre como post estándar (puedes cambiar el tipo de post manualmente después)
+- Detección automática y visualización de la categoría principal o término jerárquico
 - Seguimiento del estado editorial de cada documento
 
 ## Requisitos
