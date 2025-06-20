@@ -82,8 +82,63 @@ function g2wpi_refresh_list_ajax() {
 }
 
 add_action('admin_enqueue_scripts', function($hook) {
-    if ($hook === 'toplevel_page_g2wpi-importador') {
+    if ($hook === 'toplevel_page_g2wpi-importador' || $hook === 'g2wpi-importador_page_g2wpi-ajustes') {
         wp_enqueue_script('g2wpi-admin-js', G2WPI_PLUGIN_URL . 'assets/admin.js', ['jquery'], null, true);
+        wp_enqueue_script('g2wpi-swal', 'https://cdn.jsdelivr.net/npm/sweetalert2@11', [], null, true);
+        wp_enqueue_style('g2wpi-swal-css', 'https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css');
+    }
+});
+
+add_action('admin_footer', function() {
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+    if ($screen && ($screen->id === 'g2wpi-importador_page_g2wpi-ajustes' || $screen->id === 'settings_page_g2wpi-ajustes')) {
+        ?>
+        <script>
+        jQuery(function($){
+            var form = $('form[action="options.php"]');
+            var btn = form.find('input[type=submit],button[type=submit]');
+            form.on('submit', function(e) {
+                e.preventDefault();
+                var formData = form.serialize();
+                btn.prop('disabled', true).val('Guardando...');
+                $.post(ajaxurl, formData + '&action=g2wpi_save_settings_ajax', function(response) {
+                    btn.prop('disabled', false).val('Save Changes');
+                    if (typeof Swal !== 'undefined') {
+                        if(response.success) {
+                            Swal.fire({icon:'success',title:'¡Guardado!',text:'Cambios guardados correctamente',timer:1800,showConfirmButton:false});
+                        } else {
+                            Swal.fire({icon:'error',title:'Error',text:'Error al guardar los cambios'});
+                        }
+                    } else {
+                        if(response.success) {
+                            alert('Cambios guardados correctamente');
+                        } else {
+                            alert('Error al guardar los cambios');
+                        }
+                    }
+                }).fail(function(){
+                    btn.prop('disabled', false).val('Save Changes');
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({icon:'error',title:'Error',text:'Error de red al guardar los cambios'});
+                    } else {
+                        alert('Error de red al guardar los cambios');
+                    }
+                });
+            });
+        });
+        </script>
+        <?php
+    }
+});
+
+add_action('wp_ajax_g2wpi_save_settings_ajax', function() {
+    check_admin_referer('g2wpi_options-options');
+    $options = $_POST[G2WPI_OPTION_NAME] ?? [];
+    $result = update_option(G2WPI_OPTION_NAME, $options);
+    if ($result) {
+        wp_send_json_success();
+    } else {
+        wp_send_json_error();
     }
 });
 
