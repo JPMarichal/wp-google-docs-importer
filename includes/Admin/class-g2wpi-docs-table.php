@@ -37,13 +37,15 @@ class G2WPI_Docs_Table {
         $offset = ($paged - 1) * $per_page;
         $docs_page = ($docs && is_array($docs)) ? array_slice($docs, $offset, $per_page) : [];
         echo '<table class="wp-list-table widefat fixed striped">';
-        // Encabezado con ordenamiento para Nombre
+        // Encabezado con ordenamiento para Nombre y para Importación
         $current_url = esc_url_raw(remove_query_arg(['orderby', 'order', 'paged']));
         $name_order = ($orderby === 'name' && $order === 'asc') ? 'desc' : 'asc';
         $name_arrow = ($orderby === 'name') ? ($order === 'asc' ? ' <span style="font-size:12px">&#9650;</span>' : ' <span style="font-size:12px">&#9660;</span>') : '';
+        $import_order = ($orderby === 'imported' && $order === 'asc') ? 'desc' : 'asc';
+        $import_arrow = ($orderby === 'imported') ? ($order === 'asc' ? ' <span style="font-size:12px">&#9650;</span>' : ' <span style="font-size:12px">&#9660;</span>') : '';
         echo '<thead><tr>';
         echo '<th><a href="' . add_query_arg(['orderby' => 'name', 'order' => $name_order], $current_url) . '">Nombre' . $name_arrow . '</a></th>';
-        echo '<th class="g2wpi-center">Importación</th>';
+        echo '<th class="g2wpi-center"><a href="' . add_query_arg(['orderby' => 'imported', 'order' => $import_order], $current_url) . '">Importación' . $import_arrow . '</a></th>';
         echo '<th class="g2wpi-center">Acciones</th>';
         echo '<th class="g2wpi-center">Status</th>';
         echo '<th>Tipo</th>';
