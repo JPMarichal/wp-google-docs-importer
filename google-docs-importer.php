@@ -35,6 +35,15 @@ new G2WPI_Ajax();
 
 // Función para renderizar la tabla de documentos (usada por admin y AJAX)
 function g2wpi_render_docs_table() {
+    // Solo mostrar el bloque visual atractivo y el botón estilizado, con separación entre el dashicon y la "o"
+    echo '<div style="display:flex;align-items:center;gap:18px;margin-bottom:18px;">';
+    echo '<span style="font-size:2.2em;line-height:1;display:flex;align-items:center;">'
+        . '<span class="dashicons dashicons-google" style="color:#4285f4;font-size:1.2em;margin-right:12px;"></span>'
+        . '<span style="font-weight:700;font-size:1.1em;letter-spacing:0.5px;">oogle Docs Importer</span>'
+        . '</span>';
+    echo '<a href="' . esc_url(admin_url('admin.php?page=g2wpi-importador&refresh=1')) . '" class="button button-secondary" style="margin-left:18px;">'
+        . '<span class="dashicons dashicons-update" style="vertical-align:middle;margin-right:4px;"></span>Actualizar listado</a>';
+    echo '</div>';
     G2WPI_Docs_Table::render();
 }
 

@@ -64,8 +64,7 @@ class G2WPI_Admin {
 
     public function render_admin_page() {
         echo '<div class="wrap">';
-        echo '<h1>Google Docs Importer</h1>';
-        echo '<button id="g2wpi-refresh-list-btn" class="button button-secondary">Actualizar listado</button>';
+        // Eliminado <h1> y botón duplicado, solo se muestra la tabla visual atractiva
         echo '<div id="g2wpi-docs-table">';
         if (function_exists('g2wpi_render_docs_table')) g2wpi_render_docs_table();
         echo '</div>';
