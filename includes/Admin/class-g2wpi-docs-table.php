@@ -17,6 +17,10 @@ class G2WPI_Docs_Table {
             .g2wpi-pagination a:hover { background: #0073aa; color: #fff; }
             .g2wpi-pagination .current-page { background: #0073aa; color: #fff; border-color: #0073aa; cursor: default; }
             .g2wpi-pagination .g2wpi-ellipsis { border: none; background: none; color: #888; cursor: default; }
+            .g2wpi-docs-table th { padding: 8px 12px; }
+            .g2wpi-docs-table .nombre-columna { width: 40%; }
+            .g2wpi-docs-table .g2wpi-center { width: 10%; }
+            .g2wpi-docs-table .g2wpi-table-actions { white-space: nowrap; }
         </style>';
         echo '<span class="g2wpi-table-sep"></span>';
         $docs = get_transient('g2wpi_drive_docs');
@@ -141,7 +145,7 @@ class G2WPI_Docs_Table {
         $paged = isset($_GET['paged']) ? max(1, intval($_GET['paged'])) : 1;
         $offset = ($paged - 1) * $per_page;
         $docs_page = ($docs && is_array($docs)) ? array_slice($docs, $offset, $per_page) : [];
-        echo '<table class="wp-list-table widefat fixed striped">';
+        echo '<table class="wp-list-table widefat fixed striped g2wpi-docs-table">';
         // Encabezado con ordenamiento para Nombre y para Importación
         $current_url = esc_url_raw(remove_query_arg(['orderby', 'order', 'paged']));
         $name_order = ($orderby === 'name' && $order === 'asc') ? 'desc' : 'asc';
@@ -157,7 +161,7 @@ class G2WPI_Docs_Table {
         $date_order = ($orderby === 'date' && $order === 'asc') ? 'desc' : 'asc';
         $date_arrow = ($orderby === 'date') ? ($order === 'asc' ? ' <span style="font-size:12px">&#9650;</span>' : ' <span style="font-size:12px">&#9660;</span>') : '';
         echo '<thead><tr>';
-        echo '<th><a href="' . add_query_arg(['orderby' => 'name', 'order' => $name_order], $current_url) . '">Nombre' . $name_arrow . '</a></th>';
+        echo '<th class="nombre-columna"><a href="' . add_query_arg(['orderby' => 'name', 'order' => $name_order], $current_url) . '">Nombre' . $name_arrow . '</a></th>';
         echo '<th class="g2wpi-center"><a href="' . add_query_arg(['orderby' => 'imported', 'order' => $import_order], $current_url) . '">Importación' . $import_arrow . '</a></th>';
         echo '<th class="g2wpi-center">Acciones</th>';
         echo '<th class="g2wpi-center"><a href="' . add_query_arg(['orderby' => 'status', 'order' => $status_order], $current_url) . '">Status' . $status_arrow . '</a></th>';
@@ -174,7 +178,7 @@ class G2WPI_Docs_Table {
                 $doc_url = 'https://docs.google.com/document/d/' . $doc['id'] . '/edit';
                 $nombre = '<a href="' . esc_url($doc_url) . '" target="_blank" rel="noopener noreferrer">' . esc_html($doc['name']) . '</a>';
                 echo '<tr>';
-                echo '<td>' . $nombre . '</td>';
+                echo '<td class="nombre-columna">' . $nombre . '</td>';
                 echo '<td class="g2wpi-table-actions">' . $accion . '</td>';
                 echo '<td class="g2wpi-table-actions">' . $post_links . '</td>';
                 echo '<td class="g2wpi-status ' . esc_attr($status_class) . '">' . $status_icon . esc_html($status_label) . '</td>';

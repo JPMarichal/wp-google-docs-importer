@@ -17,6 +17,7 @@ class G2WPI_Admin {
             wp_enqueue_script('g2wpi-admin-js', G2WPI_PLUGIN_URL . 'assets/admin.js', ['jquery'], null, true);
             wp_enqueue_script('g2wpi-swal', 'https://cdn.jsdelivr.net/npm/sweetalert2@11', [], null, true);
             wp_enqueue_style('g2wpi-swal-css', 'https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css');
+            wp_enqueue_style('g2wpi-admin-table', G2WPI_PLUGIN_URL . 'assets/css/g2wpi-admin-table.css', [], null);
         }
     }
 

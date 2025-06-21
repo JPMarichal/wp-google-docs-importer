@@ -1,0 +1,34 @@
+/* Estilos para la tabla de documentos de Google Docs Importer */
+.g2wpi-docs-table th.nombre-columna, .g2wpi-docs-table td.nombre-columna {
+    width: 28%;
+    min-width: 220px;
+    max-width: 420px;
+    white-space: normal;
+    word-break: break-word;
+}
+.g2wpi-docs-table th, .g2wpi-docs-table td {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.g2wpi-docs-table th, .g2wpi-docs-table td {
+    font-size: 14px;
+}
+.g2wpi-docs-table td.g2wpi-table-actions button, .g2wpi-docs-table td.g2wpi-table-actions .button {
+    font-size: 12px !important;
+    padding: 2px 8px !important;
+    min-width: 0 !important;
+    height: 24px !important;
+}
+.g2wpi-docs-table td.g2wpi-table-actions .button {
+    margin-bottom: 2px;
+}
+.g2wpi-docs-table th, .g2wpi-docs-table td {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.g2wpi-docs-table th.nombre-columna, .g2wpi-docs-table td.nombre-columna {
+    max-width: unset;
+    white-space: normal;
+}
