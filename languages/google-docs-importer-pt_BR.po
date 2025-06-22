@@ -1,0 +1,142 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Google Docs Importer 0.3.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-21 00:00+0000\n"
+"PO-Revision-Date: 2025-06-21 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Copilot\n"
+
+msgid "Importador de Google Docs"
+msgstr "Importador do Google Docs"
+
+msgid "Google Docs Importer"
+msgstr "Importador do Google Docs"
+
+msgid "Ajustes de Importador"
+msgstr "Configurações do Importador"
+
+msgid "Ajustes"
+msgstr "Configurações"
+
+msgid "Credenciales de Google API"
+msgstr "Credenciais da API do Google"
+
+msgid "Client ID"
+msgstr "Client ID"
+
+msgid "Client Secret"
+msgstr "Client Secret"
+
+msgid "ID de Carpeta en Google Drive"
+msgstr "ID da Pasta no Google Drive"
+
+msgid "Nombre"
+msgstr "Nome"
+
+msgid "Importación"
+msgstr "Importação"
+
+msgid "Acciones"
+msgstr "Ações"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Tipo"
+msgstr "Tipo"
+
+msgid "Categoría"
+msgstr "Categoria"
+
+msgid "Fecha"
+msgstr "Data"
+
+msgid "Haz clic en el botón -Actualizar listado- para obtener los documentos."
+msgstr "Clique no botão -Atualizar lista- para obter os documentos."
+
+msgid "Idioma"
+msgstr "Idioma"
+
+msgid "Selecciona el idioma de la interfaz."
+msgstr "Selecione o idioma da interface."
+
+msgid "Ajustes del Importador de Google Docs"
+msgstr "Configurações do Importador do Google Docs"
+
+msgid "Autenticación con Google"
+msgstr "Autenticação com o Google"
+
+msgid "Conectar con Google"
+msgstr "Conectar com o Google"
+
+msgid "Guardar cambios"
+msgstr "Salvar alterações"
+
+msgid "Cambios guardados correctamente"
+msgstr "Alterações salvas com sucesso"
+
+msgid "Error al guardar los cambios"
+msgstr "Erro ao salvar as alterações"
+
+msgid "Error de red al guardar los cambios"
+msgstr "Erro de rede ao salvar as alterações"
+
+msgid "Publicado"
+msgstr "Publicado"
+
+msgid "Borrador"
+msgstr "Rascunho"
+
+msgid "Pendiente"
+msgstr "Pendente"
+
+msgid "Programado"
+msgstr "Agendado"
+
+msgid "Privado"
+msgstr "Privado"
+
+msgid "Heredado"
+msgstr "Herdado"
+
+msgid "Auto-borrador"
+msgstr "Auto-rascunho"
+
+msgid "Papelera"
+msgstr "Lixeira"
+
+msgid "Revisión"
+msgstr "Revisão"
+
+msgid "Ver"
+msgstr "Ver"
+
+msgid "Editar"
+msgstr "Editar"
+
+msgid "Eliminar"
+msgstr "Excluir"
+
+msgid "Importado"
+msgstr "Importado"
+
+msgid "Sin categoría"
+msgstr "Sem categoria"
+
+msgid "Sin término"
+msgstr "Sem termo"
+
+msgid "—"
+msgstr "—"
+
+msgid "Actualizar listado"
+msgstr "Atualizar lista"
+
+msgid "Buscar por nombre de documento..."
+msgstr "Buscar por nome do documento..."
