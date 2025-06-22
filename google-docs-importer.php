@@ -40,7 +40,6 @@ function g2wpi_render_docs_table() {
     // Título y botón
     echo '<div style="display:flex;align-items:center;gap:18px;margin-bottom:18px;">';
     echo '<span style="font-size:2.2em;line-height:1;display:flex;align-items:center;">'
-        . '<span class="dashicons dashicons-google" style="color:#4285f4;font-size:1.2em;margin-right:12px;"></span>'
         . '<span style="font-weight:700;font-size:1.1em;letter-spacing:0.5px;">' . esc_html__('Google Docs Importer', 'google-docs-importer') . '</span>'
         . '</span>';
     echo '<a href="' . esc_url(admin_url('admin.php?page=g2wpi-importador&refresh=1')) . '" class="button button-secondary" style="margin-left:18px;">'
