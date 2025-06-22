@@ -1,0 +1,5 @@
+instructions:
+  - Si agregas nuevas cadenas, actualiza los archivos .po de idioma en la carpeta languages/
+  - Mantén el archivo README.md actualizado con cualquier cambio relevante
+  - Sigue las buenas prácticas de WordPress y PHP
+  - No repitas cadenas de texto, usa funciones de internacionalización
