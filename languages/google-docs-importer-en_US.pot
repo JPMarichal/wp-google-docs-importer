@@ -1,0 +1,47 @@
+msgid "Importador de Google Docs"
+msgstr "Google Docs Importer"
+
+msgid "Google Docs Importer"
+msgstr "Google Docs Importer"
+
+msgid "Ajustes de Importador"
+msgstr "Importer Settings"
+
+msgid "Ajustes"
+msgstr "Settings"
+
+msgid "Credenciales de Google API"
+msgstr "Google API Credentials"
+
+msgid "Client ID"
+msgstr "Client ID"
+
+msgid "Nombre"
+msgstr "Name"
+
+msgid "Importación"
+msgstr "Import"
+
+msgid "Acciones"
+msgstr "Actions"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Tipo"
+msgstr "Type"
+
+msgid "Categoría"
+msgstr "Category"
+
+msgid "Fecha"
+msgstr "Date"
+
+msgid "Haz clic en el botón -Actualizar listado- para obtener los documentos."
+msgstr "Click on the button -Update list- to fetch the documents."
+
+msgid "Idioma"
+msgstr "Language"
+
+msgid "Selecciona el idioma de la interfaz."
+msgstr "Select the interface language."

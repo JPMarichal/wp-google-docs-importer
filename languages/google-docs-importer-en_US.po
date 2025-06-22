@@ -1,0 +1,142 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Google Docs Importer 0.3.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-21 00:00+0000\n"
+"PO-Revision-Date: 2025-06-21 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Copilot\n"
+
+msgid "Importador de Google Docs"
+msgstr "Google Docs Importer"
+
+msgid "Google Docs Importer"
+msgstr "Google Docs Importer"
+
+msgid "Ajustes de Importador"
+msgstr "Importer Settings"
+
+msgid "Ajustes"
+msgstr "Settings"
+
+msgid "Credenciales de Google API"
+msgstr "Google API Credentials"
+
+msgid "Client ID"
+msgstr "Client ID"
+
+msgid "Client Secret"
+msgstr "Client Secret"
+
+msgid "ID de Carpeta en Google Drive"
+msgstr "Google Drive Folder ID"
+
+msgid "Nombre"
+msgstr "Name"
+
+msgid "Importación"
+msgstr "Import"
+
+msgid "Acciones"
+msgstr "Actions"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Tipo"
+msgstr "Type"
+
+msgid "Categoría"
+msgstr "Category"
+
+msgid "Fecha"
+msgstr "Date"
+
+msgid "Haz clic en el botón -Actualizar listado- para obtener los documentos."
+msgstr "Click on the button -Update list- to fetch the documents."
+
+msgid "Idioma"
+msgstr "Language"
+
+msgid "Selecciona el idioma de la interfaz."
+msgstr "Select the interface language."
+
+msgid "Ajustes del Importador de Google Docs"
+msgstr "Google Docs Importer Settings"
+
+msgid "Autenticación con Google"
+msgstr "Google Authentication"
+
+msgid "Conectar con Google"
+msgstr "Connect with Google"
+
+msgid "Guardar cambios"
+msgstr "Save Changes"
+
+msgid "Cambios guardados correctamente"
+msgstr "Changes saved successfully"
+
+msgid "Error al guardar los cambios"
+msgstr "Error saving changes"
+
+msgid "Error de red al guardar los cambios"
+msgstr "Network error while saving changes"
+
+msgid "Publicado"
+msgstr "Published"
+
+msgid "Borrador"
+msgstr "Draft"
+
+msgid "Pendiente"
+msgstr "Pending"
+
+msgid "Programado"
+msgstr "Scheduled"
+
+msgid "Privado"
+msgstr "Private"
+
+msgid "Heredado"
+msgstr "Inherited"
+
+msgid "Auto-borrador"
+msgstr "Auto-draft"
+
+msgid "Papelera"
+msgstr "Trash"
+
+msgid "Revisión"
+msgstr "Revision"
+
+msgid "Ver"
+msgstr "View"
+
+msgid "Editar"
+msgstr "Edit"
+
+msgid "Eliminar"
+msgstr "Delete"
+
+msgid "Importado"
+msgstr "Imported"
+
+msgid "Sin categoría"
+msgstr "Uncategorized"
+
+msgid "Sin término"
+msgstr "No term"
+
+msgid "—"
+msgstr "—"
+
+msgid "Actualizar listado"
+msgstr "Update list"
+
+msgid "Buscar por nombre de documento..."
+msgstr "Search by document name..."

@@ -161,17 +161,17 @@ class G2WPI_Docs_Table {
         $date_order = ($orderby === 'date' && $order === 'asc') ? 'desc' : 'asc';
         $date_arrow = ($orderby === 'date') ? ($order === 'asc' ? ' <span style="font-size:12px">&#9650;</span>' : ' <span style="font-size:12px">&#9660;</span>') : '';
         echo '<thead><tr>';
-        echo '<th class="nombre-columna"><a href="' . add_query_arg(['orderby' => 'name', 'order' => $name_order], $current_url) . '">Nombre' . $name_arrow . '</a></th>';
-        echo '<th class="g2wpi-center"><a href="' . add_query_arg(['orderby' => 'imported', 'order' => $import_order], $current_url) . '">Importación' . $import_arrow . '</a></th>';
-        echo '<th class="g2wpi-center">Acciones</th>';
-        echo '<th class="g2wpi-center"><a href="' . add_query_arg(['orderby' => 'status', 'order' => $status_order], $current_url) . '">Status' . $status_arrow . '</a></th>';
-        echo '<th><a href="' . add_query_arg(['orderby' => 'type', 'order' => $type_order], $current_url) . '">Tipo' . $type_arrow . '</a></th>';
-        echo '<th><a href="' . add_query_arg(['orderby' => 'category', 'order' => $category_order], $current_url) . '">Categoría' . $category_arrow . '</a></th>';
-        echo '<th><a href="' . add_query_arg(['orderby' => 'date', 'order' => $date_order], $current_url) . '">Fecha' . $date_arrow . '</a></th>';
+        echo '<th class="nombre-columna"><a href="' . add_query_arg(['orderby' => 'name', 'order' => $name_order], $current_url) . '">' . esc_html__('Nombre', 'google-docs-importer') . $name_arrow . '</a></th>';
+        echo '<th class="g2wpi-center"><a href="' . add_query_arg(['orderby' => 'imported', 'order' => $import_order], $current_url) . '">' . esc_html__('Importación', 'google-docs-importer') . $import_arrow . '</a></th>';
+        echo '<th class="g2wpi-center">' . esc_html__('Acciones', 'google-docs-importer') . '</th>';
+        echo '<th class="g2wpi-center"><a href="' . add_query_arg(['orderby' => 'status', 'order' => $status_order], $current_url) . '">' . esc_html__('Status', 'google-docs-importer') . $status_arrow . '</a></th>';
+        echo '<th><a href="' . add_query_arg(['orderby' => 'type', 'order' => $type_order], $current_url) . '">' . esc_html__('Tipo', 'google-docs-importer') . $type_arrow . '</a></th>';
+        echo '<th><a href="' . add_query_arg(['orderby' => 'category', 'order' => $category_order], $current_url) . '">' . esc_html__('Categoría', 'google-docs-importer') . $category_arrow . '</a></th>';
+        echo '<th><a href="' . add_query_arg(['orderby' => 'date', 'order' => $date_order], $current_url) . '">' . esc_html__('Fecha', 'google-docs-importer') . $date_arrow . '</a></th>';
         echo '</tr></thead>';
         echo '<tbody>';
         if (!$docs || !is_array($docs)) {
-            echo '<tr><td colspan="7">Haz clic en "Actualizar listado" para obtener los documentos.</td></tr>';
+            echo '<tr><td colspan="7">' . esc_html__('Haz clic en el botón -Actualizar listado- para obtener los documentos.', 'google-docs-importer') . '</td></tr>';
         } else {
             foreach ($docs_page as $doc) {
                 list($accion, $post_links, $status_label, $status_class, $status_icon, $post_type_label, $category_label, $fecha) = self::get_doc_row($doc);
@@ -228,11 +228,11 @@ class G2WPI_Docs_Table {
     private static function get_doc_row($doc) {
         global $wpdb;
         $imported = $wpdb->get_row($wpdb->prepare("SELECT * FROM " . G2WPI_TABLE_NAME . " WHERE google_doc_id = %s", $doc['id']));
-        $status_label = '____________';
+        $status_label = __('____________', 'google-docs-importer');
         $status_class = '';
         $status_icon = '';
         $post_links = '—';
-        $accion = '<span class="dashicons dashicons-clock" style="color:#0073aa;vertical-align:middle;"></span> <a href="' . admin_url('admin.php?page=g2wpi-importador&import=' . $doc['id']) . '" class="button">Importar</a>';
+        $accion = '<span class="dashicons dashicons-clock" style="color:#0073aa;vertical-align:middle;"></span> <a href="' . admin_url('admin.php?page=g2wpi-importador&import=' . $doc['id']) . '" class="button">' . esc_html__('Importar', 'google-docs-importer') . '</a>';
         $fecha = '—';
         $post_type_label = '—';
         $category_label = '—';
@@ -243,47 +243,47 @@ class G2WPI_Docs_Table {
                 $status = $post->post_status;
                 switch ($status) {
                     case 'publish':
-                        $status_label = 'Publicado';
+                        $status_label = __('Publicado', 'google-docs-importer');
                         $status_class = 'g2wpi-status-publish';
                         $status_icon = '<span class="dashicons dashicons-yes-alt" style="color:#46b450;vertical-align:middle;"></span> ';
                         break;
                     case 'draft':
-                        $status_label = 'Borrador';
+                        $status_label = __('Borrador', 'google-docs-importer');
                         $status_class = 'g2wpi-status-draft';
                         $status_icon = '<span class="dashicons dashicons-edit" style="color:#dba617;vertical-align:middle;"></span> ';
                         break;
                     case 'pending':
-                        $status_label = 'Pendiente';
+                        $status_label = __('Pendiente', 'google-docs-importer');
                         $status_class = 'g2wpi-status-pending';
                         $status_icon = '<span class="dashicons dashicons-clock" style="color:#0073aa;vertical-align:middle;"></span> ';
                         break;
                     case 'future':
-                        $status_label = 'Programado';
+                        $status_label = __('Programado', 'google-docs-importer');
                         $status_class = 'g2wpi-status-future';
                         $status_icon = '<span class="dashicons dashicons-calendar-alt" style="color:#0073aa;vertical-align:middle;"></span> ';
                         break;
                     case 'private':
-                        $status_label = 'Privado';
+                        $status_label = __('Privado', 'google-docs-importer');
                         $status_class = 'g2wpi-status-private';
                         $status_icon = '<span class="dashicons dashicons-lock" style="color:#666;vertical-align:middle;"></span> ';
                         break;
                     case 'inherit':
-                        $status_label = 'Heredado';
+                        $status_label = __('Heredado', 'google-docs-importer');
                         $status_class = 'g2wpi-status-inherit';
                         $status_icon = '<span class="dashicons dashicons-admin-multisite" style="color:#888;vertical-align:middle;"></span> ';
                         break;
                     case 'auto-draft':
-                        $status_label = 'Auto-borrador';
+                        $status_label = __('Auto-borrador', 'google-docs-importer');
                         $status_class = 'g2wpi-status-autodraft';
                         $status_icon = '<span class="dashicons dashicons-welcome-write-blog" style="color:#aaa;vertical-align:middle;"></span> ';
                         break;
                     case 'trash':
-                        $status_label = 'Papelera';
+                        $status_label = __('Papelera', 'google-docs-importer');
                         $status_class = 'g2wpi-status-trash';
                         $status_icon = '<span class="dashicons dashicons-trash" style="color:#dc3232;vertical-align:middle;"></span> ';
                         break;
                     case 'revision':
-                        $status_label = 'Revisión';
+                        $status_label = __('Revisión', 'google-docs-importer');
                         $status_class = 'g2wpi-status-revision';
                         $status_icon = '<span class="dashicons dashicons-backup" style="color:#999;vertical-align:middle;"></span> ';
                         break;
@@ -296,10 +296,10 @@ class G2WPI_Docs_Table {
                 $view_url = $status === 'draft' ? get_preview_post_link($post_id) : get_permalink($post_id);
                 $edit_url = get_edit_post_link($post_id);
                 $delete_url = wp_nonce_url(admin_url('admin.php?page=g2wpi-importador&delete=' . $doc['id']), 'g2wpi_delete_' . $doc['id']);
-                $post_links = '<a href="' . esc_url($view_url) . '" class="g2wpi-action-icon dashicons dashicons-visibility" title="Ver" target="_blank" style="color:#0073aa;"></a>';
-                $post_links .= '<a href="' . esc_url($edit_url) . '" class="g2wpi-action-icon dashicons dashicons-edit" title="Editar" target="_blank" style="color:#dba617;"></a>';
-                $post_links .= '<a href="' . esc_url($delete_url) . '" class="g2wpi-action-icon dashicons dashicons-trash" title="Eliminar" onclick="return confirm(\'¿Seguro que deseas eliminar este post importado?\');" style="color:#dc3232;"></a>';
-                $accion = '<span class="dashicons dashicons-yes-alt" style="color:#46b450;vertical-align:middle;"></span> Importado';
+                $post_links = '<a href="' . esc_url($view_url) . '" class="g2wpi-action-icon dashicons dashicons-visibility" title="' . esc_attr__('Ver', 'google-docs-importer') . '" target="_blank" style="color:#0073aa;"></a>';
+                $post_links .= '<a href="' . esc_url($edit_url) . '" class="g2wpi-action-icon dashicons dashicons-edit" title="' . esc_attr__('Editar', 'google-docs-importer') . '" target="_blank" style="color:#dba617;"></a>';
+                $post_links .= '<a href="' . esc_url($delete_url) . '" class="g2wpi-action-icon dashicons dashicons-trash" title="' . esc_attr__('Eliminar', 'google-docs-importer') . '" onclick="return confirm(\'' . esc_js(__('¿Seguro que deseas eliminar este post importado?', 'google-docs-importer')) . '\');" style="color:#dc3232;"></a>';
+                $accion = '<span class="dashicons dashicons-yes-alt" style="color:#46b450;vertical-align:middle;"></span> ' . esc_html__('Importado', 'google-docs-importer');
                 $fecha = $imported->imported_at;
                 $post_type_label = ($post->post_type === 'post') ? 'post' : $post->post_type;
                 // Obtener categoría principal (solo para posts estándar)
@@ -308,7 +308,7 @@ class G2WPI_Docs_Table {
                     if (!empty($cats)) {
                         $category_label = $cats[0]->name;
                     } else {
-                        $category_label = 'Sin categoría';
+                        $category_label = esc_html__('Sin categoría', 'google-docs-importer');
                     }
                 } else {
                     // Para CPT, intentar obtener la taxonomía principal si existe
@@ -322,7 +322,7 @@ class G2WPI_Docs_Table {
                         if (!empty($terms) && !is_wp_error($terms)) {
                             $category_label = $terms[0]->name;
                         } else {
-                            $category_label = 'Sin término';
+                            $category_label = esc_html__('Sin término', 'google-docs-importer');
                         }
                     } else {
                         $category_label = '—';

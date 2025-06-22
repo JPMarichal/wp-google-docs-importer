@@ -41,14 +41,14 @@ function g2wpi_render_docs_table() {
     echo '<div style="display:flex;align-items:center;gap:18px;margin-bottom:18px;">';
     echo '<span style="font-size:2.2em;line-height:1;display:flex;align-items:center;">'
         . '<span class="dashicons dashicons-google" style="color:#4285f4;font-size:1.2em;margin-right:12px;"></span>'
-        . '<span style="font-weight:700;font-size:1.1em;letter-spacing:0.5px;">oogle Docs Importer</span>'
+        . '<span style="font-weight:700;font-size:1.1em;letter-spacing:0.5px;">' . esc_html__('Google Docs Importer', 'google-docs-importer') . '</span>'
         . '</span>';
     echo '<a href="' . esc_url(admin_url('admin.php?page=g2wpi-importador&refresh=1')) . '" class="button button-secondary" style="margin-left:18px;">'
-        . '<span class="dashicons dashicons-update" style="vertical-align:middle;margin-right:4px;"></span>Actualizar listado</a>';
+        . '<span class="dashicons dashicons-update" style="vertical-align:middle;margin-right:4px;"></span>' . esc_html__('Actualizar listado', 'google-docs-importer') . '</a>';
     echo '</div>';
     // Barra de búsqueda justo debajo del título y botón, estilizada
     echo '<div style="margin-bottom:18px;max-width:520px;">'
-        .'<input type="text" id="g2wpi-search-docs" class="regular-text" placeholder="Buscar por nombre de documento..." autocomplete="off" style="width:100%;height:32px;min-height:unset;max-height:32px;font-size:15px;padding:3px 12px;border-radius:4px;border:1px solid #ccd0d4;box-sizing:border-box;">'
+        .'<input type="text" id="g2wpi-search-docs" class="regular-text" placeholder="' . esc_attr__('Buscar por nombre de documento...', 'google-docs-importer') . '" autocomplete="off" style="width:100%;height:32px;min-height:unset;max-height:32px;font-size:15px;padding:3px 12px;border-radius:4px;border:1px solid #ccd0d4;box-sizing:border-box;">'
         .'</div>';
     G2WPI_Docs_Table::render();
 }
@@ -67,14 +67,14 @@ function g2wpi_render_settings_page() {
         'prompt' => 'consent'
     ]);
     echo '<div class="wrap">';
-    echo '<h1>Ajustes del Importador de Google Docs</h1>';
+    echo '<h1>' . esc_html__('Ajustes del Importador de Google Docs', 'google-docs-importer') . '</h1>';
     echo '<form method="post" action="options.php">';
     settings_fields(G2WPI_OPTION_GROUP);
     do_settings_sections('g2wpi-ajustes');
     submit_button();
     echo '</form>';
-    echo '<h2>Autenticación con Google</h2>';
-    echo '<a class="button button-primary" href="' . esc_url($auth_url) . '">Conectar con Google</a>';
+    echo '<h2>' . esc_html__('Autenticación con Google', 'google-docs-importer') . '</h2>';
+    echo '<a class="button button-primary" href="' . esc_url($auth_url) . '">' . esc_html__('Conectar con Google', 'google-docs-importer') . '</a>';
     echo '</div>';
 }
 
@@ -124,4 +124,9 @@ add_action('admin_init', function() {
             }
         }
     }
+});
+
+// Unifica la carga de idioma y traducciones en plugins_loaded
+add_action('plugins_loaded', function() {
+    load_plugin_textdomain('google-docs-importer', false, dirname(plugin_basename(__FILE__)) . '/languages');
 });

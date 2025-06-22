@@ -8,8 +8,23 @@ class G2WPI_Admin {
     }
 
     public function register_menu() {
-        add_menu_page('Importador de Google Docs', 'Google Docs Importer', 'manage_options', 'g2wpi-importador', [$this, 'render_admin_page'], 'dashicons-google', 26);
-        add_submenu_page('g2wpi-importador', 'Ajustes de Importador', 'Ajustes', 'manage_options', 'g2wpi-ajustes', [$this, 'render_settings_page']);
+        add_menu_page(
+            __('Importador de Google Docs', 'google-docs-importer'),
+            __('Google Docs Importer', 'google-docs-importer'),
+            'manage_options',
+            'g2wpi-importador',
+            [$this, 'render_admin_page'],
+            'dashicons-google',
+            26
+        );
+        add_submenu_page(
+            'g2wpi-importador',
+            __('Ajustes de Importador', 'google-docs-importer'),
+            __('Ajustes', 'google-docs-importer'),
+            'manage_options',
+            'g2wpi-ajustes',
+            [$this, 'render_settings_page']
+        );
     }
 
     public function enqueue_scripts($hook) {

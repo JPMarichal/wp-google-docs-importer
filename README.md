@@ -62,6 +62,18 @@ Google Docs Importer es un plugin único para WordPress que conecta tu Google Dr
 - `gd_importer/before_import` - Antes de importar un documento
 - `gd_importer/after_import` - Después de importar (éxito o fallo)
 
+## Idiomas soportados
+
+Este plugin detecta automáticamente el idioma configurado en WordPress y mostrará la interfaz en ese idioma si existe traducción disponible. Actualmente está preparado para:
+
+- Español (es_ES)
+- Inglés (en_US)
+- Alemán (de_DE)
+- Francés (fr_FR)
+- Portugués (pt_PT)
+
+Si el idioma de tu sitio no está en la lista, la interfaz aparecerá en inglés por defecto.
+
 ## Contribuciones
 ¡Las contribuciones son bienvenidas! Envía un Pull Request o abre un issue.
 

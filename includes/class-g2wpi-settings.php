@@ -7,10 +7,11 @@ class G2WPI_Settings {
 
     public function register_settings() {
         register_setting(G2WPI_OPTION_GROUP, G2WPI_OPTION_NAME);
-        add_settings_section('g2wpi_api_section', 'Credenciales de Google API', null, 'g2wpi-ajustes');
-        add_settings_field('client_id', 'Client ID', [$this, 'render_input_field'], 'g2wpi-ajustes', 'g2wpi_api_section', ['label_for' => 'client_id']);
-        add_settings_field('client_secret', 'Client Secret', [$this, 'render_input_field'], 'g2wpi-ajustes', 'g2wpi_api_section', ['label_for' => 'client_secret']);
-        add_settings_field('folder_id', 'ID de Carpeta en Google Drive', [$this, 'render_input_field'], 'g2wpi-ajustes', 'g2wpi_api_section', ['label_for' => 'folder_id']);
+        add_settings_section('g2wpi_api_section', __('Credenciales de Google API', 'google-docs-importer'), null, 'g2wpi-ajustes');
+        add_settings_field('client_id', __('Client ID', 'google-docs-importer'), [$this, 'render_input_field'], 'g2wpi-ajustes', 'g2wpi_api_section', ['label_for' => 'client_id']);
+        add_settings_field('client_secret', __('Client Secret', 'google-docs-importer'), [$this, 'render_input_field'], 'g2wpi-ajustes', 'g2wpi_api_section', ['label_for' => 'client_secret']);
+        add_settings_field('folder_id', __('ID de Carpeta en Google Drive', 'google-docs-importer'), [$this, 'render_input_field'], 'g2wpi-ajustes', 'g2wpi_api_section', ['label_for' => 'folder_id']);
+        // Eliminado el campo de idioma, ahora el idioma se toma de la configuración general de WordPress
     }
 
     public function render_input_field($args) {
