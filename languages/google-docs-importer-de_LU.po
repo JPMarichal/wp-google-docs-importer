@@ -1,0 +1,142 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Google Docs Importer 0.3.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-21 00:00+0000\n"
+"PO-Revision-Date: 2025-06-21 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_LU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Copilot\n"
+
+msgid "Importador de Google Docs"
+msgstr "Google Docs Importer"
+
+msgid "Google Docs Importer"
+msgstr "Google Docs Importer"
+
+msgid "Ajustes de Importador"
+msgstr "Importer-Einstellungen"
+
+msgid "Ajustes"
+msgstr "Einstellungen"
+
+msgid "Credenciales de Google API"
+msgstr "Google API-Zugangsdaten"
+
+msgid "Client ID"
+msgstr "Client-ID"
+
+msgid "Client Secret"
+msgstr "Client Secret"
+
+msgid "ID de Carpeta en Google Drive"
+msgstr "Google Drive Ordner-ID"
+
+msgid "Nombre"
+msgstr "Name"
+
+msgid "Importación"
+msgstr "Importieren"
+
+msgid "Acciones"
+msgstr "Aktionen"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Tipo"
+msgstr "Typ"
+
+msgid "Categoría"
+msgstr "Kategorie"
+
+msgid "Fecha"
+msgstr "Datum"
+
+msgid "Haz clic en el botón -Actualizar listado- para obtener los documentos."
+msgstr "Klicken Sie auf die Schaltfläche -Liste aktualisieren-, um die Dokumente abzurufen."
+
+msgid "Idioma"
+msgstr "Sprache"
+
+msgid "Selecciona el idioma de la interfaz."
+msgstr "Wählen Sie die Sprache der Benutzeroberfläche."
+
+msgid "Ajustes del Importador de Google Docs"
+msgstr "Google Docs Importer Einstellungen"
+
+msgid "Autenticación con Google"
+msgstr "Google-Authentifizierung"
+
+msgid "Conectar con Google"
+msgstr "Mit Google verbinden"
+
+msgid "Guardar cambios"
+msgstr "Änderungen speichern"
+
+msgid "Cambios guardados correctamente"
+msgstr "Änderungen erfolgreich gespeichert"
+
+msgid "Error al guardar los cambios"
+msgstr "Fehler beim Speichern der Änderungen"
+
+msgid "Error de red al guardar los cambios"
+msgstr "Netzwerkfehler beim Speichern der Änderungen"
+
+msgid "Publicado"
+msgstr "Veröffentlicht"
+
+msgid "Borrador"
+msgstr "Entwurf"
+
+msgid "Pendiente"
+msgstr "Ausstehend"
+
+msgid "Programado"
+msgstr "Geplant"
+
+msgid "Privado"
+msgstr "Privat"
+
+msgid "Heredado"
+msgstr "Geerbt"
+
+msgid "Auto-borrador"
+msgstr "Auto-Entwurf"
+
+msgid "Papelera"
+msgstr "Papierkorb"
+
+msgid "Revisión"
+msgstr "Revision"
+
+msgid "Ver"
+msgstr "Ansehen"
+
+msgid "Editar"
+msgstr "Bearbeiten"
+
+msgid "Eliminar"
+msgstr "Löschen"
+
+msgid "Importado"
+msgstr "Importiert"
+
+msgid "Sin categoría"
+msgstr "Ohne Kategorie"
+
+msgid "Sin término"
+msgstr "Kein Begriff"
+
+msgid "—"
+msgstr "—"
+
+msgid "Actualizar listado"
+msgstr "Liste aktualisieren"
+
+msgid "Buscar por nombre de documento..."
+msgstr "Nach Dokumentname suchen..."
