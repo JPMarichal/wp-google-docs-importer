@@ -1,0 +1,142 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Google Docs Importer 0.3.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-21 00:00+0000\n"
+"PO-Revision-Date: 2025-06-21 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_CH\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Copilot\n"
+
+msgid "Importador de Google Docs"
+msgstr "Importateur Google Docs"
+
+msgid "Google Docs Importer"
+msgstr "Importateur Google Docs"
+
+msgid "Ajustes de Importador"
+msgstr "Paramètres de l'importateur"
+
+msgid "Ajustes"
+msgstr "Paramètres"
+
+msgid "Credenciales de Google API"
+msgstr "Identifiants Google API"
+
+msgid "Client ID"
+msgstr "ID client"
+
+msgid "Client Secret"
+msgstr "Secret client"
+
+msgid "ID de Carpeta en Google Drive"
+msgstr "ID du dossier Google Drive"
+
+msgid "Nombre"
+msgstr "Nom"
+
+msgid "Importación"
+msgstr "Importer"
+
+msgid "Acciones"
+msgstr "Actions"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Tipo"
+msgstr "Type"
+
+msgid "Categoría"
+msgstr "Catégorie"
+
+msgid "Fecha"
+msgstr "Date"
+
+msgid "Haz clic en el botón -Actualizar listado- para obtener los documentos."
+msgstr "Cliquez sur le bouton -Mettre à jour la liste- pour obtenir les documents."
+
+msgid "Idioma"
+msgstr "Langue"
+
+msgid "Selecciona el idioma de la interfaz."
+msgstr "Sélectionnez la langue de l'interface."
+
+msgid "Ajustes del Importador de Google Docs"
+msgstr "Paramètres de l'importateur Google Docs"
+
+msgid "Autenticación con Google"
+msgstr "Authentification Google"
+
+msgid "Conectar con Google"
+msgstr "Se connecter à Google"
+
+msgid "Guardar cambios"
+msgstr "Enregistrer les modifications"
+
+msgid "Cambios guardados correctamente"
+msgstr "Modifications enregistrées avec succès"
+
+msgid "Error al guardar los cambios"
+msgstr "Erreur lors de l'enregistrement des modifications"
+
+msgid "Error de red al guardar los cambios"
+msgstr "Erreur réseau lors de l'enregistrement des modifications"
+
+msgid "Publicado"
+msgstr "Publié"
+
+msgid "Borrador"
+msgstr "Brouillon"
+
+msgid "Pendiente"
+msgstr "En attente"
+
+msgid "Programado"
+msgstr "Planifié"
+
+msgid "Privado"
+msgstr "Privé"
+
+msgid "Heredado"
+msgstr "Hérité"
+
+msgid "Auto-borrador"
+msgstr "Brouillon automatique"
+
+msgid "Papelera"
+msgstr "Corbeille"
+
+msgid "Revisión"
+msgstr "Révision"
+
+msgid "Ver"
+msgstr "Voir"
+
+msgid "Editar"
+msgstr "Éditer"
+
+msgid "Eliminar"
+msgstr "Supprimer"
+
+msgid "Importado"
+msgstr "Importé"
+
+msgid "Sin categoría"
+msgstr "Non classé"
+
+msgid "Sin término"
+msgstr "Aucun terme"
+
+msgid "—"
+msgstr "—"
+
+msgid "Actualizar listado"
+msgstr "Mettre à jour la liste"
+
+msgid "Buscar por nombre de documento..."
+msgstr "Rechercher par nom de document..."
