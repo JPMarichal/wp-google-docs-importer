@@ -4,6 +4,12 @@ class G2WPI_Drive {
     public static function fetch_drive_documents() {
         $settings = get_option(G2WPI_OPTION_NAME);
         $tokens = get_option(G2WPI_TOKEN_OPTION);
+        if ((!$tokens || !isset($tokens['access_token'])) && isset($tokens['refresh_token'])) {
+            // Intentar refrescar el token si hay refresh_token
+            if (class_exists('G2WPI_OAuth') && method_exists('G2WPI_OAuth', 'refresh_access_token')) {
+                $tokens = G2WPI_OAuth::refresh_access_token();
+            }
+        }
         if (!$tokens || !isset($tokens['access_token']) || !$settings['folder_id']) return;
         $access_token = $tokens['access_token'];
         $folder_id = $settings['folder_id'];
@@ -14,6 +20,20 @@ class G2WPI_Drive {
                 'Authorization' => 'Bearer ' . $access_token,
             ]
         ]);
+        // Si el token expiró, intentar refrescar y reintentar una vez
+        if (is_wp_error($response) || (isset($response['response']['code']) && $response['response']['code'] == 401)) {
+            if (class_exists('G2WPI_OAuth') && method_exists('G2WPI_OAuth', 'refresh_access_token')) {
+                $tokens = G2WPI_OAuth::refresh_access_token();
+                if ($tokens && isset($tokens['access_token'])) {
+                    $access_token = $tokens['access_token'];
+                    $response = wp_remote_get($url, [
+                        'headers' => [
+                            'Authorization' => 'Bearer ' . $access_token,
+                        ]
+                    ]);
+                }
+            }
+        }
         if (is_wp_error($response)) return;
         $data = json_decode(wp_remote_retrieve_body($response), true);
         if (!isset($data['files'])) return;
@@ -27,11 +47,19 @@ class G2WPI_Drive {
     public static function import_google_doc($doc_id) {
         error_log('G2WPI DEBUG: INICIO import_google_doc');
         $tokens = get_option(G2WPI_TOKEN_OPTION);
-        if (!$tokens || !isset($tokens['access_token'])) {
+        if ((!$tokens || !isset($tokens['access_token'])) && isset($tokens['refresh_token'])) {
+            // Intentar refrescar el token si hay refresh_token
+            if (class_exists('G2WPI_OAuth') && method_exists('G2WPI_OAuth', 'refresh_access_token')) {
+                $tokens = G2WPI_OAuth::refresh_access_token();
+                $access_token = $tokens ? $tokens['access_token'] : null;
+            }
+        } else {
+            $access_token = $tokens['access_token'];
+        }
+        if (!$access_token) {
             error_log('G2WPI ERROR: No access token.');
             wp_die('Error: No access token de Google.');
         }
-        $access_token = $tokens['access_token'];
         error_log('G2WPI DEBUG: Token obtenido');
 
         // Obtener el nombre del documento para el título
@@ -42,6 +70,20 @@ class G2WPI_Drive {
                 'Authorization' => 'Bearer ' . $access_token,
             ]
         ]);
+        // Si el token expiró, intentar refrescar y reintentar una vez
+        if (is_wp_error($meta_response) || (isset($meta_response['response']['code']) && $meta_response['response']['code'] == 401)) {
+            if (class_exists('G2WPI_OAuth') && method_exists('G2WPI_OAuth', 'refresh_access_token')) {
+                $tokens = G2WPI_OAuth::refresh_access_token();
+                if ($tokens && isset($tokens['access_token'])) {
+                    $access_token = $tokens['access_token'];
+                    $meta_response = wp_remote_get($meta_url, [
+                        'headers' => [
+                            'Authorization' => 'Bearer ' . $access_token,
+                        ]
+                    ]);
+                }
+            }
+        }
         error_log('G2WPI DEBUG: meta_response=' . print_r($meta_response, true));
         $title = 'Documento importado';
         if (!is_wp_error($meta_response)) {
@@ -60,6 +102,20 @@ class G2WPI_Drive {
                 'Authorization' => 'Bearer ' . $access_token,
             ]
         ]);
+        // Si el token expiró, intentar refrescar y reintentar una vez
+        if (is_wp_error($response) || (isset($response['response']['code']) && $response['response']['code'] == 401)) {
+            if (class_exists('G2WPI_OAuth') && method_exists('G2WPI_OAuth', 'refresh_access_token')) {
+                $tokens = G2WPI_OAuth::refresh_access_token();
+                if ($tokens && isset($tokens['access_token'])) {
+                    $access_token = $tokens['access_token'];
+                    $response = wp_remote_get($export_url, [
+                        'headers' => [
+                            'Authorization' => 'Bearer ' . $access_token,
+                        ]
+                    ]);
+                }
+            }
+        }
         error_log('G2WPI DEBUG: export_response=' . print_r($response, true));
         if (is_wp_error($response)) {
             error_log('G2WPI ERROR: ' . print_r($response, true));

@@ -50,6 +50,18 @@ Google Docs Importer es un plugin único para WordPress que conecta tu Google Dr
 4. Haz clic en "Importar" junto a cualquier documento para traerlo como post (borrador)
 5. Edita y publica cuando estés listo
 
+## Sobre la conexión con Google
+
+Cuando conectas el plugin con tu cuenta de Google, la sesión suele mantenerse activa y no tendrás que volver a autorizar salvo en casos poco frecuentes, como:
+
+- Si revocas el acceso desde tu cuenta de Google.
+- Si cambias los datos de conexión (Client ID o Client Secret) en los ajustes del plugin.
+- Si Google detecta algún problema de seguridad.
+
+En la mayoría de los casos, el plugin renovará la conexión automáticamente. Si alguna vez ves un mensaje pidiéndote reconectar, solo hazlo desde los ajustes del plugin.
+
+**Importante:** Si ves errores de autenticación persistentes, revisa que tu cuenta de Google siga autorizando el acceso y que las credenciales sean correctas.
+
 ## Filtros y acciones para desarrolladores
 ### Filtros
 - `gd_importer/post_args` - Modifica los argumentos del post antes de crearlo/actualizarlo
