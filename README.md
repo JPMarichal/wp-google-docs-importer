@@ -2,6 +2,21 @@
 
 Google Docs Importer es un plugin único para WordPress que conecta tu Google Drive con tu sitio, permitiendo importar documentos de Google Docs como entradas (posts) estándar, manteniendo el formato y facilitando el workflow editorial. Si deseas que el contenido sea de otro tipo (página o Custom Post Type), deberás cambiarlo manualmente tras la importación.
 
+## Prerrequisitos
+
+Antes de instalar el plugin, necesitas crear credenciales de Google API para permitir la conexión segura entre tu sitio WordPress y Google Drive/Docs. Sigue estos pasos:
+
+1. Accede a la [Consola de Google Cloud](https://console.cloud.google.com/).
+2. Crea un nuevo proyecto (o selecciona uno existente).
+3. Habilita las APIs de **Google Drive** y **Google Docs** para tu proyecto.
+4. Ve a "Credenciales" y crea un **ID de cliente OAuth 2.0**:
+   - Tipo de aplicación: "Aplicación web".
+   - Añade la URL de tu sitio WordPress como origen autorizado y la URL de redirección que te indique el plugin en los ajustes.
+5. Descarga el archivo JSON de credenciales o copia el **Client ID** y **Client Secret**.
+6. Una vez instalado el plugin, introduce estos datos en los ajustes del plugin para completar la conexión.
+
+Consulta la documentación oficial de Google si tienes dudas sobre la creación de credenciales OAuth 2.0.
+
 ## ¿Para quién es este plugin?
 - **Equipos editoriales y medios digitales** que redactan en Google Docs y publican en WordPress.
 - **Agencias de contenido** que gestionan múltiples clientes y necesitan flujos de trabajo eficientes.
@@ -38,28 +53,43 @@ Google Docs Importer es un plugin único para WordPress que conecta tu Google Dr
 ## Instalación
 1. Sube la carpeta `google-docs-importer` a `/wp-content/plugins/`
 2. Activa el plugin en el menú de plugins de WordPress
-3. Crea un proyecto en Google Cloud Console y habilita las APIs de Google Drive y Google Docs
-4. Crea credenciales OAuth 2.0 y configura la URI de redirección: `your-site.com/wp-admin/admin-post.php?action=g2wpi_oauth_callback`
-5. Ve a los ajustes del plugin e ingresa tu Client ID, Client Secret y Folder ID de Google Drive
-6. Haz clic en "Conectar con Google" para autorizar el plugin
+3. El plugin creará automáticamente las tablas y opciones necesarias para funcionar.
+4. Configura tus credenciales de Google API y carpeta de Google Drive en los ajustes del plugin.
+5. ¡Listo para trabajar!
 
-## Uso
-1. Ve al menú "Google Docs" en el admin de WordPress
-2. Haz clic en "Actualizar listado" para obtener los documentos de tu carpeta de Google Drive
-3. Usa la búsqueda para filtrar documentos
-4. Haz clic en "Importar" junto a cualquier documento para traerlo como post (borrador)
-5. Edita y publica cuando estés listo
+## Exportar tus datos antes de desinstalar
 
-## Selección de carpeta de Google Drive
+Antes de desinstalar el plugin, puedes exportar:
+- **Ajustes**: Descarga un archivo JSON con toda la configuración del plugin.
+- **Historial**: Descarga un archivo JSON con la correspondencia entre documentos de Google Docs y posts importados.
 
-Para cambiar la carpeta de Google Drive desde la que se listan los documentos:
+Ambas opciones están disponibles en la página de ajustes del plugin.
 
-1. En la pantalla principal del plugin, haz clic en el botón **"Cambiar carpeta"** (junto a "Actualizar listado").
-2. Se abrirá un popup de Google Picker donde podrás navegar y seleccionar la carpeta deseada de tu Google Drive.
-3. Al seleccionar una carpeta, el plugin guardará automáticamente la selección y recargará la página para mostrar los documentos de la nueva carpeta.
-4. Puedes repetir este proceso en cualquier momento para cambiar la carpeta activa.
+## Desinstalación
 
-**Nota:** Es necesario haber configurado correctamente las credenciales de Google API en los ajustes del plugin para que el selector funcione.
+1. Ve a los ajustes del plugin y haz clic en **"Confirmar desinstalación"**.
+2. Exporta tus datos si lo deseas.
+3. Desinstala el plugin desde el panel de plugins de WordPress.
+
+**Importante:**
+- La desinstalación elimina todas las tablas, opciones y datos internos del plugin. No queda rastro en la base de datos.
+- Los posts de WordPress importados NO se eliminan.
+
+## Reinstalación y restauración
+
+1. Instala y activa el plugin normalmente.
+2. Ve a los ajustes del plugin.
+3. Usa los formularios para **importar los ajustes** y **el historial** desde los archivos JSON exportados previamente.
+4. El plugin restaurará la configuración y el historial, permitiéndote continuar como si nunca hubieras desinstalado.
+
+**Notas:**
+- Si solo importas los ajustes, tendrás la configuración pero no el historial de importaciones.
+- Si solo importas el historial, tendrás la correspondencia pero deberás volver a configurar las credenciales.
+- Puedes importar ambos archivos en cualquier orden.
+
+## Mensajes y validación
+- El plugin utiliza SweetAlert para mostrar mensajes claros de éxito o error al importar/exportar datos.
+- Si SweetAlert no está disponible, se usan alertas estándar.
 
 ## Sobre la conexión con Google
 
@@ -106,7 +136,3 @@ Este plugin es software libre; puedes redistribuirlo y/o modificarlo bajo los t�
 
 Este plugin se distribuye con la esperanza de que sea útil, pero SIN NINGUNA GARANTÍA; ni siquiera la garantía implícita de COMERCIABILIDAD o ADECUACIÓN PARA UN PROPÓSITO PARTICULAR. Consulta los detalles en la Licencia Pública General de GNU.
 
-## Changelog
-
-### 1.0.0
-* Versión inicial

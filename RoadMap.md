@@ -11,7 +11,11 @@
 - Validar JS con JSHint y eliminar globales innecesarias.
 
 ### 2. Instalación/desinstalación (PRIORIDAD ALTA)
-- Implementar proceso de desinstalación que advierta al usuario, confirme la acción y permita exportar ajustes antes de borrar datos.
+- [COMPLETADO] Proceso de desinstalación seguro: advertencia, confirmación y exportación de datos antes de borrar.
+- [COMPLETADO] Exportación e importación de ajustes y de historial de correspondencia desde la interfaz de ajustes.
+- [COMPLETADO] Eliminación completa de tablas, opciones y transients del plugin en la desinstalación.
+- [COMPLETADO] Restauración sencilla tras reinstalación mediante importación de archivos JSON.
+- [COMPLETADO] Mensajes de éxito/error mejorados usando SweetAlert (o alertas estándar si no está disponible).
 
 ### 3. Documentación y assets (PRIORIDAD ALTA)
 - Crear documentación en inglés (PDF o HTML) explicando instalación, personalización y uso, con ejemplos.

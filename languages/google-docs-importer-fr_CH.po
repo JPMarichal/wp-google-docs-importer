@@ -1,46 +1,77 @@
+# French (Switzerland) translation for Google Docs Importer
 msgid ""
 msgstr ""
-"Project-Id-Version: Google Docs Importer 0.3.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-21 00:00+0000\n"
-"PO-Revision-Date: 2025-06-21 00:00+0000\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"Project-Id-Version: Google Docs to WP Importer 0.3.0\n"
 "Language: fr_CH\n"
-"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Copilot\n"
 
+msgid "Google Docs to WP Importer"
+msgstr "Google Docs vers WP Importateur"
+
+msgid "Importa documentos desde una carpeta de Google Drive como entradas en WordPress."
+msgstr "Importez des documents depuis un dossier Google Drive comme articles dans WordPress."
+
+msgid "Juan Pablo"
+msgstr "Juan Pablo"
+
 msgid "Importador de Google Docs"
 msgstr "Importateur Google Docs"
 
-msgid "Google Docs Importer"
-msgstr "Importateur Google Docs"
+msgid "Cambiar carpeta"
+msgstr "Changer de dossier"
 
-msgid "Ajustes de Importador"
-msgstr "Paramètres de l'importateur"
+msgid "Actualizar listado"
+msgstr "Mettre à jour la liste"
 
-msgid "Ajustes"
-msgstr "Paramètres"
+msgid "Buscar por nombre de documento..."
+msgstr "Rechercher par nom de document..."
 
-msgid "Credenciales de Google API"
-msgstr "Identifiants Google API"
+msgid "Ajustes del Importador de Google Docs"
+msgstr "Paramètres de l'importateur Google Docs"
 
-msgid "Client ID"
-msgstr "ID client"
+msgid "Autenticación con Google"
+msgstr "Authentification Google"
 
-msgid "Client Secret"
-msgstr "Secret client"
+msgid "Conectar con Google"
+msgstr "Se connecter à Google"
 
-msgid "ID de Carpeta en Google Drive"
-msgstr "ID du dossier Google Drive"
+msgid "Desinstalación y limpieza"
+msgstr "Désinstallation et nettoyage"
+
+msgid "¡Advertencia!"
+msgstr "Attention !"
+
+msgid "Al desinstalar el plugin se eliminarán todos los datos y ajustes relacionados. Puedes exportar tus ajustes antes de continuar."
+msgstr "La désinstallation du plugin supprimera toutes les données et paramètres associés. Vous pouvez exporter vos paramètres avant de continuer."
+
+msgid "Exportar ajustes"
+msgstr "Exporter les paramètres"
+
+msgid "Exportar historial"
+msgstr "Exporter l'historique"
+
+msgid "Importar historial"
+msgstr "Importer l'historique"
+
+msgid "Importar ajustes"
+msgstr "Importer les paramètres"
+
+msgid "Confirmar desinstalación"
+msgstr "Confirmer la désinstallation"
+
+msgid "Después de confirmar, puedes proceder a desinstalar el plugin desde la pantalla de plugins de WordPress."
+msgstr "Après confirmation, vous pouvez procéder à la désinstallation du plugin depuis l'écran des plugins WordPress."
+
+msgid "Confirmación registrada. Ahora puedes desinstalar el plugin de forma segura."
+msgstr "Confirmation enregistrée. Vous pouvez maintenant désinstaller le plugin en toute sécurité."
 
 msgid "Nombre"
 msgstr "Nom"
 
 msgid "Importación"
-msgstr "Importer"
+msgstr "Importation"
 
 msgid "Acciones"
 msgstr "Actions"
@@ -60,32 +91,11 @@ msgstr "Date"
 msgid "Haz clic en el botón -Actualizar listado- para obtener los documentos."
 msgstr "Cliquez sur le bouton -Mettre à jour la liste- pour obtenir les documents."
 
-msgid "Idioma"
-msgstr "Langue"
+msgid "____________"
+msgstr "____________"
 
-msgid "Selecciona el idioma de la interfaz."
-msgstr "Sélectionnez la langue de l'interface."
-
-msgid "Ajustes del Importador de Google Docs"
-msgstr "Paramètres de l'importateur Google Docs"
-
-msgid "Autenticación con Google"
-msgstr "Authentification Google"
-
-msgid "Conectar con Google"
-msgstr "Se connecter à Google"
-
-msgid "Guardar cambios"
-msgstr "Enregistrer les modifications"
-
-msgid "Cambios guardados correctamente"
-msgstr "Modifications enregistrées avec succès"
-
-msgid "Error al guardar los cambios"
-msgstr "Erreur lors de l'enregistrement des modifications"
-
-msgid "Error de red al guardar los cambios"
-msgstr "Erreur réseau lors de l'enregistrement des modifications"
+msgid "Importar"
+msgstr "Importer"
 
 msgid "Publicado"
 msgstr "Publié"
@@ -123,23 +133,38 @@ msgstr "Éditer"
 msgid "Eliminar"
 msgstr "Supprimer"
 
+msgid "¿Seguro que deseas eliminar este post importado?"
+msgstr "Êtes-vous sûr de vouloir supprimer cet article importé ?"
+
 msgid "Importado"
 msgstr "Importé"
 
 msgid "Sin categoría"
-msgstr "Non classé"
+msgstr "Sans catégorie"
 
 msgid "Sin término"
-msgstr "Aucun terme"
+msgstr "Sans terme"
 
-msgid "—"
-msgstr "—"
+msgid "Google Docs Importer"
+msgstr "Importateur Google Docs"
 
-msgid "Actualizar listado"
-msgstr "Mettre à jour la liste"
+msgid "Ajustes de Importador"
+msgstr "Paramètres de l'importateur"
 
-msgid "Buscar por nombre de documento..."
-msgstr "Rechercher par nom de document..."
+msgid "Ajustes"
+msgstr "Paramètres"
 
-msgid "Crear carpeta"
-msgstr "Créer un dossier"
+msgid "Credenciales de Google API"
+msgstr "Identifiants Google API"
+
+msgid "Client ID"
+msgstr "ID client"
+
+msgid "Client Secret"
+msgstr "Secret client"
+
+msgid "ID de Carpeta en Google Drive"
+msgstr "ID du dossier Google Drive"
+
+msgid "API Key"
+msgstr "Clé API"

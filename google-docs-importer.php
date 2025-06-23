@@ -27,7 +27,17 @@ require_once G2WPI_PLUGIN_DIR . 'includes/Admin/class-g2wpi-docs-table.php';
 require_once G2WPI_PLUGIN_DIR . 'includes/g2wpi-config.php';
 $config = require G2WPI_PLUGIN_DIR . 'includes/g2wpi-config.php';
 
-register_activation_hook(__FILE__, ['G2WPI_DB', 'create_table']);
+register_activation_hook(__FILE__, function() {
+    // Crear tabla personalizada
+    G2WPI_DB::create_table();
+    // Inicializar opciones si no existen
+    if (get_option(G2WPI_OPTION_NAME) === false) {
+        add_option(G2WPI_OPTION_NAME, []);
+    }
+    if (get_option(G2WPI_TOKEN_OPTION) === false) {
+        add_option(G2WPI_TOKEN_OPTION, []);
+    }
+});
 
 // Instanciar clases principales
 new G2WPI_Admin();
@@ -94,8 +104,71 @@ function g2wpi_render_settings_page() {
     echo '</form>';
     echo '<h2>' . esc_html__('Autenticación con Google', 'google-docs-importer') . '</h2>';
     echo '<a class="button button-primary" href="' . esc_url($auth_url) . '">' . esc_html__('Conectar con Google', 'google-docs-importer') . '</a>';
+
+    // --- Sección de desinstalación segura ---
+    echo '<hr style="margin:30px 0;">';
+    echo '<h2 style="color:#b32d2e;">' . esc_html__('Desinstalación y limpieza', 'google-docs-importer') . '</h2>';
+    echo '<div style="background:#fff3cd;border:1px solid #ffeeba;padding:15px 20px;margin-bottom:15px;">';
+    echo '<strong>' . esc_html__('¡Advertencia!', 'google-docs-importer') . '</strong> ' . esc_html__('Al desinstalar el plugin se eliminarán todos los datos y ajustes relacionados. Puedes exportar tus ajustes antes de continuar.', 'google-docs-importer');
+    echo '</div>';
+    // Botón de exportar ajustes
+    echo '<form method="post" style="display:inline;" action="" id="g2wpi-export-settings-form">';
+    echo '<input type="hidden" name="g2wpi_export_settings" value="1">';
+    echo '<button type="submit" class="button">' . esc_html__('Exportar ajustes', 'google-docs-importer') . '</button>';
+    echo '</form>';
+    // Botón de exportar historial
+    echo '<form method="post" style="display:inline;margin-left:10px;" action="" id="g2wpi-export-history-form">';
+    echo '<input type="hidden" name="g2wpi_export_history" value="1">';
+    echo '<button type="submit" class="button">' . esc_html__('Exportar historial', 'google-docs-importer') . '</button>';
+    echo '</form>';
+    // Botón de importar historial
+    echo '<form method="post" enctype="multipart/form-data" style="display:inline;margin-left:10px;" action="" id="g2wpi-import-history-form">';
+    echo '<input type="file" name="g2wpi_import_history_file" accept="application/json" required style="display:inline;">';
+    echo '<input type="hidden" name="g2wpi_import_history" value="1">';
+    echo '<button type="submit" class="button">' . esc_html__('Importar historial', 'google-docs-importer') . '</button>';
+    echo '</form>';
+    // Botón de importar ajustes
+    echo '<form method="post" enctype="multipart/form-data" style="display:inline;margin-left:10px;" action="" id="g2wpi-import-settings-form">';
+    echo '<input type="file" name="g2wpi_import_settings_file" accept="application/json" required style="display:inline;">';
+    echo '<input type="hidden" name="g2wpi_import_settings" value="1">';
+    echo '<button type="submit" class="button">' . esc_html__('Importar ajustes', 'google-docs-importer') . '</button>';
+    echo '</form>';
+    // Botón de confirmación de desinstalación
+    echo '<form method="post" style="display:inline;margin-left:10px;" action="" id="g2wpi-confirm-uninstall-form" onsubmit="return confirm(\'¿Estás seguro de que deseas eliminar todos los datos del plugin? Esta acción no se puede deshacer.\');">';
+    echo '<input type="hidden" name="g2wpi_confirm_uninstall" value="1">';
+    echo '<button type="submit" class="button button-danger" style="background:#b32d2e;border-color:#b32d2e;color:#fff;">' . esc_html__('Confirmar desinstalación', 'google-docs-importer') . '</button>';
+    echo '</form>';
+    echo '<p style="margin-top:10px;color:#b32d2e;">' . esc_html__('Después de confirmar, puedes proceder a desinstalar el plugin desde la pantalla de plugins de WordPress.', 'google-docs-importer') . '</p>';
     echo '</div>';
 }
+
+// Manejo de exportación de ajustes y confirmación de desinstalación
+add_action('admin_init', function() {
+    if (isset($_POST['g2wpi_export_settings']) && current_user_can('manage_options')) {
+        $settings = get_option(G2WPI_OPTION_NAME);
+        $json = json_encode($settings, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        header('Content-Type: application/json');
+        header('Content-Disposition: attachment; filename="google-docs-importer-settings.json"');
+        echo $json;
+        exit;
+    }
+    if (isset($_POST['g2wpi_export_history']) && current_user_can('manage_options')) {
+        global $wpdb;
+        $table = G2WPI_TABLE_NAME;
+        $rows = $wpdb->get_results("SELECT * FROM $table", ARRAY_A);
+        $json = json_encode($rows, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        header('Content-Type: application/json');
+        header('Content-Disposition: attachment; filename=google-docs-importer-history.json');
+        echo $json;
+        exit;
+    }
+    if (isset($_POST['g2wpi_confirm_uninstall']) && current_user_can('manage_options')) {
+        update_option('g2wpi_confirmed_uninstall', 1);
+        add_action('admin_notices', function() {
+            echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Confirmación registrada. Ahora puedes desinstalar el plugin de forma segura.', 'google-docs-importer') . '</p></div>';
+        });
+    }
+});
 
 add_action('admin_init', function() {
     if (isset($_GET['import']) && current_user_can('manage_options')) {
@@ -155,4 +228,23 @@ add_action('admin_enqueue_scripts', function($hook) {
 // Unifica la carga de idioma y traducciones en plugins_loaded
 add_action('plugins_loaded', function() {
     load_plugin_textdomain('google-docs-importer', false, dirname(plugin_basename(__FILE__)) . '/languages');
+});
+
+// Importar ajustes desde JSON
+add_action('admin_init', function() {
+    if (isset($_POST['g2wpi_import_settings']) && current_user_can('manage_options') && isset($_FILES['g2wpi_import_settings_file'])) {
+        $file = $_FILES['g2wpi_import_settings_file'];
+        if ($file['error'] === UPLOAD_ERR_OK) {
+            $json = file_get_contents($file['tmp_name']);
+            $settings = json_decode($json, true);
+            if (is_array($settings)) {
+                update_option(G2WPI_OPTION_NAME, $settings);
+                echo "<script>if(window.Swal){Swal.fire({icon:'success',title:'Ajustes importados',text:'Los ajustes se han importado correctamente.'});}else{alert('Ajustes importados correctamente.');}</script>";
+            } else {
+                echo "<script>if(window.Swal){Swal.fire({icon:'error',title:'Error',text:'El archivo no es un JSON válido.'});}else{alert('El archivo no es un JSON válido.');}</script>";
+            }
+        } else {
+            echo "<script>if(window.Swal){Swal.fire({icon:'error',title:'Error',text:'Error al subir el archivo.'});}else{alert('Error al subir el archivo.');}</script>";
+        }
+    }
 });
