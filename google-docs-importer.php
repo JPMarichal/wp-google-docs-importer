@@ -38,8 +38,9 @@ new G2WPI_Ajax();
 // Función para renderizar la tabla de documentos (usada por admin y AJAX)
 function g2wpi_render_docs_table() {
     echo '<div class="g2wpi-main-container">';
-    echo '<h1 class="g2wpi-title">' . esc_html__('Importador de Google Docs', 'google-docs-importer') . '</h1>';
-    // Mostrar el nombre de la carpeta seleccionada justo debajo del h1 y antes de la toolbar
+    // Título principal con margin-bottom 0
+    echo '<h1 class="g2wpi-title" style="margin-bottom:0;">' . esc_html__('Importador de Google Docs', 'google-docs-importer') . '</h1>';
+    // Bloque informativo (nombre de la carpeta)
     $settings = get_option('g2wpi_settings');
     $folder_id = $settings['folder_id'] ?? '';
     $folder_name = '';
@@ -47,9 +48,9 @@ function g2wpi_render_docs_table() {
         $folder_name = G2WPI_Drive::get_folder_name($folder_id);
     }
     if ($folder_name) {
-        echo '<div class="g2wpi-folder-info" style="margin:18px 0 18px 0;padding:10px 0;font-size:1.08rem;color:#2271b1;border-top:1px solid #e0e0e0;border-bottom:1px solid #e0e0e0;background:#f9f9fb;">';
-        echo '<span class="dashicons dashicons-category" style="vertical-align:middle;"></span> ';
-        echo esc_html__('Carpeta actual:', 'google-docs-importer') . ' <strong>' . esc_html($folder_name) . '</strong>';
+        echo '<div class="g2wpi-folder-info" style="margin:6px 0 10px 0;padding:3px 0 2px 10px;color:#2271b1;border-top:1px solid #e0e0e0;border-bottom:1px solid #e0e0e0;background:#f9f9fb;">';
+        echo '<span class="dashicons dashicons-category" style="vertical-align:middle;margin-right:3px;font-size:16px;width:16px;height:16px;"></span>';
+        echo esc_html($folder_name);
         echo '</div>';
     }
     echo '<nav class="g2wpi-toolbar">';
