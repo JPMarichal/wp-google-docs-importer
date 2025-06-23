@@ -50,6 +50,17 @@ Google Docs Importer es un plugin único para WordPress que conecta tu Google Dr
 4. Haz clic en "Importar" junto a cualquier documento para traerlo como post (borrador)
 5. Edita y publica cuando estés listo
 
+## Selección de carpeta de Google Drive
+
+Para cambiar la carpeta de Google Drive desde la que se listan los documentos:
+
+1. En la pantalla principal del plugin, haz clic en el botón **"Cambiar carpeta"** (junto a "Actualizar listado").
+2. Se abrirá un popup de Google Picker donde podrás navegar y seleccionar la carpeta deseada de tu Google Drive.
+3. Al seleccionar una carpeta, el plugin guardará automáticamente la selección y recargará la página para mostrar los documentos de la nueva carpeta.
+4. Puedes repetir este proceso en cualquier momento para cambiar la carpeta activa.
+
+**Nota:** Es necesario haber configurado correctamente las credenciales de Google API en los ajustes del plugin para que el selector funcione.
+
 ## Sobre la conexión con Google
 
 Cuando conectas el plugin con tu cuenta de Google, la sesión suele mantenerse activa y no tendrás que volver a autorizar salvo en casos poco frecuentes, como:
