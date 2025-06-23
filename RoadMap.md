@@ -17,5 +17,3 @@ Estas son funciones y mejoras que aportarían gran valor al nicho editorial, age
 7. **Permisos y roles avanzados:** Controlar qué usuarios pueden importar, actualizar o eliminar documentos.
 
 8. **Soporte multisitio:** Permitir funcionar en instalaciones multisitio de WordPress.
-
-9. **Soporte multi-carpeta:** Permitir conectar varias carpetas de Google Drive y seleccionar desde cuál importar.
