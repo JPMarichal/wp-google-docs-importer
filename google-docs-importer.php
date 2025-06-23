@@ -54,8 +54,15 @@ function g2wpi_render_docs_table() {
         echo '</div>';
     }
     echo '<nav class="g2wpi-toolbar">';
-    echo '<button id="g2wpi-change-folder-btn" class="button"><span class="dashicons dashicons-category"></span> ' . esc_html__('Cambiar carpeta', 'google-docs-importer') . '</button>';
-    echo '<button id="g2wpi-refresh-list-btn" class="button"><span class="dashicons dashicons-update"></span> ' . esc_html__('Actualizar listado', 'google-docs-importer') . '</button>';
+    // Botones más pequeños usando clases y estilos inline
+    echo '<button id="g2wpi-change-folder-btn" class="button" style="padding:2px 10px;font-size:12px;height:26px;line-height:20px;min-width:0;">'
+        .'<span class="dashicons dashicons-category" style="font-size:14px;width:14px;height:14px;"></span> '
+        .esc_html__('Cambiar carpeta', 'google-docs-importer')
+        .'</button>';
+    echo '<button id="g2wpi-refresh-list-btn" class="button" style="padding:2px 10px;font-size:12px;height:26px;line-height:20px;min-width:0;">'
+        .'<span class="dashicons dashicons-update" style="font-size:14px;width:14px;height:14px;"></span> '
+        .esc_html__('Actualizar listado', 'google-docs-importer')
+        .'</button>';
     echo '</nav>';
     echo '<div class="g2wpi-searchbar">'
         .'<input type="text" id="g2wpi-search-docs" placeholder="' . esc_attr__('Buscar por nombre de documento...', 'google-docs-importer') . '" autocomplete="off" />'
