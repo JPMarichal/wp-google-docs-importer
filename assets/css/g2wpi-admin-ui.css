@@ -1,0 +1,77 @@
+/* Estilos para la cabecera y controles del Importador de Google Docs */
+.g2wpi-main-container {
+    width: 100%;
+    max-width: none;
+    margin: 0 0 0 0;
+    padding: 0 0 8px 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+.g2wpi-title {
+    font-size: 2.6rem !important;
+    font-weight: 800 !important;
+    margin-bottom: 12px !important;
+    margin-top: 0 !important;
+    color: #23282d !important;
+    text-align: left !important;
+    letter-spacing: -1px !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.g2wpi-toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+.g2wpi-toolbar .button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1rem;
+    padding: 6px 20px;
+    border-radius: 4px;
+    background: #f6f7f7;
+    color: #2271b1;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 2px rgba(34,40,45,0.03);
+    font-weight: 600;
+    transition: background 0.15s, color 0.15s, border 0.15s, box-shadow 0.15s;
+    cursor: pointer;
+    min-width: 0;
+    height: 36px;
+}
+.g2wpi-toolbar .button:hover, .g2wpi-toolbar .button:focus {
+    background: #eaf6fb;
+    color: #135e96;
+    border-color: #2271b1;
+    box-shadow: 0 2px 8px rgba(34,40,45,0.08);
+    outline: none;
+}
+.g2wpi-toolbar .button:active {
+    background: #ddeaf3;
+    border-color: #2271b1;
+    color: #135e96;
+}
+.g2wpi-searchbar {
+    margin-bottom: 8px;
+    max-width: 520px;
+}
+.g2wpi-searchbar input[type="text"] {
+    width: 100%;
+    padding: 6px 14px; /* Reducido para igualar altura a los botones */
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    font-size: 1.08rem;
+    background: #fff;
+    box-shadow: none;
+    height: 36px; /* Igual altura que los botones */
+}
+@media (max-width: 600px) {
+    .g2wpi-main-container { padding: 12px 0; }
+    .g2wpi-title { font-size: 1.3rem; }
+    .g2wpi-toolbar { gap: 6px; }
+    .g2wpi-toolbar .button { font-size: 0.95rem; padding: 5px 8px; }
+}

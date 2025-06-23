@@ -58,6 +58,18 @@ jQuery(document).ready(function($) {
         wp_enqueue_style('dashicons');
     }
 
+    // Asegura que el CSS externo se cargue siempre en el admin
+    if (typeof wp !== 'undefined' && typeof wp_enqueue_style === 'function') {
+        wp_enqueue_style('g2wpi-admin-ui', (window.g2wpi_plugin_url || '') + 'assets/css/g2wpi-admin-ui.css');
+    } else if (!document.getElementById('g2wpi-admin-ui-css')) {
+        var link = document.createElement('link');
+        link.id = 'g2wpi-admin-ui-css';
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = (window.g2wpi_plugin_url ? window.g2wpi_plugin_url : '/wp-content/plugins/google-docs-importer/') + 'assets/css/g2wpi-admin-ui.css';
+        document.head.appendChild(link);
+    }
+
     // --- Google Picker API ---
     // Espera que existan las variables globales g2wpi_picker.clientId y g2wpi_picker.apiKey
     var pickerApiLoaded = false;
@@ -195,4 +207,143 @@ jQuery(document).ready(function($) {
             $btn.prop('disabled', false).text('Actualizar listado');
         });
     }
+
+    // --- UI Mejorada: Reorganización de la cabecera principal ---
+    function g2wpiReorganizarCabecera() {
+        // Selecciona el contenedor principal de la página de administración
+        var $wrap = $('.wrap:contains("Importador de Google Docs")').first();
+        if ($wrap.length === 0) return;
+
+        // Elimina elementos previos de la cabecera si existen
+        $wrap.find('.g2wpi-main-container').remove();
+
+        // Crea el nuevo contenedor principal
+        var $main = $('<div class="g2wpi-main-container"></div>');
+
+        // Título fijo
+        var $title = $('<h1 class="g2wpi-title">Importador de Google Docs</h1>');
+        $main.append($title);
+
+        // Botonera horizontal
+        var $toolbar = $('<nav class="g2wpi-toolbar"></nav>');
+        var $changeFolderBtn = $('#g2wpi-change-folder-btn').length ? $('#g2wpi-change-folder-btn') : $('<button id="g2wpi-change-folder-btn" class="button"><span class="dashicons dashicons-category"></span> Cambiar carpeta</button>');
+        var $refreshBtn = $('#g2wpi-refresh-list-btn').length ? $('#g2wpi-refresh-list-btn') : $('<button id="g2wpi-refresh-list-btn" class="button"><span class="dashicons dashicons-update"></span> Actualizar listado</button>');
+        $toolbar.append($changeFolderBtn, $refreshBtn);
+        $main.append($toolbar);
+
+        // Barra de búsqueda
+        var $searchBar = $('<div class="g2wpi-searchbar"><input type="text" id="g2wpi-search-docs" placeholder="Buscar por nombre de documento..." /></div>');
+        $main.append($searchBar);
+
+        // Inserta el nuevo contenedor antes de la tabla/listado de documentos
+        var $docsTable = $('#g2wpi-docs-table').closest('.wrap, .g2wpi-docs-table, table, form').first();
+        if ($docsTable.length > 0) {
+            $main.insertBefore($docsTable);
+        } else {
+            $wrap.append($main);
+        }
+    }
+
+    // Elimina los botones originales para evitar duplicados y asegura que solo la nueva cabecera esté visible
+    function g2wpiRemoveOldHeaderButtons() {
+        // Elimina los botones sueltos fuera del nuevo contenedor
+        $('#g2wpi-change-folder-btn').not('.g2wpi-toolbar .button').remove();
+        $('#g2wpi-refresh-list-btn').not('.g2wpi-toolbar .button').remove();
+        // Elimina posibles contenedores de búsqueda antiguos
+        $('#g2wpi-search-docs').not('.g2wpi-searchbar input').closest('div, p').remove();
+    }
+    // Llama a la limpieza tras reorganizar
+    var oldG2wpiReorganizarCabecera = g2wpiReorganizarCabecera;
+    g2wpiReorganizarCabecera = function() {
+        oldG2wpiReorganizarCabecera();
+        g2wpiRemoveOldHeaderButtons();
+    };
+    // Ejecuta limpieza inicial
+    g2wpiRemoveOldHeaderButtons();
+
+    // Ejecuta la reorganización al cargar el DOM
+    g2wpiReorganizarCabecera();
+
+    // --- Forzar recarga visual tras AJAX y DOM ready ---
+    function g2wpiForceUIRefresh() {
+        setTimeout(function() {
+            g2wpiReorganizarCabecera();
+        }, 100);
+    }
+    // Reorganizar cabecera tras cada actualización de la tabla
+    $(document).on('g2wpi-docs-table-updated', g2wpiForceUIRefresh);
+    // Hook en AJAX de refresco
+    var oldRefreshDocs = refrescarListadoDocs;
+    refrescarListadoDocs = function(forceRefresh) {
+        oldRefreshDocs(forceRefresh);
+        g2wpiForceUIRefresh();
+    };
+    // También tras DOM ready, por si la tabla se renderiza después
+    $(window).on('load', g2wpiForceUIRefresh);
+    setTimeout(g2wpiForceUIRefresh, 500);
+
+    // --- Inyecta estilos mejorados para la cabecera y controles ---
+    function g2wpiInjectStyles() {
+        if (document.getElementById('g2wpi-admin-styles')) return;
+        var css = `
+        .g2wpi-main-container {
+            max-width: 900px;
+            margin: 0 auto 24px auto;
+            padding: 32px 16px 18px 16px;
+            background: #f7f7f7;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .g2wpi-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            color: #23282d;
+            text-align: left;
+        }
+        .g2wpi-toolbar {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .g2wpi-toolbar .button {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1rem;
+            padding: 8px 18px;
+            border-radius: 4px;
+            background: #2271b1;
+            color: #fff;
+            border: none;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        .g2wpi-toolbar .button:hover {
+            background: #135e96;
+        }
+        .g2wpi-searchbar {
+            margin-bottom: 18px;
+        }
+        .g2wpi-searchbar input[type="text"] {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ccd0d4;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        @media (max-width: 600px) {
+            .g2wpi-main-container { padding: 18px 4px; }
+            .g2wpi-title { font-size: 1.3rem; }
+            .g2wpi-toolbar { gap: 8px; }
+            .g2wpi-toolbar .button { font-size: 0.95rem; padding: 7px 10px; }
+        }
+        `;
+        var style = document.createElement('style');
+        style.id = 'g2wpi-admin-styles';
+        style.innerHTML = css;
+        document.head.appendChild(style);
+    }
+    g2wpiInjectStyles();
 });

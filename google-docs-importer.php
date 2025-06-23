@@ -37,18 +37,16 @@ new G2WPI_Ajax();
 
 // Función para renderizar la tabla de documentos (usada por admin y AJAX)
 function g2wpi_render_docs_table() {
-    // Título y botón
-    echo '<div style="display:flex;align-items:center;gap:18px;margin-bottom:18px;">';
-    echo '<span style="font-size:2.2em;line-height:1;display:flex;align-items:center;">'
-        . '<span style="font-weight:700;font-size:1.1em;letter-spacing:0.5px;">' . esc_html__('Google Docs Importer', 'google-docs-importer') . '</span>'
-        . '</span>';
-    echo '<a href="' . esc_url(admin_url('admin.php?page=g2wpi-importador&refresh=1')) . '" class="button button-secondary" style="margin-left:18px;">'
-        . '<span class="dashicons dashicons-update" style="vertical-align:middle;margin-right:4px;"></span>' . esc_html__('Actualizar listado', 'google-docs-importer') . '</a>';
-    echo '</div>';
-    // Barra de búsqueda justo debajo del título y botón, estilizada
-    echo '<div style="margin-bottom:18px;max-width:520px;">'
-        .'<input type="text" id="g2wpi-search-docs" class="regular-text" placeholder="' . esc_attr__('Buscar por nombre de documento...', 'google-docs-importer') . '" autocomplete="off" style="width:100%;height:32px;min-height:unset;max-height:32px;font-size:15px;padding:3px 12px;border-radius:4px;border:1px solid #ccd0d4;box-sizing:border-box;">'
+    echo '<div class="g2wpi-main-container">';
+    echo '<h1 class="g2wpi-title">' . esc_html__('Importador de Google Docs', 'google-docs-importer') . '</h1>';
+    echo '<nav class="g2wpi-toolbar">';
+    echo '<button id="g2wpi-change-folder-btn" class="button"><span class="dashicons dashicons-category"></span> ' . esc_html__('Cambiar carpeta', 'google-docs-importer') . '</button>';
+    echo '<button id="g2wpi-refresh-list-btn" class="button"><span class="dashicons dashicons-update"></span> ' . esc_html__('Actualizar listado', 'google-docs-importer') . '</button>';
+    echo '</nav>';
+    echo '<div class="g2wpi-searchbar">'
+        .'<input type="text" id="g2wpi-search-docs" placeholder="' . esc_attr__('Buscar por nombre de documento...', 'google-docs-importer') . '" autocomplete="off" />'
         .'</div>';
+    echo '</div>';
     G2WPI_Docs_Table::render();
 }
 
@@ -122,6 +120,13 @@ add_action('admin_init', function() {
                 G2WPI_Drive::fetch_drive_documents();
             }
         }
+    }
+});
+
+// Forzar carga del CSS desde PHP para el admin principal
+add_action('admin_enqueue_scripts', function($hook) {
+    if ($hook === 'toplevel_page_g2wpi-importador') {
+        wp_enqueue_style('g2wpi-admin-ui', G2WPI_PLUGIN_URL . 'assets/css/g2wpi-admin-ui.css', [], null);
     }
 });
 
