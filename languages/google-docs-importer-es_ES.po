@@ -134,3 +134,6 @@ msgstr "Sin término"
 
 msgid "—"
 msgstr "—"
+
+msgid "Crear carpeta"
+msgstr "Crear carpeta"

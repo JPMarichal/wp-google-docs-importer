@@ -1,0 +1,2 @@
+msgid "Crear carpeta"
+msgstr "Créer un dossier"

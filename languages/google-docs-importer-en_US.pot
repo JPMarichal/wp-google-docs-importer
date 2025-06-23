@@ -45,3 +45,6 @@ msgstr "Language"
 
 msgid "Selecciona el idioma de la interfaz."
 msgstr "Select the interface language."
+
+msgid "Crear carpeta"
+msgstr "Create folder"

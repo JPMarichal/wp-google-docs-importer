@@ -140,3 +140,6 @@ msgstr "Atualizar lista"
 
 msgid "Buscar por nombre de documento..."
 msgstr "Buscar por nome do documento..."
+
+msgid "Crear carpeta"
+msgstr "Criar pasta"
