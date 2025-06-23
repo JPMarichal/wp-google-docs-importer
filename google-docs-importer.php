@@ -39,6 +39,19 @@ new G2WPI_Ajax();
 function g2wpi_render_docs_table() {
     echo '<div class="g2wpi-main-container">';
     echo '<h1 class="g2wpi-title">' . esc_html__('Importador de Google Docs', 'google-docs-importer') . '</h1>';
+    // Mostrar el nombre de la carpeta seleccionada justo debajo del h1 y antes de la toolbar
+    $settings = get_option('g2wpi_settings');
+    $folder_id = $settings['folder_id'] ?? '';
+    $folder_name = '';
+    if ($folder_id && class_exists('G2WPI_Drive') && method_exists('G2WPI_Drive', 'get_folder_name')) {
+        $folder_name = G2WPI_Drive::get_folder_name($folder_id);
+    }
+    if ($folder_name) {
+        echo '<div class="g2wpi-folder-info" style="margin:18px 0 18px 0;padding:10px 0;font-size:1.08rem;color:#2271b1;border-top:1px solid #e0e0e0;border-bottom:1px solid #e0e0e0;background:#f9f9fb;">';
+        echo '<span class="dashicons dashicons-category" style="vertical-align:middle;"></span> ';
+        echo esc_html__('Carpeta actual:', 'google-docs-importer') . ' <strong>' . esc_html($folder_name) . '</strong>';
+        echo '</div>';
+    }
     echo '<nav class="g2wpi-toolbar">';
     echo '<button id="g2wpi-change-folder-btn" class="button"><span class="dashicons dashicons-category"></span> ' . esc_html__('Cambiar carpeta', 'google-docs-importer') . '</button>';
     echo '<button id="g2wpi-refresh-list-btn" class="button"><span class="dashicons dashicons-update"></span> ' . esc_html__('Actualizar listado', 'google-docs-importer') . '</button>';

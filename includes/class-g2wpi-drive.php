@@ -219,4 +219,21 @@ class G2WPI_Drive {
         $html = preg_replace('/<(span|p)[^>]*class="[^"]*"[^>]*>/i', '<$1>', $html);
         return $html;
     }
+
+    // Devuelve el nombre de una carpeta de Google Drive dado su ID
+    public static function get_folder_name($folder_id) {
+        $settings = get_option(G2WPI_OPTION_NAME);
+        $tokens = get_option(G2WPI_TOKEN_OPTION);
+        if (!$tokens || !isset($tokens['access_token'])) return '';
+        $access_token = $tokens['access_token'];
+        $url = "https://www.googleapis.com/drive/v3/files/{$folder_id}?fields=name";
+        $response = wp_remote_get($url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $access_token,
+            ]
+        ]);
+        if (is_wp_error($response)) return '';
+        $data = json_decode(wp_remote_retrieve_body($response), true);
+        return isset($data['name']) ? $data['name'] : '';
+    }
 }

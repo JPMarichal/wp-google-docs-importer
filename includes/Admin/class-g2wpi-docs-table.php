@@ -147,6 +147,8 @@ class G2WPI_Docs_Table {
         $paged = isset($_GET['paged']) ? max(1, intval($_GET['paged'])) : 1;
         $offset = ($paged - 1) * $per_page;
         $docs_page = ($docs && is_array($docs)) ? array_slice($docs, $offset, $per_page) : [];
+        // Mostrar el nombre de la carpeta seleccionada justo ANTES de la tabla y la toolbar
+        // (El bloque de impresión del nombre de la carpeta se ha movido fuera de esta función para ubicarse entre el h1 y la toolbar)
         echo '<table class="wp-list-table widefat fixed striped g2wpi-docs-table">';
         // Encabezado con ordenamiento para Nombre y para Importación
         $current_url = esc_url_raw(remove_query_arg(['orderby', 'order', 'paged']));
