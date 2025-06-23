@@ -33,6 +33,12 @@ class G2WPI_Admin {
             wp_enqueue_script('g2wpi-swal', 'https://cdn.jsdelivr.net/npm/sweetalert2@11', [], null, true);
             wp_enqueue_style('g2wpi-swal-css', 'https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css');
             wp_enqueue_style('g2wpi-admin-table', G2WPI_PLUGIN_URL . 'assets/css/g2wpi-admin-table.css', [], null);
+            // Pasar credenciales a JS
+            $settings = get_option(G2WPI_OPTION_NAME);
+            wp_localize_script('g2wpi-admin-js', 'g2wpi_picker', [
+                'clientId' => $settings['client_id'] ?? '',
+                'apiKey'   => $settings['api_key'] ?? ''
+            ]);
         }
     }
 

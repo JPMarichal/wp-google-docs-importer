@@ -37,7 +37,7 @@ class G2WPI_Drive {
         if (is_wp_error($response)) return;
         $data = json_decode(wp_remote_retrieve_body($response), true);
         if (!isset($data['files'])) return;
-        set_transient('g2wpi_drive_docs', $data['files'], 5 * MINUTE_IN_SECONDS);
+        set_transient('g2wpi_drive_docs_' . $folder_id, $data['files'], 5 * MINUTE_IN_SECONDS);
     }
 
     /**

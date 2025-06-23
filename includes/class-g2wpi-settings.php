@@ -11,6 +11,7 @@ class G2WPI_Settings {
         add_settings_field('client_id', __('Client ID', 'google-docs-importer'), [$this, 'render_input_field'], 'g2wpi-ajustes', 'g2wpi_api_section', ['label_for' => 'client_id']);
         add_settings_field('client_secret', __('Client Secret', 'google-docs-importer'), [$this, 'render_input_field'], 'g2wpi-ajustes', 'g2wpi_api_section', ['label_for' => 'client_secret']);
         add_settings_field('folder_id', __('ID de Carpeta en Google Drive', 'google-docs-importer'), [$this, 'render_input_field'], 'g2wpi-ajustes', 'g2wpi_api_section', ['label_for' => 'folder_id']);
+        add_settings_field('api_key', __('API Key', 'google-docs-importer'), [$this, 'render_input_field'], 'g2wpi-ajustes', 'g2wpi_api_section', ['label_for' => 'api_key']);
         // Eliminado el campo de idioma, ahora el idioma se toma de la configuración general de WordPress
     }
 

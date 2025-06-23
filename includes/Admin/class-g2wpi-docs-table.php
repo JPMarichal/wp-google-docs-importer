@@ -23,7 +23,9 @@ class G2WPI_Docs_Table {
             .g2wpi-docs-table .g2wpi-table-actions { white-space: nowrap; }
         </style>';
         echo '<span class="g2wpi-table-sep"></span>';
-        $docs = get_transient('g2wpi_drive_docs');
+        $settings = get_option(G2WPI_OPTION_NAME);
+        $folder_id = $settings['folder_id'] ?? '';
+        $docs = $folder_id ? get_transient('g2wpi_drive_docs_' . $folder_id) : false;
         // Obtener parámetros de ordenamiento
         $orderby = isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'name';
         $order = isset($_GET['order']) && strtolower($_GET['order']) === 'desc' ? 'desc' : 'asc';
