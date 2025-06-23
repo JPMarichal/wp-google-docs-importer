@@ -64,8 +64,9 @@ function g2wpi_render_docs_table() {
         .esc_html__('Actualizar listado', 'google-docs-importer')
         .'</button>';
     echo '</nav>';
-    echo '<div class="g2wpi-searchbar">'
-        .'<input type="text" id="g2wpi-search-docs" placeholder="' . esc_attr__('Buscar por nombre de documento...', 'google-docs-importer') . '" autocomplete="off" />'
+    // Barra de búsqueda con padding igual al bloque informativo
+    echo '<div class="g2wpi-searchbar" style="background:#fff;margin:0 0 10px 0;padding:3px 0 2px 10px;border-top:1px solid #e0e0e0;border-bottom:1px solid #e0e0e0;box-sizing:border-box;">'
+        .'<input type="text" id="g2wpi-search-docs" style="width:98%;border:none;outline:none;background:transparent;font-size:13px;padding:0;" placeholder="' . esc_attr__('Buscar por nombre de documento...', 'google-docs-importer') . '" autocomplete="off" />'
         .'</div>';
     echo '</div>';
     G2WPI_Docs_Table::render();
