@@ -54,8 +54,9 @@ Consulta la documentación oficial de Google si tienes dudas sobre la creación 
 1. Sube la carpeta `google-docs-importer` a `/wp-content/plugins/`
 2. Activa el plugin en el menú de plugins de WordPress
 3. El plugin creará automáticamente las tablas y opciones necesarias para funcionar.
-4. Configura tus credenciales de Google API y carpeta de Google Drive en los ajustes del plugin.
-5. ¡Listo para trabajar!
+4. Configura tus credenciales de Google API en los ajustes del plugin.
+5. Selecciona la carpeta de Google Drive desde la pantalla principal usando el botón "Cambiar carpeta".
+6. ¡Listo para trabajar!
 
 ## Exportar tus datos antes de desinstalar
 
@@ -135,4 +136,9 @@ Si el idioma de tu sitio no está en la lista, la interfaz aparecerá en inglés
 Este plugin es software libre; puedes redistribuirlo y/o modificarlo bajo los términos de la Licencia Pública General de GNU tal como fue publicada por la Free Software Foundation; ya sea la versión 2 de dicha licencia, o (a tu elección) cualquier versión posterior.
 
 Este plugin se distribuye con la esperanza de que sea útil, pero SIN NINGUNA GARANTÍA; ni siquiera la garantía implícita de COMERCIABILIDAD o ADECUACIÓN PARA UN PROPÓSITO PARTICULAR. Consulta los detalles en la Licencia Pública General de GNU.
+
+## Notas sobre la selección de carpeta
+- Ya no es necesario configurar la carpeta de Google Drive en los ajustes.
+- Puedes seleccionar o cambiar la carpeta en cualquier momento desde la pantalla principal del plugin.
+- Si no has seleccionado ninguna carpeta, la lista de documentos aparecerá vacía hasta que lo hagas.
 
