@@ -135,13 +135,21 @@ class G2WPI_Drive {
         // Limpiar y convertir a HTML semántico
         $content = self::g2wpi_cleanup_html($content);
 
-        // Crear el post en WordPress con autor 1
+        // Obtener autor y estado desde la URL si existen
+        $post_author = isset($_GET['g2wpi_author']) ? intval($_GET['g2wpi_author']) : get_current_user_id();
+        $post_status = isset($_GET['g2wpi_status']) ? sanitize_text_field($_GET['g2wpi_status']) : 'draft';
+        // Validar estado permitido
+        $allowed_statuses = ['draft', 'pending', 'publish'];
+        if (!in_array($post_status, $allowed_statuses, true)) {
+            $post_status = 'draft';
+        }
+        // Crear el post en WordPress con los valores seleccionados
         $post_id = wp_insert_post([
             'post_title'    => $title,
             'post_content'  => $content,
-            'post_status'   => 'draft',
+            'post_status'   => $post_status,
             'post_type'     => 'post',
-            'post_author'   => 1,
+            'post_author'   => $post_author,
         ]);
         error_log('G2WPI DEBUG: post_id=' . print_r($post_id, true));
         if (is_wp_error($post_id)) {

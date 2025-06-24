@@ -21,6 +21,10 @@ class G2WPI_Docs_Table {
             .g2wpi-docs-table .nombre-columna { width: 40%; }
             .g2wpi-docs-table .g2wpi-center { width: 10%; }
             .g2wpi-docs-table .g2wpi-table-actions { white-space: nowrap; }
+            .g2wpi-import-options { margin: 10px 0 18px 0; font-size: 12px; display: flex; gap: 12px; align-items: center; }
+            .g2wpi-import-options label { font-weight: 500; margin-right: 4px; }
+            .g2wpi-import-options select { font-size: 12px; padding: 2px 6px; height: 24px; }
+            .g2wpi-import-options button { font-size: 12px; padding: 2px 10px; height: 24px; }
         </style>';
         echo '<span class="g2wpi-table-sep"></span>';
         $settings = get_option(G2WPI_OPTION_NAME);
@@ -149,6 +153,38 @@ class G2WPI_Docs_Table {
         $docs_page = ($docs && is_array($docs)) ? array_slice($docs, $offset, $per_page) : [];
         // Mostrar el nombre de la carpeta seleccionada justo ANTES de la tabla y la toolbar
         // (El bloque de impresión del nombre de la carpeta se ha movido fuera de esta función para ubicarse entre el h1 y la toolbar)
+        // Formulario compacto de selección
+        echo '<form method="get" class="g2wpi-import-options" action="">';
+        // Mantener otros parámetros de la URL
+        foreach ($_GET as $k => $v) {
+            if (!in_array($k, ['g2wpi_author','g2wpi_status','paged'])) {
+                echo '<input type="hidden" name="' . esc_attr($k) . '" value="' . esc_attr($v) . '" />';
+            }
+        }
+        echo '<label for="g2wpi_author">' . esc_html__('Autor:', 'google-docs-importer') . '</label>';
+        echo '<select name="g2wpi_author" id="g2wpi_author">';
+        $selected_author = isset($_GET['g2wpi_author']) ? intval($_GET['g2wpi_author']) : get_current_user_id();
+        $users = get_users([ 'who' => 'authors', 'orderby' => 'display_name' ]);
+        foreach ($users as $user) {
+            $selected = $selected_author == $user->ID ? 'selected' : '';
+            echo '<option value="' . esc_attr($user->ID) . '" ' . $selected . '>' . esc_html($user->display_name) . '</option>';
+        }
+        echo '</select>';
+        echo '<label for="g2wpi_status">' . esc_html__('Estado:', 'google-docs-importer') . '</label>';
+        echo '<select name="g2wpi_status" id="g2wpi_status">';
+        $selected_status = isset($_GET['g2wpi_status']) ? sanitize_text_field($_GET['g2wpi_status']) : 'draft';
+        $statuses = [
+            'draft' => __('Borrador', 'google-docs-importer'),
+            'pending' => __('Pendiente de revisión', 'google-docs-importer'),
+            'publish' => __('Publicado', 'google-docs-importer'),
+        ];
+        foreach ($statuses as $key => $label) {
+            $selected = $selected_status == $key ? 'selected' : '';
+            echo '<option value="' . esc_attr($key) . '" ' . $selected . '>' . esc_html($label) . '</option>';
+        }
+        echo '</select>';
+        echo '<button type="submit">' . esc_html__('Aplicar', 'google-docs-importer') . '</button>';
+        echo '</form>';
         echo '<table class="wp-list-table widefat fixed striped g2wpi-docs-table">';
         // Encabezado con ordenamiento para Nombre y para Importación
         $current_url = esc_url_raw(remove_query_arg(['orderby', 'order', 'paged']));
@@ -236,7 +272,11 @@ class G2WPI_Docs_Table {
         $status_class = '';
         $status_icon = '';
         $post_links = '—';
-        $accion = '<span class="dashicons dashicons-clock" style="color:#0073aa;vertical-align:middle;"></span> <a href="' . admin_url('admin.php?page=g2wpi-importador&import=' . $doc['id']) . '" class="button">' . esc_html__('Importar', 'google-docs-importer') . '</a>';
+        // Obtener selección actual de autor y estado para pasarlos en la URL
+        $author = isset($_GET['g2wpi_author']) ? intval($_GET['g2wpi_author']) : get_current_user_id();
+        $status = isset($_GET['g2wpi_status']) ? sanitize_text_field($_GET['g2wpi_status']) : 'draft';
+        $import_url = admin_url('admin.php?page=g2wpi-importador&import=' . $doc['id'] . '&g2wpi_author=' . $author . '&g2wpi_status=' . $status);
+        $accion = '<span class="dashicons dashicons-clock" style="color:#0073aa;vertical-align:middle;"></span> <a href="' . esc_url($import_url) . '" class="button">' . esc_html__('Importar', 'google-docs-importer') . '</a>';
         $fecha = '—';
         $post_type_label = '—';
         $category_label = '—';
