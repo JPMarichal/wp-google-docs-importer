@@ -253,3 +253,10 @@ add_action('admin_init', function() {
         }
     }
 });
+
+// Iniciar sesión PHP de forma segura en admin_init si no está iniciada
+add_action('admin_init', function() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+});

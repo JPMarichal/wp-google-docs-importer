@@ -135,26 +135,43 @@ class G2WPI_Drive {
         // Limpiar y convertir a HTML semántico
         $content = self::g2wpi_cleanup_html($content);
 
-        // Obtener autor y estado desde la URL si existen
+        // Obtener autor, estado, tipo y término desde la URL si existen
         $post_author = isset($_GET['g2wpi_author']) ? intval($_GET['g2wpi_author']) : get_current_user_id();
         $post_status = isset($_GET['g2wpi_status']) ? sanitize_text_field($_GET['g2wpi_status']) : 'draft';
+        $post_type = isset($_GET['g2wpi_post_type']) ? sanitize_text_field($_GET['g2wpi_post_type']) : 'post';
+        $term_id = isset($_GET['g2wpi_term']) ? intval($_GET['g2wpi_term']) : 0;
         // Validar estado permitido
         $allowed_statuses = ['draft', 'pending', 'publish'];
         if (!in_array($post_status, $allowed_statuses, true)) {
             $post_status = 'draft';
+        }
+        // Validar post type permitido
+        $allowed_types = get_post_types(['public' => true]);
+        if (!in_array($post_type, $allowed_types, true)) {
+            $post_type = 'post';
         }
         // Crear el post en WordPress con los valores seleccionados
         $post_id = wp_insert_post([
             'post_title'    => $title,
             'post_content'  => $content,
             'post_status'   => $post_status,
-            'post_type'     => 'post',
+            'post_type'     => $post_type,
             'post_author'   => $post_author,
         ]);
         error_log('G2WPI DEBUG: post_id=' . print_r($post_id, true));
         if (is_wp_error($post_id)) {
             error_log('G2WPI ERROR: No se pudo crear el post. ' . $post_id->get_error_message());
             wp_die('Error al crear el post en WordPress: ' . $post_id->get_error_message());
+        }
+        // Asignar término si corresponde
+        if ($term_id && $post_type) {
+            $taxonomies = get_object_taxonomies($post_type, 'objects');
+            foreach ($taxonomies as $tax) {
+                if ($tax->hierarchical) {
+                    wp_set_post_terms($post_id, [$term_id], $tax->name);
+                    break;
+                }
+            }
         }
 
         // Registrar en la base de datos de importados (si existe la tabla)
