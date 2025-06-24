@@ -55,6 +55,5 @@
 2. **Sincronización de actualizaciones:** Si un documento de Google Docs cambia, poder actualizar el post correspondiente en WordPress con un solo clic o de forma automática, manteniendo un historial de cambios.
 
 ### Prioridad Baja
-1. **Mapeo de campos personalizados (Custom Fields):** Permitir mapear partes del documento o metadatos de Google Docs a campos personalizados de WordPress (ACF, metaboxes, etc).
-2. **Permisos y roles avanzados:** Controlar qué usuarios pueden importar, actualizar o eliminar documentos.
-3. **Soporte multisitio:** Permitir funcionar en instalaciones multisitio de WordPress.
+1. **Permisos y roles avanzados:** Controlar qué usuarios pueden importar, actualizar o eliminar documentos.
+2. **Soporte multisitio:** Permitir funcionar en instalaciones multisitio de WordPress.
