@@ -36,18 +36,25 @@
 
 ---
 
+### 7. UX y flujo editorial mejorado (PRIORIDAD ALTA)
+- [COMPLETADO] El usuario puede preseleccionar autor, estado, tipo de post (incluyendo CPTs) y categoría principal antes de importar.
+- [COMPLETADO] Las selecciones persisten entre recargas e importaciones (persistencia por sesión, sin perderse al navegar o importar).
+- [COMPLETADO] Solo se muestra la taxonomía jerárquica principal (categoría) para cada tipo de post.
+- [COMPLETADO] El formulario de selección es compacto y está sobre la tabla de documentos.
+- [COMPLETADO] El botón de importación utiliza siempre las opciones seleccionadas.
+- [COMPLETADO] Mensaje visual bajo las opciones indicando la persistencia.
+- [COMPLETADO] Corrección de warnings de sesión y robustez en la gestión de estado.
+
 ## Otras mejoras y proyecciones (priorizadas para MVP)
 
 ### Prioridad MVP
-1. **Selección de tipo de post y taxonomía al importar:** Poder elegir si el documento se importa como post, página o Custom Post Type, y asignar categorías/términos personalizados desde la interfaz de importación.
-2. **Asignación de autor y estado editorial:** Elegir el autor del post y el estado (borrador, pendiente de revisión, publicado) al importar.
-3. **Soporte para imágenes y archivos embebidos:** Importar imágenes y archivos adjuntos de Google Docs y subirlos a la biblioteca de medios de WordPress, insertándolos correctamente en el contenido.
+1. **Soporte para imágenes y archivos embebidos:** Importar imágenes y archivos adjuntos de Google Docs y subirlos a la biblioteca de medios de WordPress, insertándolos correctamente en el contenido.
 
 ### Prioridad Media
-4. **Importación masiva y automatizada:** Permitir seleccionar varios documentos y realizar la importación en lote, o incluso programar importaciones automáticas desde la carpeta de Google Drive.
-5. **Sincronización de actualizaciones:** Si un documento de Google Docs cambia, poder actualizar el post correspondiente en WordPress con un solo clic o de forma automática, manteniendo un historial de cambios.
+1. **Importación masiva y automatizada:** Permitir seleccionar varios documentos y realizar la importación en lote, o incluso programar importaciones automáticas desde la carpeta de Google Drive.
+2. **Sincronización de actualizaciones:** Si un documento de Google Docs cambia, poder actualizar el post correspondiente en WordPress con un solo clic o de forma automática, manteniendo un historial de cambios.
 
 ### Prioridad Baja
-6. **Mapeo de campos personalizados (Custom Fields):** Permitir mapear partes del documento o metadatos de Google Docs a campos personalizados de WordPress (ACF, metaboxes, etc).
-7. **Permisos y roles avanzados:** Controlar qué usuarios pueden importar, actualizar o eliminar documentos.
-8. **Soporte multisitio:** Permitir funcionar en instalaciones multisitio de WordPress.
+1. **Mapeo de campos personalizados (Custom Fields):** Permitir mapear partes del documento o metadatos de Google Docs a campos personalizados de WordPress (ACF, metaboxes, etc).
+2. **Permisos y roles avanzados:** Controlar qué usuarios pueden importar, actualizar o eliminar documentos.
+3. **Soporte multisitio:** Permitir funcionar en instalaciones multisitio de WordPress.

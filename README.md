@@ -1,6 +1,6 @@
 # Google Docs Importer for WordPress
 
-Google Docs Importer conecta tu Google Drive con WordPress y permite importar documentos de Google Docs como entradas estándar, manteniendo el formato y facilitando el flujo editorial. Si deseas que el contenido sea de otro tipo (página o Custom Post Type), deberás cambiarlo manualmente tras la importación.
+Google Docs Importer conecta tu Google Drive con WordPress y permite importar documentos de Google Docs como entradas estándar, manteniendo el formato y facilitando el flujo editorial. Puedes elegir el tipo de contenido (post, página o cualquier Custom Post Type), el autor, el estado editorial y la categoría principal antes de importar, todo desde un formulario compacto y persistente sobre la tabla de documentos. Estas selecciones se mantienen entre recargas e importaciones, agilizando el trabajo editorial, especialmente en equipos o sitios con varios tipos de contenido.
 
 ## Tabla de Contenidos
 - [Instalación y configuración](#instalación-y-configuración)
@@ -43,9 +43,11 @@ Antes de instalar el plugin, necesitas crear credenciales de Google API para per
 14. Selecciona la carpeta de Google Drive desde la pantalla principal usando el botón "Cambiar carpeta".
 
 ## Uso básico
-- Importa documentos de Google Docs como posts estándar.
-- Los documentos importados quedan como borrador, listos para revisión y publicación.
-- Puedes cambiar el tipo de post manualmente después de la importación.
+- Importa documentos de Google Docs como posts, páginas o cualquier Custom Post Type público.
+- Antes de importar, puedes preseleccionar el autor, el estado editorial (borrador, pendiente, publicado), el tipo de post y la categoría principal. Estas opciones persisten hasta que las cambies.
+- Solo se muestra la taxonomía jerárquica principal (categoría) para cada tipo de post.
+- Los documentos importados quedan como borrador (o el estado que elijas), listos para revisión y publicación.
+- Puedes cambiar el tipo de post manualmente después de la importación si lo deseas.
 
 ## Exportar e importar datos
 Antes de desinstalar el plugin, puedes exportar:
@@ -78,8 +80,10 @@ Sigue los pasos de la sección "Exportar e importar datos" para restaurar la con
 
 ## Características principales
 - Importación directa y masiva desde Google Drive a WordPress, sin copiar/pegar ni perder formato.
+- Selección persistente de autor, estado editorial, tipo de post (incluyendo Custom Post Types) y categoría principal antes de importar, desde un formulario compacto sobre la tabla de documentos.
+- Las opciones seleccionadas se mantienen entre recargas e importaciones, facilitando un flujo editorial ágil y consistente.
 - Sincronización y control de duplicados: nunca importas dos veces el mismo documento.
-- Workflow editorial optimizado: los documentos importados quedan como borrador.
+- Workflow editorial optimizado: los documentos importados quedan en el estado que elijas (borrador, pendiente, publicado).
 - Interfaz moderna y amigable: búsqueda instantánea, paginación, acciones rápidas (ver, editar, eliminar, importar).
 - Visualización de la categoría o término principal del post importado.
 - Seguimiento del estado editorial de cada documento (importado, borrador, publicado, etc.).

@@ -12,3 +12,12 @@
 ### Soporte multi-carpeta
 - Permitir conectar varias carpetas de Google Drive y seleccionar desde cuál importar.
 - Implementado: El usuario puede cambiar la carpeta de Google Drive desde la interfaz principal usando el botón "Cambiar carpeta" y el Google Picker. El listado de documentos se actualiza automáticamente según la carpeta seleccionada.
+
+### Opciones persistentes de importación y flujo editorial
+- Ahora el usuario puede seleccionar y predefinir el autor, estado editorial, tipo de post (incluyendo CPTs) y la categoría principal antes de importar.
+- Las selecciones persisten entre recargas e importaciones hasta que el usuario las cambie (persistencia por sesión).
+- Solo se muestra la taxonomía jerárquica principal (categoría) para cada tipo de post.
+- El formulario de selección es compacto y se encuentra sobre la tabla de documentos.
+- El botón de importación utiliza siempre las opciones seleccionadas.
+- Mensaje visual bajo las opciones indicando la persistencia.
+- Corrección de warnings de sesión y robustez en la gestión de estado.
