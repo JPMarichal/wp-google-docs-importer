@@ -102,6 +102,11 @@ function g2wpi_render_settings_page() {
     do_settings_sections('g2wpi-ajustes');
     submit_button();
     echo '</form>';
+    // Mostrar Redirect URI para copiar
+    echo '<h2>' . esc_html__('Redirect URI', 'google-docs-importer') . '</h2>';
+    echo '<p>' . esc_html__('Copia y pega la siguiente URL como URI de redirección autorizada en la consola de Google Cloud:', 'google-docs-importer') . '</p>';
+    echo '<input type="text" readonly style="width:100%;font-family:monospace;" value="' . esc_attr($redirect_uri) . '" onclick="this.select();">';
+    echo '<small style="color:#666;">' . esc_html__('Este valor es necesario para la configuración de OAuth 2.0 en Google Cloud.', 'google-docs-importer') . '</small>';
     echo '<h2>' . esc_html__('Autenticación con Google', 'google-docs-importer') . '</h2>';
     echo '<a class="button button-primary" href="' . esc_url($auth_url) . '">' . esc_html__('Conectar con Google', 'google-docs-importer') . '</a>';
 
