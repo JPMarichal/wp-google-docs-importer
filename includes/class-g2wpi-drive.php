@@ -10,7 +10,10 @@ class G2WPI_Drive {
                 $tokens = G2WPI_OAuth::refresh_access_token();
             }
         }
-        if (!$tokens || !isset($tokens['access_token']) || !$settings['folder_id']) return;
+        if (!$tokens || !isset($tokens['access_token']) || !$settings['folder_id']) {
+            G2WPI_Logger::log('Token de acceso o folder_id no disponible en fetch_drive_documents.', 'ERROR');
+            return;
+        }
         $access_token = $tokens['access_token'];
         $folder_id = $settings['folder_id'];
         $url = "https://www.googleapis.com/drive/v3/files?q=" . urlencode("'{$folder_id}' in parents and mimeType='application/vnd.google-apps.document' and trashed=false") .
@@ -34,9 +37,15 @@ class G2WPI_Drive {
                 }
             }
         }
-        if (is_wp_error($response)) return;
+        if (is_wp_error($response)) {
+            G2WPI_Logger::log('Error en wp_remote_get al obtener documentos de Drive: ' . print_r($response, true), 'ERROR');
+            return;
+        }
         $data = json_decode(wp_remote_retrieve_body($response), true);
-        if (!isset($data['files'])) return;
+        if (!isset($data['files'])) {
+            G2WPI_Logger::log('No se encontraron archivos en la respuesta de Drive. Respuesta: ' . print_r($data, true), 'ERROR');
+            return;
+        }
         set_transient('g2wpi_drive_docs_' . $folder_id, $data['files'], 5 * MINUTE_IN_SECONDS);
     }
 
@@ -45,7 +54,7 @@ class G2WPI_Drive {
      * @param string $doc_id
      */
     public static function import_google_doc($doc_id) {
-        error_log('G2WPI DEBUG: INICIO import_google_doc');
+        G2WPI_Logger::log('INICIO import_google_doc', 'DEBUG');
         $tokens = get_option(G2WPI_TOKEN_OPTION);
         if ((!$tokens || !isset($tokens['access_token'])) && isset($tokens['refresh_token'])) {
             // Intentar refrescar el token si hay refresh_token
@@ -57,14 +66,14 @@ class G2WPI_Drive {
             $access_token = $tokens['access_token'];
         }
         if (!$access_token) {
-            error_log('G2WPI ERROR: No access token.');
+            G2WPI_Logger::log('No access token.', 'ERROR');
             wp_die('Error: No access token de Google.');
         }
-        error_log('G2WPI DEBUG: Token obtenido');
+        G2WPI_Logger::log('Token obtenido', 'DEBUG');
 
         // Obtener el nombre del documento para el título
         $meta_url = "https://www.googleapis.com/drive/v3/files/{$doc_id}?fields=name";
-        error_log('G2WPI DEBUG: meta_url=' . $meta_url);
+        G2WPI_Logger::log('meta_url=' . $meta_url, 'DEBUG');
         $meta_response = wp_remote_get($meta_url, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $access_token,
@@ -84,11 +93,11 @@ class G2WPI_Drive {
                 }
             }
         }
-        error_log('G2WPI DEBUG: meta_response=' . print_r($meta_response, true));
+        G2WPI_Logger::log('meta_response=' . print_r($meta_response, true), 'DEBUG');
         $title = 'Documento importado';
         if (!is_wp_error($meta_response)) {
             $meta_data = json_decode(wp_remote_retrieve_body($meta_response), true);
-            error_log('G2WPI DEBUG: meta_data=' . print_r($meta_data, true));
+            G2WPI_Logger::log('meta_data=' . print_r($meta_data, true), 'DEBUG');
             if (isset($meta_data['name'])) {
                 $title = sanitize_text_field($meta_data['name']);
             }
@@ -96,7 +105,7 @@ class G2WPI_Drive {
 
         // Exportar el documento como HTML
         $export_url = "https://www.googleapis.com/drive/v3/files/{$doc_id}/export?mimeType=text/html";
-        error_log('G2WPI DEBUG: export_url=' . $export_url);
+        G2WPI_Logger::log('export_url=' . $export_url, 'DEBUG');
         $response = wp_remote_get($export_url, [
             'headers' => [
                 'Authorization' => 'Bearer ' . $access_token,
@@ -116,15 +125,15 @@ class G2WPI_Drive {
                 }
             }
         }
-        error_log('G2WPI DEBUG: export_response=' . print_r($response, true));
+        G2WPI_Logger::log('export_response=' . print_r($response, true), 'DEBUG');
         if (is_wp_error($response)) {
-            error_log('G2WPI ERROR: ' . print_r($response, true));
+            G2WPI_Logger::log(print_r($response, true), 'ERROR');
             wp_die('Error al exportar el documento de Google Docs: ' . $response->get_error_message());
         }
         $content = wp_remote_retrieve_body($response);
-        error_log('G2WPI DEBUG: content_length=' . strlen($content));
+        G2WPI_Logger::log('content_length=' . strlen($content), 'DEBUG');
         if (empty($content)) {
-            error_log('G2WPI ERROR: El contenido HTML exportado está vacío.');
+            G2WPI_Logger::log('El contenido HTML exportado está vacío.', 'ERROR');
             wp_die('Error: El contenido exportado está vacío.');
         }
 
@@ -158,9 +167,9 @@ class G2WPI_Drive {
             'post_type'     => $post_type,
             'post_author'   => $post_author,
         ]);
-        error_log('G2WPI DEBUG: post_id=' . print_r($post_id, true));
+        G2WPI_Logger::log('post_id=' . print_r($post_id, true), 'DEBUG');
         if (is_wp_error($post_id)) {
-            error_log('G2WPI ERROR: No se pudo crear el post. ' . $post_id->get_error_message());
+            G2WPI_Logger::log('No se pudo crear el post. ' . $post_id->get_error_message(), 'ERROR');
             wp_die('Error al crear el post en WordPress: ' . $post_id->get_error_message());
         }
         // Asignar término si corresponde
@@ -182,11 +191,11 @@ class G2WPI_Drive {
                 'post_id' => $post_id,
                 'imported_at' => current_time('mysql', 1)
             ]);
-            error_log('G2WPI DEBUG: Insert en tabla de importados realizado');
+            G2WPI_Logger::log('Insert en tabla de importados realizado', 'DEBUG');
         }
 
         // Redirigir al listado
-        error_log('G2WPI DEBUG: Redirigiendo a listado');
+        G2WPI_Logger::log('Redirigiendo a listado', 'DEBUG');
         wp_redirect(admin_url('admin.php?page=g2wpi-importador'));
         exit;
     }
@@ -249,7 +258,10 @@ class G2WPI_Drive {
     public static function get_folder_name($folder_id) {
         $settings = get_option(G2WPI_OPTION_NAME);
         $tokens = get_option(G2WPI_TOKEN_OPTION);
-        if (!$tokens || !isset($tokens['access_token'])) return '';
+        if (!$tokens || !isset($tokens['access_token'])) {
+            G2WPI_Logger::log('No access token en get_folder_name.', 'ERROR');
+            return '';
+        }
         $access_token = $tokens['access_token'];
         $url = "https://www.googleapis.com/drive/v3/files/{$folder_id}?fields=name";
         $response = wp_remote_get($url, [
@@ -257,9 +269,16 @@ class G2WPI_Drive {
                 'Authorization' => 'Bearer ' . $access_token,
             ]
         ]);
-        if (is_wp_error($response)) return '';
+        if (is_wp_error($response)) {
+            G2WPI_Logger::log('Error en wp_remote_get al obtener nombre de carpeta: ' . print_r($response, true), 'ERROR');
+            return '';
+        }
         $data = json_decode(wp_remote_retrieve_body($response), true);
-        return isset($data['name']) ? $data['name'] : '';
+        if (!isset($data['name'])) {
+            G2WPI_Logger::log('No se encontró el nombre de la carpeta en la respuesta. Respuesta: ' . print_r($data, true), 'ERROR');
+            return '';
+        }
+        return $data['name'];
     }
 
     public function get_document_metadata($doc_id, $access_token) {
@@ -270,13 +289,16 @@ class G2WPI_Drive {
                 'Authorization' => 'Bearer ' . $access_token,
             ]
         ]);
-        if (!is_wp_error($meta_response)) {
-            $meta_data = json_decode(wp_remote_retrieve_body($meta_response), true);
-            if (isset($meta_data['name'])) {
-                return ['name' => sanitize_text_field($meta_data['name'])];
-            }
+        if (is_wp_error($meta_response)) {
+            G2WPI_Logger::log('Error en wp_remote_get al obtener metadatos del documento: ' . print_r($meta_response, true), 'ERROR');
+            return null;
         }
-        return null;
+        $meta_data = json_decode(wp_remote_retrieve_body($meta_response), true);
+        if (!isset($meta_data['name'])) {
+            G2WPI_Logger::log('No se encontró el nombre del documento en la respuesta de metadatos. Respuesta: ' . print_r($meta_data, true), 'ERROR');
+            return null;
+        }
+        return ['name' => sanitize_text_field($meta_data['name'])];
     }
 
     public function export_document_html($doc_id, $access_token) {
@@ -286,9 +308,15 @@ class G2WPI_Drive {
                 'Authorization' => 'Bearer ' . $access_token,
             ]
         ]);
-        if (!is_wp_error($response)) {
-            return wp_remote_retrieve_body($response);
+        if (is_wp_error($response)) {
+            G2WPI_Logger::log('Error en wp_remote_get al exportar documento HTML: ' . print_r($response, true), 'ERROR');
+            return '';
         }
-        return '';
+        $html = wp_remote_retrieve_body($response);
+        if (empty($html)) {
+            G2WPI_Logger::log('El HTML exportado está vacío para el documento ' . $doc_id, 'ERROR');
+            return '';
+        }
+        return $html;
     }
 }
