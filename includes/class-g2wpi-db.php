@@ -1,5 +1,6 @@
 <?php
 // Clase para la gestión de la base de datos personalizada
+require_once __DIR__ . '/class-g2wpi-logger.php';
 class G2WPI_DB {
     public static function create_table() {
         global $wpdb;
@@ -14,6 +15,12 @@ class G2WPI_DB {
             PRIMARY KEY (id)
         ) $charset_collate;";
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-        dbDelta($sql);
+        try {
+            G2WPI_Logger::log('Intentando crear tabla personalizada con dbDelta', 'DEBUG');
+            dbDelta($sql);
+            G2WPI_Logger::log('Tabla personalizada creada o actualizada correctamente', 'INFO');
+        } catch (Throwable $e) {
+            G2WPI_Logger::log('Error al crear tabla personalizada: ' . $e->getMessage(), 'ERROR');
+        }
     }
 }
