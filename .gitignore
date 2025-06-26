@@ -5,6 +5,10 @@
 /phpunit.xml
 /phpunit.xml.cache
 
+# PHPUnit cache files
+.phpunit.result.cache
+test-results/
+
 # Logs
 *.log
 
