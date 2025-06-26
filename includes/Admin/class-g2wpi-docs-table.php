@@ -11,21 +11,7 @@ class G2WPI_Docs_Table {
         $per_page = isset($config['docs_per_page']) ? (int)$config['docs_per_page'] : 20;
         wp_enqueue_style('dashicons');
         wp_enqueue_style('g2wpi-admin-icons', G2WPI_PLUGIN_URL . 'assets/css/g2wpi-admin-icons.css');
-        echo '<style>
-            .g2wpi-pagination { display: flex; justify-content: center; align-items: center; margin: 18px 0; gap: 4px; flex-wrap: wrap; }
-            .g2wpi-pagination a, .g2wpi-pagination span { padding: 4px 10px; border-radius: 4px; border: 1px solid #ddd; background: #fff; color: #0073aa; text-decoration: none; margin: 0 2px; font-weight: 500; transition: background 0.2s, color 0.2s; }
-            .g2wpi-pagination a:hover { background: #0073aa; color: #fff; }
-            .g2wpi-pagination .current-page { background: #0073aa; color: #fff; border-color: #0073aa; cursor: default; }
-            .g2wpi-pagination .g2wpi-ellipsis { border: none; background: none; color: #888; cursor: default; }
-            .g2wpi-docs-table th { padding: 8px 12px; }
-            .g2wpi-docs-table .nombre-columna { width: 40%; }
-            .g2wpi-docs-table .g2wpi-center { width: 10%; }
-            .g2wpi-docs-table .g2wpi-table-actions { white-space: nowrap; }
-            .g2wpi-import-options { margin: 10px 0 18px 0; font-size: 12px; display: flex; gap: 12px; align-items: center; }
-            .g2wpi-import-options label { font-weight: 500; margin-right: 4px; }
-            .g2wpi-import-options select { font-size: 12px; padding: 2px 6px; height: 24px; }
-            .g2wpi-import-options button { font-size: 12px; padding: 2px 10px; height: 24px; }
-        </style>';
+        wp_enqueue_style('g2wpi-admin-table', G2WPI_PLUGIN_URL . 'assets/css/g2wpi-admin-table.css');
         echo '<span class="g2wpi-table-sep"></span>';
         $settings = get_option(G2WPI_OPTION_NAME);
         $folder_id = $settings['folder_id'] ?? '';
