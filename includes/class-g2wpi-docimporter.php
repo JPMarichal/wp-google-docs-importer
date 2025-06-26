@@ -17,9 +17,19 @@ class G2WPI_DocImporter {
     public function import($doc_id, $access_token, $params = []) {
         // Obtener metadatos
         $meta = $this->drive->get_document_metadata($doc_id, $access_token);
-        $title = isset($meta['name']) ? sanitize_text_field($meta['name']) : 'Documento importado';
+        if (!$meta || !isset($meta['name'])) {
+            $this->logger->log_import($doc_id, 0, 'error', 'No metadata');
+            error_log("[Importer] Error: No metadata for doc_id $doc_id");
+            return 0;
+        }
+        $title = sanitize_text_field($meta['name']);
         // Exportar HTML
         $content = $this->drive->export_document_html($doc_id, $access_token);
+        if (empty($content)) {
+            $this->logger->log_import($doc_id, 0, 'error', 'No content');
+            error_log("[Importer] Error: No content for doc_id $doc_id");
+            return 0;
+        }
         if (preg_match('/<body[^>]*>(.*?)<\/body>/is', $content, $matches)) {
             $content = $matches[1];
         }
@@ -44,7 +54,12 @@ class G2WPI_DocImporter {
             'post_type'     => $post_type,
             'post_author'   => $post_author,
         ]);
-        if (!is_wp_error($post_id)) {
+        if (is_wp_error($post_id)) {
+            $this->logger->log_import($doc_id, 0, 'error', 'wp_insert_post error');
+            error_log("[Importer] Error: wp_insert_post failed for doc_id $doc_id");
+            return 0;
+        }
+        if ($post_id) {
             if ($term_id && $post_type) {
                 $taxonomies = get_object_taxonomies($post_type, 'objects');
                 foreach ($taxonomies as $tax) {
@@ -54,7 +69,7 @@ class G2WPI_DocImporter {
                     }
                 }
             }
-            $this->logger->log_import($doc_id, $post_id);
+            $this->logger->log_import($doc_id, $post_id, 'success');
         }
         return $post_id;
     }

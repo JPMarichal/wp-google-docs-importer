@@ -261,4 +261,34 @@ class G2WPI_Drive {
         $data = json_decode(wp_remote_retrieve_body($response), true);
         return isset($data['name']) ? $data['name'] : '';
     }
+
+    public function get_document_metadata($doc_id, $access_token) {
+        // Simula la llamada real, pero permite mockear en tests
+        $meta_url = "https://www.googleapis.com/drive/v3/files/{$doc_id}?fields=name";
+        $meta_response = wp_remote_get($meta_url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $access_token,
+            ]
+        ]);
+        if (!is_wp_error($meta_response)) {
+            $meta_data = json_decode(wp_remote_retrieve_body($meta_response), true);
+            if (isset($meta_data['name'])) {
+                return ['name' => sanitize_text_field($meta_data['name'])];
+            }
+        }
+        return null;
+    }
+
+    public function export_document_html($doc_id, $access_token) {
+        $export_url = "https://www.googleapis.com/drive/v3/files/{$doc_id}/export?mimeType=text/html";
+        $response = wp_remote_get($export_url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $access_token,
+            ]
+        ]);
+        if (!is_wp_error($response)) {
+            return wp_remote_retrieve_body($response);
+        }
+        return '';
+    }
 }

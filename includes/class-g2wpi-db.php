@@ -9,6 +9,8 @@ class G2WPI_DB {
             google_doc_id VARCHAR(255) NOT NULL UNIQUE,
             post_id BIGINT(20),
             imported_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            status VARCHAR(20) DEFAULT 'success',
+            message TEXT DEFAULT NULL,
             PRIMARY KEY (id)
         ) $charset_collate;";
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
