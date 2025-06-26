@@ -1,18 +1,22 @@
 <?php
-class G2WPI_HtmlCleaner {
+interface HtmlCleanerInterface {
+    public function clean($html);
+}
+
+class G2WPI_HtmlCleaner implements HtmlCleanerInterface {
     public function clean($html) {
         // 1. Convertir títulos (h1, h2, h3) según estilos comunes de Google Docs
         $html = preg_replace(
-            '/<p[^>]*><span[^>]*style="[^"]*font-size:\s*2[4-9]pt;[^"]*font-weight:\s*700;[^"]*"[^>]*>(.*?)<\/span><\/p>/is',
+            '/<p[^>]*><span[^>]*style="[^\"]*font-size:\s*2[4-9]pt;[^\"]*font-weight:\s*700;[^\"]*"[^>]*>(.*?)<\/span><\/p>/is',
             '<h1>$1</h1>', $html);
         $html = preg_replace(
-            '/<p[^>]*><span[^>]*style="[^"]*font-size:\s*1[8-9]pt;[^"]*font-weight:\s*700;[^"]*"[^>]*>(.*?)<\/span><\/p>/is',
+            '/<p[^>]*><span[^>]*style="[^\"]*font-size:\s*1[8-9]pt;[^\"]*font-weight:\s*700;[^\"]*"[^>]*>(.*?)<\/span><\/p>/is',
             '<h2>$1</h2>', $html);
         $html = preg_replace(
-            '/<p[^>]*><span[^>]*style="[^"]*font-size:\s*2[0-3]pt;[^"]*font-weight:\s*700;[^"]*"[^>]*>(.*?)<\/span><\/p>/is',
+            '/<p[^>]*><span[^>]*style="[^\"]*font-size:\s*2[0-3]pt;[^\"]*font-weight:\s*700;[^\"]*"[^>]*>(.*?)<\/span><\/p>/is',
             '<h2>$1</h2>', $html);
         $html = preg_replace(
-            '/<p[^>]*><span[^>]*style="[^"]*font-size:\s*1[4-7]pt;[^"]*font-weight:\s*700;[^"]*"[^>]*>(.*?)<\/span><\/p>/is',
+            '/<p[^>]*><span[^>]*style="[^\"]*font-size:\s*1[4-7]pt;[^\"]*font-weight:\s*700;[^\"]*"[^>]*>(.*?)<\/span><\/p>/is',
             '<h3>$1</h3>', $html);
         // Convertir spans con negrita/itálica a <strong>/<em>
         $html = preg_replace_callback(

@@ -5,10 +5,10 @@ require_once __DIR__ . '/class-g2wpi-importlog.php';
 
 class G2WPI_DocImporter {
     private $drive;
-    private $cleaner;
+    private HtmlCleanerInterface $cleaner;
     private $logger;
 
-    public function __construct($drive, $cleaner, $logger) {
+    public function __construct($drive, HtmlCleanerInterface $cleaner, $logger) {
         $this->drive = $drive;
         $this->cleaner = $cleaner;
         $this->logger = $logger;
