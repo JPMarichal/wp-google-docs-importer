@@ -39,6 +39,16 @@ register_activation_hook(__FILE__, function() {
     }
 });
 
+register_uninstall_hook(__FILE__, function() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'google_docs_importados';
+    $wpdb->query("DROP TABLE IF EXISTS $table_name");
+    delete_option('g2wpi_settings');
+    delete_option('g2wpi_confirmed_uninstall');
+    delete_option('g2wpi_tokens');
+    $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_g2wpi_%' OR option_name LIKE '_transient_timeout_g2wpi_%'");
+});
+
 // Instanciar clases principales
 new G2WPI_Admin();
 new G2WPI_Settings();
