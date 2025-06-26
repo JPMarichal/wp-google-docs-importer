@@ -7,7 +7,12 @@
 
 # PHPUnit cache files
 .phpunit.result.cache
+.phpunit.cache/
+.phpunit.cache/*
 test-results/
+# Ignora el directorio testcache y su contenido
+testcache/
+testcache/*
 
 # Logs
 *.log
