@@ -11,5 +11,10 @@
         "psr-4": {
             "GoogleDocsImporter\\Tests\\": "tests/"
         }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.9",
+        "psr/http-client": "^1.0",
+        "psr/http-message": "^2.0"
     }
 }
