@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-23T22:02:15+00:00\n"
+"POT-Creation-Date: 2025-06-27T23:37:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: google-docs-importer\n"
@@ -29,207 +29,246 @@ msgstr ""
 msgid "Juan Pablo"
 msgstr ""
 
-#: google-docs-importer.php:52
-#: includes/class-g2wpi-admin.php:12
+#: google-docs-importer.php:63
+#: includes/class-g2wpi-admin.php:19
 msgid "Importador de Google Docs"
 msgstr ""
 
-#: google-docs-importer.php:70
+#: google-docs-importer.php:81
 msgid "Cambiar carpeta"
 msgstr ""
 
-#: google-docs-importer.php:74
+#: google-docs-importer.php:85
 msgid "Actualizar listado"
 msgstr ""
 
-#: google-docs-importer.php:79
+#: google-docs-importer.php:90
 msgid "Buscar por nombre de documento..."
 msgstr ""
 
-#: google-docs-importer.php:99
+#: google-docs-importer.php:110
 msgid "Ajustes del Importador de Google Docs"
 msgstr ""
 
-#: google-docs-importer.php:105
+#: google-docs-importer.php:117
+msgid "Redirect URI"
+msgstr ""
+
+#: google-docs-importer.php:118
+msgid "Copia y pega la siguiente URL como URI de redirección autorizada en la consola de Google Cloud:"
+msgstr ""
+
+#: google-docs-importer.php:120
+msgid "Este valor es necesario para la configuración de OAuth 2.0 en Google Cloud."
+msgstr ""
+
+#: google-docs-importer.php:121
 msgid "Autenticación con Google"
 msgstr ""
 
-#: google-docs-importer.php:106
+#: google-docs-importer.php:122
 msgid "Conectar con Google"
 msgstr ""
 
-#: google-docs-importer.php:110
+#: google-docs-importer.php:126
 msgid "Desinstalación y limpieza"
 msgstr ""
 
-#: google-docs-importer.php:112
+#: google-docs-importer.php:128
 msgid "¡Advertencia!"
 msgstr ""
 
-#: google-docs-importer.php:112
+#: google-docs-importer.php:128
 msgid "Al desinstalar el plugin se eliminarán todos los datos y ajustes relacionados. Puedes exportar tus ajustes antes de continuar."
 msgstr ""
 
-#: google-docs-importer.php:117
+#: google-docs-importer.php:133
 msgid "Exportar ajustes"
 msgstr ""
 
-#: google-docs-importer.php:122
+#: google-docs-importer.php:138
 msgid "Exportar historial"
 msgstr ""
 
-#: google-docs-importer.php:128
+#: google-docs-importer.php:144
 msgid "Importar historial"
 msgstr ""
 
-#: google-docs-importer.php:134
+#: google-docs-importer.php:150
 msgid "Importar ajustes"
 msgstr ""
 
-#: google-docs-importer.php:139
+#: google-docs-importer.php:155
 msgid "Confirmar desinstalación"
 msgstr ""
 
-#: google-docs-importer.php:141
+#: google-docs-importer.php:157
 msgid "Después de confirmar, puedes proceder a desinstalar el plugin desde la pantalla de plugins de WordPress."
 msgstr ""
 
-#: google-docs-importer.php:168
+#: google-docs-importer.php:184
 msgid "Confirmación registrada. Ahora puedes desinstalar el plugin de forma segura."
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:168
-msgid "Nombre"
+#: includes/Admin/class-g2wpi-docs-filters.php:37
+msgid "Autor:"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:169
-msgid "Importación"
+#: includes/Admin/class-g2wpi-docs-filters.php:45
+msgid "Estado:"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:170
-msgid "Acciones"
-msgstr ""
-
-#: includes/Admin/class-g2wpi-docs-table.php:171
-msgid "Status"
-msgstr ""
-
-#: includes/Admin/class-g2wpi-docs-table.php:172
-msgid "Tipo"
-msgstr ""
-
-#: includes/Admin/class-g2wpi-docs-table.php:173
-msgid "Categoría"
-msgstr ""
-
-#: includes/Admin/class-g2wpi-docs-table.php:174
-msgid "Fecha"
-msgstr ""
-
-#: includes/Admin/class-g2wpi-docs-table.php:178
-msgid "Haz clic en el botón -Actualizar listado- para obtener los documentos."
-msgstr ""
-
-#: includes/Admin/class-g2wpi-docs-table.php:235
-msgid "____________"
-msgstr ""
-
-#: includes/Admin/class-g2wpi-docs-table.php:239
-msgid "Importar"
-msgstr ""
-
-#: includes/Admin/class-g2wpi-docs-table.php:250
-msgid "Publicado"
-msgstr ""
-
-#: includes/Admin/class-g2wpi-docs-table.php:255
+#: includes/Admin/class-g2wpi-docs-filters.php:48
+#: includes/Admin/class-g2wpi-docs-table-render.php:111
 msgid "Borrador"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:260
+#: includes/Admin/class-g2wpi-docs-filters.php:49
+msgid "Pendiente de revisión"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-filters.php:50
+#: includes/Admin/class-g2wpi-docs-table-render.php:106
+msgid "Publicado"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-filters.php:58
+msgid "Tipo:"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-filters.php:70
+#: includes/Admin/class-g2wpi-docs-table-render.php:26
+msgid "Categoría"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-filters.php:72
+msgid "Sin asignar"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-filters.php:81
+msgid "Aplicar"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-filters.php:82
+msgid "Las opciones seleccionadas se guardan y se aplicarán a todas las importaciones hasta que las cambies."
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-table-render.php:21
+msgid "Nombre"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-table-render.php:22
+msgid "Importación"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-table-render.php:23
+msgid "Acciones"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-table-render.php:24
+msgid "Status"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-table-render.php:25
+msgid "Tipo"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-table-render.php:27
+msgid "Fecha"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-table-render.php:31
+msgid "Haz clic en el botón -Actualizar listado- para obtener los documentos."
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-table-render.php:85
+msgid "____________"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-table-render.php:95
+msgid "Importar"
+msgstr ""
+
+#: includes/Admin/class-g2wpi-docs-table-render.php:116
 msgid "Pendiente"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:265
+#: includes/Admin/class-g2wpi-docs-table-render.php:121
 msgid "Programado"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:270
+#: includes/Admin/class-g2wpi-docs-table-render.php:126
 msgid "Privado"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:275
+#: includes/Admin/class-g2wpi-docs-table-render.php:131
 msgid "Heredado"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:280
+#: includes/Admin/class-g2wpi-docs-table-render.php:136
 msgid "Auto-borrador"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:285
+#: includes/Admin/class-g2wpi-docs-table-render.php:141
 msgid "Papelera"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:290
+#: includes/Admin/class-g2wpi-docs-table-render.php:146
 msgid "Revisión"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:303
+#: includes/Admin/class-g2wpi-docs-table-render.php:159
 msgid "Ver"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:304
+#: includes/Admin/class-g2wpi-docs-table-render.php:160
 msgid "Editar"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:305
+#: includes/Admin/class-g2wpi-docs-table-render.php:161
 msgid "Eliminar"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:305
+#: includes/Admin/class-g2wpi-docs-table-render.php:161
 msgid "¿Seguro que deseas eliminar este post importado?"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:306
+#: includes/Admin/class-g2wpi-docs-table-render.php:162
 msgid "Importado"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:315
+#: includes/Admin/class-g2wpi-docs-table-render.php:171
 msgid "Sin categoría"
 msgstr ""
 
-#: includes/Admin/class-g2wpi-docs-table.php:329
+#: includes/Admin/class-g2wpi-docs-table-render.php:185
 msgid "Sin término"
 msgstr ""
 
-#: includes/class-g2wpi-admin.php:13
+#: includes/class-g2wpi-admin.php:20
 msgid "Google Docs Importer"
 msgstr ""
 
-#: includes/class-g2wpi-admin.php:22
+#: includes/class-g2wpi-admin.php:29
 msgid "Ajustes de Importador"
 msgstr ""
 
-#: includes/class-g2wpi-admin.php:23
+#: includes/class-g2wpi-admin.php:30
 msgid "Ajustes"
 msgstr ""
 
-#: includes/class-g2wpi-settings.php:10
+#: includes/class-g2wpi-settings.php:17
 msgid "Credenciales de Google API"
 msgstr ""
 
-#: includes/class-g2wpi-settings.php:11
+#: includes/class-g2wpi-settings.php:18
 msgid "Client ID"
 msgstr ""
 
-#: includes/class-g2wpi-settings.php:12
+#: includes/class-g2wpi-settings.php:19
 msgid "Client Secret"
 msgstr ""
 
-#: includes/class-g2wpi-settings.php:13
-msgid "ID de Carpeta en Google Drive"
-msgstr ""
-
-#: includes/class-g2wpi-settings.php:14
+#: includes/class-g2wpi-settings.php:20
 msgid "API Key"
 msgstr ""
