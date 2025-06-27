@@ -1,173 +1,236 @@
-# German (Germany) translation for Google Docs Importer
+# Copyright (C) 2025 Juan Pablo
+# This file is distributed under the same license as the Google Docs to WP Importer plugin.
 msgid ""
 msgstr ""
 "Project-Id-Version: Google Docs to WP Importer 0.3.0\n"
-"Language: de_DE\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/google-docs-importer\n"
+"Last-Translator: German Translators <de_DE@li.org>\n"
+"Language-Team: Deutsch <de_DE@li.org>\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Copilot\n"
+"POT-Creation-Date: 2025-06-23T22:02:15+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: google-docs-importer\n"
+"Language: de_DE\n"
 
+#. Plugin Name of the plugin
+#: google-docs-importer.php
 msgid "Google Docs to WP Importer"
 msgstr "Google Docs zu WP Importer"
 
+#. Description of the plugin
+#: google-docs-importer.php
 msgid "Importa documentos desde una carpeta de Google Drive como entradas en WordPress."
-msgstr "Importieren Sie Dokumente aus einem Google Drive-Ordner als Beiträge in WordPress."
+msgstr "Importiert Dokumente aus einem Google Drive-Ordner als Beiträge in WordPress."
 
+#. Author of the plugin
+#: google-docs-importer.php
 msgid "Juan Pablo"
 msgstr "Juan Pablo"
 
+#: google-docs-importer.php:52
+#: includes/class-g2wpi-admin.php:12
 msgid "Importador de Google Docs"
 msgstr "Google Docs Importer"
 
+#: google-docs-importer.php:70
 msgid "Cambiar carpeta"
 msgstr "Ordner wechseln"
 
+#: google-docs-importer.php:74
 msgid "Actualizar listado"
 msgstr "Liste aktualisieren"
 
+#: google-docs-importer.php:79
 msgid "Buscar por nombre de documento..."
-msgstr "Nach Dokumentnamen suchen..."
+msgstr "Nach Dokumentennamen suchen..."
 
+#: google-docs-importer.php:99
 msgid "Ajustes del Importador de Google Docs"
-msgstr "Einstellungen des Google Docs Importers"
+msgstr "Google Docs Importer Einstellungen"
 
+#: google-docs-importer.php:105
 msgid "Autenticación con Google"
-msgstr "Authentifizierung mit Google"
+msgstr "Google-Authentifizierung"
 
+#: google-docs-importer.php:106
 msgid "Conectar con Google"
 msgstr "Mit Google verbinden"
 
+#: google-docs-importer.php:110
 msgid "Desinstalación y limpieza"
 msgstr "Deinstallation und Bereinigung"
 
+#: google-docs-importer.php:112
 msgid "¡Advertencia!"
 msgstr "Warnung!"
 
+#: google-docs-importer.php:112
 msgid "Al desinstalar el plugin se eliminarán todos los datos y ajustes relacionados. Puedes exportar tus ajustes antes de continuar."
 msgstr "Beim Deinstallieren des Plugins werden alle zugehörigen Daten und Einstellungen gelöscht. Sie können Ihre Einstellungen vorher exportieren."
 
+#: google-docs-importer.php:117
 msgid "Exportar ajustes"
 msgstr "Einstellungen exportieren"
 
+#: google-docs-importer.php:122
 msgid "Exportar historial"
 msgstr "Verlauf exportieren"
 
+#: google-docs-importer.php:128
 msgid "Importar historial"
 msgstr "Verlauf importieren"
 
+#: google-docs-importer.php:134
 msgid "Importar ajustes"
 msgstr "Einstellungen importieren"
 
+#: google-docs-importer.php:139
 msgid "Confirmar desinstalación"
 msgstr "Deinstallation bestätigen"
 
+#: google-docs-importer.php:141
 msgid "Después de confirmar, puedes proceder a desinstalar el plugin desde la pantalla de plugins de WordPress."
-msgstr "Nach der Bestätigung können Sie das Plugin auf der WordPress-Plugin-Seite deinstallieren."
+msgstr "Nach der Bestätigung können Sie das Plugin über die WordPress-Plugin-Seite deinstallieren."
 
+#: google-docs-importer.php:168
 msgid "Confirmación registrada. Ahora puedes desinstalar el plugin de forma segura."
-msgstr "Bestätigung registriert. Sie können das Plugin jetzt sicher deinstallieren."
+msgstr "Bestätigung erfasst. Sie können das Plugin jetzt sicher deinstallieren."
 
+#: includes/Admin/class-g2wpi-docs-table.php:168
 msgid "Nombre"
 msgstr "Name"
 
+#: includes/Admin/class-g2wpi-docs-table.php:169
 msgid "Importación"
 msgstr "Import"
 
+#: includes/Admin/class-g2wpi-docs-table.php:170
 msgid "Acciones"
 msgstr "Aktionen"
 
+#: includes/Admin/class-g2wpi-docs-table.php:171
 msgid "Status"
 msgstr "Status"
 
+#: includes/Admin/class-g2wpi-docs-table.php:172
 msgid "Tipo"
 msgstr "Typ"
 
+#: includes/Admin/class-g2wpi-docs-table.php:173
 msgid "Categoría"
 msgstr "Kategorie"
 
+#: includes/Admin/class-g2wpi-docs-table.php:174
 msgid "Fecha"
 msgstr "Datum"
 
+#: includes/Admin/class-g2wpi-docs-table.php:178
 msgid "Haz clic en el botón -Actualizar listado- para obtener los documentos."
-msgstr "Klicken Sie auf die Schaltfläche -Liste aktualisieren-, um die Dokumente zu erhalten."
+msgstr "Klicken Sie auf die Schaltfläche 'Liste aktualisieren', um die Dokumente abzurufen."
 
+#: includes/Admin/class-g2wpi-docs-table.php:235
 msgid "____________"
 msgstr "____________"
 
+#: includes/Admin/class-g2wpi-docs-table.php:239
 msgid "Importar"
 msgstr "Importieren"
 
+#: includes/Admin/class-g2wpi-docs-table.php:250
 msgid "Publicado"
 msgstr "Veröffentlicht"
 
+#: includes/Admin/class-g2wpi-docs-table.php:255
 msgid "Borrador"
 msgstr "Entwurf"
 
+#: includes/Admin/class-g2wpi-docs-table.php:260
 msgid "Pendiente"
 msgstr "Ausstehend"
 
+#: includes/Admin/class-g2wpi-docs-table.php:265
 msgid "Programado"
 msgstr "Geplant"
 
+#: includes/Admin/class-g2wpi-docs-table.php:270
 msgid "Privado"
 msgstr "Privat"
 
+#: includes/Admin/class-g2wpi-docs-table.php:275
 msgid "Heredado"
 msgstr "Geerbt"
 
+#: includes/Admin/class-g2wpi-docs-table.php:280
 msgid "Auto-borrador"
 msgstr "Auto-Entwurf"
 
+#: includes/Admin/class-g2wpi-docs-table.php:285
 msgid "Papelera"
 msgstr "Papierkorb"
 
+#: includes/Admin/class-g2wpi-docs-table.php:290
 msgid "Revisión"
-msgstr "Überprüfung"
+msgstr "Überarbeitung"
 
+#: includes/Admin/class-g2wpi-docs-table.php:303
 msgid "Ver"
 msgstr "Ansehen"
 
+#: includes/Admin/class-g2wpi-docs-table.php:304
 msgid "Editar"
 msgstr "Bearbeiten"
 
+#: includes/Admin/class-g2wpi-docs-table.php:305
 msgid "Eliminar"
 msgstr "Löschen"
 
+#: includes/Admin/class-g2wpi-docs-table.php:305
 msgid "¿Seguro que deseas eliminar este post importado?"
-msgstr "Sind Sie sicher, dass Sie diesen importierten Beitrag löschen möchten?"
+msgstr "Möchten Sie diesen importierten Beitrag wirklich löschen?"
 
+#: includes/Admin/class-g2wpi-docs-table.php:306
 msgid "Importado"
 msgstr "Importiert"
 
+#: includes/Admin/class-g2wpi-docs-table.php:315
 msgid "Sin categoría"
 msgstr "Ohne Kategorie"
 
+#: includes/Admin/class-g2wpi-docs-table.php:329
 msgid "Sin término"
 msgstr "Ohne Begriff"
 
+#: includes/class-g2wpi-admin.php:13
 msgid "Google Docs Importer"
 msgstr "Google Docs Importer"
 
+#: includes/class-g2wpi-admin.php:22
 msgid "Ajustes de Importador"
 msgstr "Importer-Einstellungen"
 
+#: includes/class-g2wpi-admin.php:23
 msgid "Ajustes"
 msgstr "Einstellungen"
 
+#: includes/class-g2wpi-settings.php:10
 msgid "Credenciales de Google API"
-msgstr "Google API-Zugangsdaten"
+msgstr "Google API-Anmeldeinformationen"
 
+#: includes/class-g2wpi-settings.php:11
 msgid "Client ID"
-msgstr "Client-ID"
+msgstr "Client ID"
 
+#: includes/class-g2wpi-settings.php:12
 msgid "Client Secret"
 msgstr "Client Secret"
 
+#: includes/class-g2wpi-settings.php:13
 msgid "ID de Carpeta en Google Drive"
 msgstr "Google Drive Ordner-ID"
 
+#: includes/class-g2wpi-settings.php:14
 msgid "API Key"
 msgstr "API-Schlüssel"
-
-msgid "Crear carpeta"
-msgstr "Ordner erstellen"
