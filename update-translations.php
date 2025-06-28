@@ -51,10 +51,15 @@ class GeminiPoTranslator implements Translator {
 
     public function translatePoFile(string $poFile, string $langCode, string $potContent): Promise\PromiseInterface
     {
+        $existingPo = file_exists($poFile) ? file_get_contents($poFile) : '';
         $prompt = <<<PROMPT
-Actúa como un generador de archivos .po para WordPress. Devuélveme únicamente el contenido válido del archivo .po para el idioma $langCode, generado a partir del siguiente archivo base .pot. No incluyas explicaciones, instrucciones, ni marcas de bloque, solo el contenido puro del archivo .po. El contenido del .pot es:
+Actúa como un generador de archivos .po para WordPress. Debes realizar una actualización tipo upsert: si la traducción de un término ya existe y es correcta, debe permanecer igual; si la traducción no es correcta, actualízala; si la traducción de un término no existe, créala. No elimines traducciones existentes que no estén en el archivo .pot. Devuélveme únicamente el contenido válido del archivo .po para el idioma $langCode, generado a partir del siguiente archivo base .pot y el archivo .po existente. No incluyas explicaciones, instrucciones, ni marcas de bloque, solo el contenido puro del archivo .po. El contenido del .pot es:
 
 $potContent
+
+El contenido actual del archivo .po es:
+
+$existingPo
 PROMPT;
         $body = [
             'contents' => [
