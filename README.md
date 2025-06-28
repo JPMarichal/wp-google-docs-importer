@@ -121,6 +121,18 @@ Si el idioma de tu sitio no está en la lista, la interfaz aparecerá en inglés
 - Si ves errores de autenticación persistentes, revisa que tu cuenta de Google siga autorizando el acceso y que las credenciales sean correctas.
 - No es necesario configurar la carpeta de Google Drive en los ajustes: puedes seleccionar o cambiar la carpeta en cualquier momento desde la pantalla principal del plugin. Si no has seleccionado ninguna carpeta, la lista de documentos aparecerá vacía.
 
+## Auditoría y calidad
+- Cumple con los estándares de codificación de WordPress (WPCS) y ha sido auditado con WP_DEBUG y PHP E_ALL.
+- Todo el código ha sido revisado para asegurar la sanitización, escape y validación de datos.
+- No hay variables dentro de funciones de traducción, cumpliendo con las buenas prácticas de internacionalización.
+- El HTML generado es válido según W3C.
+- El JavaScript ha sido validado con JSHint y no expone variables globales innecesarias.
+
+## Mejoras técnicas y seguridad
+- El plugin revisa y mejora el cacheo de llamadas a APIs externas cuando es necesario.
+- No se duplica la carga de jQuery ni de otros scripts nativos de WordPress.
+- El CSS ha sido limpiado para evitar el uso excesivo de `!important`, mejorando la mantenibilidad y compatibilidad visual.
+
 ## Contribuciones
 ¡Las contribuciones son bienvenidas! Envía un Pull Request o abre un issue.
 

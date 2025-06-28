@@ -21,3 +21,18 @@
 - El botón de importación utiliza siempre las opciones seleccionadas.
 - Mensaje visual bajo las opciones indicando la persistencia.
 - Corrección de warnings de sesión y robustez en la gestión de estado.
+
+## 2025-06-27
+
+### Auditoría y calidad
+- Auditoría automática con WP_DEBUG y PHP E_ALL, corrigiendo todos los warnings/notices.
+- Corrección de issues de estándares con wpcs-for-envato.
+- Revisión exhaustiva de sanitización, escape y validación de datos en todo el código.
+- Revisión de que no haya variables dentro de funciones de traducción.
+- Validación de HTML generado con W3C.
+- Validación de JS con JSHint y eliminación de globales innecesarias.
+
+### Mejoras técnicas y seguridad
+- Revisión y mejora del cacheo de llamadas a APIs externas.
+- Revisión para evitar duplicidad de jQuery y otros scripts nativos.
+- Limpieza de CSS para evitar uso excesivo de `!important`.
