@@ -32,7 +32,15 @@ class G2WPI_Ajax {
         try {
             G2WPI_Logger::log('AJAX: save_settings_ajax llamado. Datos: ' . print_r($_POST, true), 'DEBUG');
             check_admin_referer('g2wpi_options-options');
-            $options = $_POST[G2WPI_OPTION_NAME] ?? [];
+            $raw_options = $_POST[G2WPI_OPTION_NAME] ?? [];
+            $options = [];
+            // Sanitizar y validar cada campo esperado
+            $options['client_id'] = isset($raw_options['client_id']) ? sanitize_text_field($raw_options['client_id']) : '';
+            $options['api_key'] = isset($raw_options['api_key']) ? sanitize_text_field($raw_options['api_key']) : '';
+            // Añade aquí más campos según sea necesario, usando la función de sanitización adecuada
+            // Ejemplo para un campo booleano:
+            // $options['enable_feature'] = isset($raw_options['enable_feature']) ? (bool) $raw_options['enable_feature'] : false;
+
             $result = update_option(G2WPI_OPTION_NAME, $options);
             if ($result) {
                 G2WPI_Logger::log('AJAX: Opciones guardadas correctamente.', 'INFO');
