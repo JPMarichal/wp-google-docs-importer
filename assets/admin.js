@@ -1,3 +1,6 @@
+/* jshint esversion: 6, browser: true, jquery: true */
+"use strict";
+
 jQuery(document).ready(function($) {
     // Delegación de evento click ANTES de cualquier otra cosa
     $(document).on('click', '#g2wpi-change-folder-btn', function(e) {
